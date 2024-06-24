@@ -3,7 +3,7 @@ import axios from "axios";
 const settings = {
 
 	// baseURL: 'http://localhost:3000/api',
-	baseURL: 'https://blogrrpro.vercel.app/api',
+	baseURL: 'https://blogrpro.vercel.app/api',
 	headers: {
 		Accept: 'application/json,text/plain,*/*',
 		'Content-Type': 'application/json',
