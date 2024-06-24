@@ -21,7 +21,9 @@ export default function Page() {
     handleForm,
     form,
     updateProfileData,
+  followAction,
   } = useProfile();
+  
 
   const { id: user } = useParams();
   const name = user.replace("%40", "");
@@ -43,7 +45,7 @@ export default function Page() {
               <Loader />
             ) : (
               <>
-                <ProfileBanner data={state} />
+                <ProfileBanner data={state} user={loggedUser} follow={followAction}/>
                 <Space val={"1rem"} />
 
                 <Tabs
@@ -51,7 +53,7 @@ export default function Page() {
                     {
                       name: "Posts",
                       id: 1,
-                      tab: <MyPosts />,
+                      tab: <MyPosts/>,
                       open: true,
                     },
                     {

@@ -5,9 +5,11 @@
     "pwd": "123",
     "username": "Joshua_Akinleye",
     "img": "",
-    "following": 0,
-    "followers": 2,
-    "bio": "NEO\n",
+    "following": [
+      2
+    ],
+    "followers": [],
+    "bio": "NEO",
     "id": 1
   },
   {
@@ -16,9 +18,24 @@
     "pwd": "123",
     "username": "Moyinoluwa",
     "img": "",
-    "following": 0,
-    "followers": 0,
+    "following": [],
+    "followers": [
+      2,
+      3
+    ],
     "bio": "333 369",
     "id": 2
+  },
+  {
+    "_id": 3,
+    "email": "joshua@email.com",
+    "pwd": "123",
+    "username": "Love",
+    "img": "",
+    "following": [
+      2
+    ],
+    "followers": [],
+    "bio": ""
   }
 ]

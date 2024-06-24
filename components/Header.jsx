@@ -1,6 +1,6 @@
 import { GoBell } from "react-icons/go"
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { AiOutlineLogout } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineLogout } from "react-icons/ai";
 import { useComponents } from "@/hooks/useComponents";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
@@ -12,6 +12,7 @@ export const Header = ({ title }) => {
 
     return <header className="">
         <nav className="flex row space-between items-center">
+            <AiOutlineArrowLeft className="icon medium" onClick={() => router.back()}/>
             <div className="title">{title}</div>
 
             <div className="nav-links flex">

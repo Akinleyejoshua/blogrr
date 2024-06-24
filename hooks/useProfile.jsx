@@ -1,5 +1,5 @@
 import { toggleProfileLoading, setProfile, clearProfileData } from "@/redux/features/state";
-import { getProfileDataAPI, updateProfileDataAPI } from "@/services/user";
+import { followActionAPI, getProfileDataAPI, updateProfileDataAPI } from "@/services/user";
 import { get } from "@/utils/localstorage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -51,7 +51,7 @@ export const useProfile = () => {
         })
     }
 
-  
+
     const updateProfileData = () => {
 
         handleForm("loading", true);
@@ -70,12 +70,27 @@ export const useProfile = () => {
         })
     }
 
+    const followAction = (id, userId, e) => {
+        const type = e.target.id;
+
+        if (e.target.id == "follow") {
+            e.target.innerHTML = "Following"
+            e.target.id = "un-follow";
+        } else if (e.target.id == "un-follow") {
+            e.target.innerHTML = "Follow"
+            e.target.id = "follow";
+        }
+
+        followActionAPI({ id: id, user_id: userId, type })
+    }
+
     return {
         loading,
         state,
         handleForm,
         form,
         getProfileData,
-        updateProfileData
+        updateProfileData,
+        followAction
     }
 }

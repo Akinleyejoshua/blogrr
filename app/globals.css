@@ -6,6 +6,7 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   /* font-weight: 300; */
+  -webkit-tap-highlight-color: transparent;
   letter-spacing: .9px;
 }
 
@@ -74,6 +75,10 @@
   font-size: 60px;
 }
 
+.wt100{
+  font-weight: 100;
+}
+
 .bold {
   font-weight: 400;
 }
@@ -96,6 +101,10 @@
 
 .col {
   flex-direction: column;
+}
+
+.rev-col{
+  flex-direction: column-reverse;
 }
 
 .row {
@@ -172,6 +181,10 @@ a:hover,
   height: max-content;
 }
 
+.w-max{
+  width: max-content;
+}
+
 .vh100 {
   height: 100vh;
 }
@@ -213,13 +226,13 @@ a:hover,
   }
 }
 
-.vline {
+.hline {
   background-color: var(--input-bg);
   padding: 0.06rem;
   width: 100%;
 }
 
-.hline {
+.vline {
   background-color: var(--input-bg);
   padding: 0.06rem;
   width: 1%;
@@ -345,4 +358,10 @@ textarea{
 
 .pointer{
   cursor: pointer;
+}
+
+.wrap{
+  text-wrap: wrap;
+  flex-wrap: wrap;
+  word-wrap: break-word;
 }

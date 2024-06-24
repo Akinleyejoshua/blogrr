@@ -18,7 +18,6 @@ body {
 main {
   height: 100vh;
   width: 100%;
-  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -250,19 +249,23 @@ header button:not(:last-child) {
     padding: 0;
   }
 
-  main.home, main.profile {
+  main.home,
+  main.profile {
     padding: 1.3rem;
   }
 }
 
+main.profile {
+  position: fixed;
+}
 
-.main{
+.main {
   padding: 1rem 3rem;
   height: 100%;
   width: 100%;
 }
 
-.banner{
+.banner {
   border: 1px solid var(--input-bg);
   padding: 3rem;
   border-radius: var(--br);
@@ -274,7 +277,7 @@ header button:not(:last-child) {
   min-width: 100%;
 }
 
-.banner:hover{
+.banner:hover {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
@@ -282,7 +285,7 @@ header button:not(:last-child) {
   background-color: transparent;
   color: white;
   border-radius: 0px;
-  padding: .6rem;
+  padding: 0.6rem;
   font-size: 12px;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
@@ -307,19 +310,18 @@ header button:not(:last-child) {
   -o-border-radius: var(--br2);
 }
 
-
-textarea{
+textarea {
   width: 100%;
   background-color: var(--input-bg);
   color: white;
 }
 
 @media screen and (max-width: 640px) {
-  .main{
+  .main {
     padding: 0rem;
   }
 
-  .banner{
+  .banner {
     padding: 1rem;
     border-radius: var(--br2);
     -webkit-border-radius: var(--br2);
@@ -327,24 +329,82 @@ textarea{
     -ms-border-radius: var(--br2);
     -o-border-radius: var(--br2);
     border: none;
-}
+  }
 
-  .banner .username{
+  .banner:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0);
+  }
+
+  .banner .username {
     font-size: 20px;
   }
 
-  .banner .email{
+  .banner .email {
     font-size: 12px;
   }
 }
 
 @media screen and (max-width: 1123px) {
-  .banner{
+  .banner {
     flex-direction: column;
     place-items: center;
   }
 }
 
-.search{
+.top-nav {
   padding: 1rem 3rem;
+}
+
+.post-item {
+  margin-bottom: 3rem;
+  min-width: 100%;
+}
+
+.comment-item {
+  margin-bottom: 1rem;
+}
+
+.post-item .content {
+  min-width: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-item .content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.9)); */
+}
+
+.post-item .actions button,
+.post .actions button {
+  display: flex;
+  font-size: 16px;
+  margin-right: 6rem;
+}
+
+.follow-btn {
+  padding: 0.3rem 1rem;
+  width: max-content;
+  border: 1px solid var(--input-bg);
+  border-radius: var(--br);
+  -webkit-border-radius: var(--br);
+  -moz-border-radius: var(--br);
+  -ms-border-radius: var(--br);
+  -o-border-radius: var(--br);
+}
+
+@media screen and (max-width: 840px) {
+  .top-nav {
+    padding: 1rem 0 1.3rem 0;
+  }
+
+  .main {
+    padding: 0;
+  }
 }

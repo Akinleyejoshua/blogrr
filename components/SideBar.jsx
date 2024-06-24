@@ -20,7 +20,9 @@ export const SideBar = () => {
 
     useEffect(() => {
         const userTokenId = JSON.parse(get("login-id"));
-        getUserData(userTokenId);
+        if (email == ""){
+            getUserData(userTokenId);
+        }
     }, [])
 
     return <div className={`${sidebar ? "sidebar flex open" : "sidebar flex"}`}>
@@ -40,13 +42,13 @@ export const SideBar = () => {
 
                             <div className="flex row fit">
                                 <div className="flex row tiny">
-                                    <div className="flex row">{followers}</div>
+                                    <div className="flex row">{followers.length}</div>
                                     <Space val={".1rem"} />
-                                    <p className="dim">follower{followers > 1 && "s"}</p>
+                                    <p className="dim">follower{followers.length > 1 && "s"}</p>
                                 </div>
                                 <Space val={".3rem"} />
                                 <div className="flex row tiny">
-                                    <div className="flex row">{following}</div>
+                                    <div className="flex row">{following.length}</div>
                                     <Space val={".1rem"} />
                                     <p className="dim">following</p>
                                 </div>

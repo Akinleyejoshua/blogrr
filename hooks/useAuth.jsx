@@ -1,10 +1,13 @@
+import { clearUserData } from "@/redux/features/state";
 import { recoverAPI, signinAPI, signupAPI } from "@/services/auth";
 import { get, save } from "@/utils/localstorage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export const useAuth = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const [state, setState] = useState({
         msg: "",
@@ -168,6 +171,8 @@ export const useAuth = () => {
         save("login-data", "");
         save("prev-url", window.location.pathname);
         router.push("/signin");
+        dispatch(clearUserData());
+
     };
 
     return {
