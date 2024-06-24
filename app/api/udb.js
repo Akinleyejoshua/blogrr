@@ -61,7 +61,7 @@ class UDB {
   dbLength = this.data.length;
 
   add = async (data) => {
-    const dbPath = `./app/api/db/${this.dbName}.json`;
+    const dbPath = `./var/task/app/api/db/${this.dbName}.json`;
     // Load existing data
     this.data = await loadData(dbPath);
     // Generate new ID
@@ -84,7 +84,7 @@ class UDB {
   }
 
   delete = async (id) => {
-    const dbPath = `./app/api/db/${this.dbName}.json`;
+    const dbPath = `./var/task/app/api/db/${this.dbName}.json`;
     this.data = await loadData(dbPath);
     const findData = this.data.find((item) => item?._id == id);
     if (findData) {
@@ -103,7 +103,7 @@ class UDB {
   };
 
   findById = async (id) => {
-    const dbPath = `./app/api/db/${this.dbName}.json`;
+    const dbPath = `./var/task/app/api/db/${this.dbName}.json`;
     this.data = await loadData(dbPath);
     const findData = this.data.find((item) => item?._id == id);
     if (findData) {
@@ -116,7 +116,7 @@ class UDB {
   };
 
   find = async (data) => {
-    const dbPath = `./app/api/db/${this.dbName}.json`;
+    const dbPath = `./var/task/app/api/db/${this.dbName}.json`;
     this.data = await loadData(dbPath);
     const findData = getObjData(this.data, data);
     if (findData) {
@@ -129,7 +129,7 @@ class UDB {
   };
 
   findOne = async (data) => {
-    const dbPath = `./app/api/db/${this.dbName}.json`;
+    const dbPath = `./var/task/app/api/db/${this.dbName}.json`;
     this.data = await loadData(dbPath);
     const findData = getObjData(this.data, data);
     if (findData.length !== 0) {
@@ -142,7 +142,7 @@ class UDB {
   };
 
   updateById = async (id, data) => {
-    const dbPath = `./app/api/db/${this.dbName}.json`;
+    const dbPath = `./var/task/app/api/db/${this.dbName}.json`;
     this.data = await loadData(dbPath);
     let findData = this.data.find((item) => item?._id == id);
     if (findData) {
@@ -167,7 +167,7 @@ class UDB {
   };
 
   updateAll = async (data) => {
-    const dbPath = `./app/api/db/${this.dbName}.json`;
+    const dbPath = `./var/task/app/api/db/${this.dbName}.json`;
     this.data = await loadData(dbPath);
       const findData = this.data.map(item => {
         item = {...item, ...data}
