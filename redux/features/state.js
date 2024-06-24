@@ -31,7 +31,26 @@ const initialState = {
 
   posts: {
     loading: true,
-    items: [],
+    items: [
+      {
+        _id: 1,
+        user_id: 1,
+        timestamp: "2h",
+        title: "Blorgg Demo Page, This is Blogrr Page, for Demo and Sharing",
+        username: "Joshua_Akinleye",
+        email: "joshua@email.com",
+        img: "",
+        content: "This is the content of the page, it below shoes rht econte  ja sd ajsdnasjdnasjd  ajsdnas ajsdnasdasj ajsndasn sdnj sjdns sdjnda asdnsds aanajd ",
+        likes: [1,2],
+        comments: [{
+          _id: 1,
+          user_id: 1,
+          username: "Josh",
+          timestamp: "5m",
+        }],
+        
+      }
+    ],
     searchItems: [],
   },
 };
@@ -52,12 +71,32 @@ export const promptSlice = createSlice({
       state.profile.loading = action.payload;
     },
 
+    togglePostLoading: (state, action) => {
+      state.posts.loading = action.payload;
+    },
+
+    clearProfileData: (state, action) => {
+      state.profile = {
+        loading: true,
+        _id: "",
+        username: "",
+        email: "",
+        following: 0,
+        followers: 0,
+        img: "",
+        _following: [],
+        _followers: [],
+        bio: "",
+        pwd: "",
+      };
+    },
+
     setUserData: (state, action) => {
-      state.user = { ...state.user, ...action.payload };
+      state.user = { ...action.payload };
     },
 
     setProfile: (state, action) => {
-      state.profile = { ...state.profile, ...action.payload }
+      state.profile = { ...action.payload };
     },
 
     setPostItems: (state, action) => {
@@ -74,6 +113,8 @@ export const {
   toggleSideBar,
   toggleUserLoading,
   toggleProfileLoading,
+  togglePostLoading,
+  clearProfileData,
   setUserData,
   setPostItem,
   setPostItems,

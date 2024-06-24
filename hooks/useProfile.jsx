@@ -1,5 +1,5 @@
-import { toggleProfileLoading, setProfile } from "@/redux/features/state";
-import { getProfileDataAPI, getUserDataAPI } from "@/services/user";
+import { toggleProfileLoading, setProfile, clearProfileData } from "@/redux/features/state";
+import { getProfileDataAPI, updateProfileDataAPI } from "@/services/user";
 import { get } from "@/utils/localstorage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,47 +10,14 @@ export const useProfile = () => {
     const dispatch = useDispatch();
     const router = useRouter();
 
-
-    const {
-        loading,
-        _id,
-        username,
-        email,
-        following,
-        followers,
-        img,
-        _following,
-        _followers,
-    } = state;
-
-
-    const getProfileData = (username) => {
-        dispatch(toggleProfileLoading(true))
-        getProfileDataAPI({ username }).then(res => {
-            const data = res.data;
-            if (data.msg == "found") {
-                dispatch(setProfile(data));
-            } else {
-                router.push("/home");
-            }
-            dispatch(toggleProfileLoading(false))
-
-        })
-    }
-
     const [form, setForm] = useState({
-        loading: true,
-        _id: "",
+        loading: false,
+        id: "",
         username: "",
         email: "",
-        following: 0,
-        followers: 0,
         img: "",
-        _following: [],
-        _followers: [],
         bio: "",
         pwd: "",
-
     })
 
     const handleForm = (name, val) => {
@@ -60,19 +27,55 @@ export const useProfile = () => {
         }))
     }
 
+    const {
+        loading,
+    } = state;
+
+    const getProfileData = (username) => {
+        // dispatch(clearProfileData())
+        dispatch(toggleProfileLoading(true))
+        getProfileDataAPI({ username }).then(res => {
+            const data = res.data;
+            if (data.msg == "found") {
+                dispatch(setProfile(data));
+                handleForm("id", data._id);
+                handleForm("username", data.username);
+                handleForm("email", data.email);
+                handleForm("pwd", data.pwd);
+                handleForm("bio", data.bio);
+            } else {
+                router.push("/home");
+            }
+            dispatch(toggleProfileLoading(false))
+
+        })
+    }
+
+  
+    const updateProfileData = () => {
+
+        handleForm("loading", true);
+        updateProfileDataAPI({ ...form }).then(res => {
+            const data = res.data;
+            if (data.updated) {
+                handleForm("msg", "Updated!")
+                handleForm("msgType", "success");
+                getProfileData(data?.username);
+            } else {
+                handleForm("msg", "Oops, an error occured!")
+                handleForm("msgType", "error")
+            }
+            handleForm("loading", false);
+
+        })
+    }
+
     return {
         loading,
-        _id,
-        username,
-        email,
-        following,
-        followers,
-        img,
-        getProfileData,
-        _following,
-        _followers,
         state,
         handleForm,
-        form
+        form,
+        getProfileData,
+        updateProfileData
     }
 }

@@ -7,6 +7,18 @@
     "img": "",
     "following": 0,
     "followers": 2,
-    "bio": "Joshua, 333, Alchemist, Sage, Neo, for vengeance belongs to the lord and blessing be upon the people"
+    "bio": "NEO\n",
+    "id": 1
+  },
+  {
+    "_id": 2,
+    "email": "akinleyejoshua1@gmail.com",
+    "pwd": "123",
+    "username": "Moyinoluwa",
+    "img": "",
+    "following": 0,
+    "followers": 0,
+    "bio": "333 369",
+    "id": 2
   }
 ]

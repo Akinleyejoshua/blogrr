@@ -18,8 +18,15 @@
   --blue: royalblue;
   --green: rgb(48, 255, 48);
   --black: rgba(0, 0, 0, 0.6);
+  --bs: 0 0 60px rgba(0, 0, 0, 0.1);
+  --bs2: 0 0 3px rgba(0, 0, 0, 0.1);
+  --input-bg: rgb(43, 40, 40);
   --bg: rgb(233, 233, 233);
-  --bg2: rgb(238, 238, 238);
+  --black: rgba(0, 0, 0, 0.6);
+  --bg-black: rgb(26, 23, 23);
+  --br: 3rem;
+  --br2: 10px;
+  --white: white;
 }
 
 .bg-blue{
@@ -161,6 +168,10 @@ a:hover,
   height: 100%;
 }
 
+.h-max{
+  height: max-content;
+}
+
 .vh100 {
   height: 100vh;
 }
@@ -172,6 +183,10 @@ a:hover,
 *:focus {
   outline: none;
   border: none;
+}
+
+.b-none{
+  background-color: transparent;
 }
 
 .spin, .spin-body {
@@ -199,9 +214,16 @@ a:hover,
 }
 
 .vline {
-  background-color: rgba(65, 105, 225, 0.5);
+  background-color: var(--input-bg);
   padding: 0.06rem;
   width: 100%;
+}
+
+.hline {
+  background-color: var(--input-bg);
+  padding: 0.06rem;
+  width: 1%;
+  height: 100%;
 }
 
 .link {

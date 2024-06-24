@@ -17,7 +17,6 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                 }}
             >
                 <div className="grid">
-
                     <div className="input-bar">
                         <FaAt className="icon" />
                         <Space val={".3rem"} />
@@ -34,7 +33,6 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                         <input
                             type="text"
                             defaultValue={data?.username}
-
                             placeholder="Username"
                             onChange={(e) => handleState("username", e.target.value)}
                         />
@@ -49,14 +47,19 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                             onChange={(e) => handleState("pwd", e.target.value)}
                         />
                     </div>
-
                 </div>
                 <Space val={"1rem"} />
 
-                <textarea className="bio-input" placeholder="Your Bio (About yourself)"></textarea>
-                <Space val={"1rem"} />
+                <textarea
+                    defaultValue={data?.bio}
+                    className="bio-input"
+                    placeholder="Your Bio (About yourself)"
+                    onChange={e => handleState("bio", e.target.value)}
+                ></textarea>
+                
+                <Space val={".6rem"} />
                 <Toast text={form.msg} type={form.msgType} />
-                <Space val={"1rem"} />
+                <Space val={".6rem"} />
 
                 <Button
                     icon={<AiOutlineSave className="icon" />}
@@ -64,7 +67,6 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                     loading={form.loading}
                     onClick={() => { }}
                 />
-
             </form>
         </div>
     );

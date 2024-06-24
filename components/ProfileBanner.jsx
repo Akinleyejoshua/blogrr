@@ -3,13 +3,13 @@ import { Space } from "./Space";
 
 export const ProfileBanner = ({ data }) => {
     const {username, email, followers, following, bio} = data;
-    return <div className="banner flex row">
+    return <div className="banner flex row space-between">
         <Avater data={{ username: data?.username }} size={"12rem"} fontSize={"6rem"} />
-        <Space val={"3rem"} />
+        <Space val={"1.3rem"} />
 
-        <div className="flex col center">
-            <h3 className="medium">{username}</h3>
-            <small className="dim small">{email}</small>
+        <div className="flex col center fit">
+            <h3 className="medium username">{username}</h3>
+            <small className="dim small email">{email}</small>
             <Space val={".3rem"} />
 
             <div className="flex row fit">

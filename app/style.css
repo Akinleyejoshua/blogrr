@@ -250,7 +250,7 @@ header button:not(:last-child) {
     padding: 0;
   }
 
-  main.home {
+  main.home, main.profile {
     padding: 1.3rem;
   }
 }
@@ -259,6 +259,7 @@ header button:not(:last-child) {
 .main{
   padding: 1rem 3rem;
   height: 100%;
+  width: 100%;
 }
 
 .banner{
@@ -269,6 +270,8 @@ header button:not(:last-child) {
   -moz-border-radius: var(--br);
   -ms-border-radius: var(--br);
   -o-border-radius: var(--br);
+  width: 100%;
+  min-width: 100%;
 }
 
 .banner:hover{
@@ -309,4 +312,39 @@ textarea{
   width: 100%;
   background-color: var(--input-bg);
   color: white;
+}
+
+@media screen and (max-width: 640px) {
+  .main{
+    padding: 0rem;
+  }
+
+  .banner{
+    padding: 1rem;
+    border-radius: var(--br2);
+    -webkit-border-radius: var(--br2);
+    -moz-border-radius: var(--br2);
+    -ms-border-radius: var(--br2);
+    -o-border-radius: var(--br2);
+    border: none;
+}
+
+  .banner .username{
+    font-size: 20px;
+  }
+
+  .banner .email{
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1123px) {
+  .banner{
+    flex-direction: column;
+    place-items: center;
+  }
+}
+
+.search{
+  padding: 1rem 3rem;
 }
