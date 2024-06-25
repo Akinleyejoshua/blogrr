@@ -1,7 +1,7 @@
 import UDB from "@/app/api/udb";
 import { NextResponse } from "next/server";
 
-export const POST = async (req) => {
+export const OPTIONS = async (req) => {
   const { email, pwd } = await req.json();
 
   const users = new UDB("users");
