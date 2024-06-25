@@ -7,6 +7,7 @@ export const POST = async (req) => {
   const users = new UDB("users");
 
   const userExist = await users.findOne({ email });
+  console.log(userExist);
 
   if (userExist.msg == "found") {
     if (userExist.pwd === pwd) {
