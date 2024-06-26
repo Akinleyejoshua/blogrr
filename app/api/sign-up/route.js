@@ -15,7 +15,7 @@ export const POST = async (req) => {
       })
     );
   } else {
-    const addUser = await User({
+    const addUser = new User({
       email,
       pwd,
       username,
