@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export const RelativeTimeBar = ({timestamp}) => {
-  const [time, setTime] = useState("Just now");
+  const [time, setTime] = useState("now");
   setInterval(() => {
     if (timestamp !== undefined){
       const now = Date.now();
