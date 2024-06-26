@@ -116,7 +116,17 @@ export const useAuth = () => {
                         handleState("msg", "Access granted!");
                         handleState("msgType", "success");
                         save("login-id", JSON.stringify(data._id));
-                        authenticate();
+                        const lastVisit = get("prev-url");
+            if (
+                lastVisit !== "" ||
+                lastVisit !== undefined ||
+                lastVisit !== null
+            ) {
+                router.replace(lastVisit);
+            } else {
+                router.push("/home");
+            }
+            return true;
                     } else if (data.msg == "not-found") {
                         handleState("msg", "Account does not exist!, Sign up!");
                         handleState("msgType", "error");
