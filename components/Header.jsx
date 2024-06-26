@@ -12,7 +12,7 @@ export const Header = ({ title }) => {
 
     return <header className="">
         <nav className="flex row space-between items-center">
-            <AiOutlineArrowLeft className="icon medium" onClick={() => router.back()}/>
+            <AiOutlineArrowLeft className="icon pointer" onClick={() => router.back()}/>
             <div className="title">{title}</div>
 
             <div className="nav-links flex">

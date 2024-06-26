@@ -1,17 +1,18 @@
-import UDB from "@/app/api/udb";
+import db from "../db";
 import { NextResponse } from "next/server";
+import User from "../models/User";
+
+db();
 
 export const POST = async (req) => {
   const { email, pwd } = await req.json();
 
-  const users = new UDB("users");
+  const userExist = await User.findOne({ email }).lean();
 
-  const userExist = await users.findOne({ email });
-
-  if (userExist.msg == "found") {
+  if (userExist) {
     if (userExist.pwd === pwd) {
       return new NextResponse(
-        JSON.stringify({ ...userExist })
+        JSON.stringify({msg: "found", ...userExist })
       );
     } else {
       return new NextResponse(JSON.stringify({ msg: "wrong-data" }));

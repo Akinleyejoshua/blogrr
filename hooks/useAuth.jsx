@@ -19,7 +19,7 @@ export const useAuth = () => {
     });
 
     const isAuth = () => {
-        const auth = get("login-data");
+        const auth = get("login-id");
         if (auth === undefined || auth === null || auth === "") {
             return false;
         } else {
@@ -29,8 +29,21 @@ export const useAuth = () => {
 
     const authenticate = () => {
         if (!isAuth()) {
-            save("prev-url", window.location.pathname);
+            save("prev-url", window.location.href);
             router.push("/signin");
+            return false
+        } else {
+            const lastVisit = get("prev-url");
+            if (
+                lastVisit !== "" ||
+                lastVisit !== undefined ||
+                lastVisit !== null
+            ) {
+                router.replace(lastVisit);
+            } else {
+                router.push("/home");
+            }
+            return true;
         }
     };
 
@@ -103,17 +116,7 @@ export const useAuth = () => {
                         handleState("msg", "Access granted!");
                         handleState("msgType", "success");
                         save("login-id", JSON.stringify(data._id));
-
-                        const lastVisit = get("prev-url");
-                        if (
-                            lastVisit !== "" ||
-                            lastVisit !== undefined ||
-                            lastVisit !== null
-                        ) {
-                            router.push(lastVisit);
-                        } else {
-                            router.push("/home");
-                        }
+                        authenticate();
                     } else if (data.msg == "not-found") {
                         handleState("msg", "Account does not exist!, Sign up!");
                         handleState("msgType", "error");
@@ -169,7 +172,7 @@ export const useAuth = () => {
 
     const logout = () => {
         save("login-data", "");
-        save("prev-url", window.location.pathname);
+        save("prev-url", window.location.href);
         router.push("/signin");
         dispatch(clearUserData());
 

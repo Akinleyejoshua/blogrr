@@ -1,13 +1,15 @@
-import UDB from "@/app/api/udb";
+import db from "../db";
 import { NextResponse } from "next/server";
+import User from "../models/User";
+
+db();
 
 export const POST = async (req) => {
     const {id} = await req.json();
-    const user = new UDB("users");
 
-    const findUser = await user.findOne({_id: id});
+    const findUser = await User.findOne({_id: id}).lean();
 
-    if (findUser.msg == "found"){
+    if (findUser){
         return new NextResponse(JSON.stringify({msg: "found", ...findUser}))
     } else {
         return new NextResponse(JSON.stringify({msg: "not-found"}));

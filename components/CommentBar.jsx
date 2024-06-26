@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation"
 import { Avater } from "./Avater"
 import { Space } from "./Space"
-import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { BiDotsHorizontalRounded, BiDotsVerticalRounded } from "react-icons/bi";
 
 export const CommentBar = ({ data }) => {
 
@@ -35,7 +35,7 @@ export const CommentBar = ({ data }) => {
                         </div>
 
                         <button className="btn flex items-center option b-none c-white">
-                            <BiDotsHorizontalRounded className="icon" />
+                            <BiDotsVerticalRounded className="icon" />
                         </button>
                     </div>
                     <Space val={".0rem"} />

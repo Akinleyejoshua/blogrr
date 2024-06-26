@@ -3,9 +3,9 @@ import { FollowBtn } from "./FollowBtn";
 import { Space } from "./Space";
 
 export const ProfileBanner = ({ data, user, follow }) => {
-    const { username, email, followers, following, bio, _id } = data;
+    const { username, email, followers, following, img, bio, _id } = data;
     return <div className="banner flex row space-between">
-        <Avater data={{ username: data?.username }} size={"12rem"} fontSize={"6rem"} />
+        <Avater data={{ username, img }} size={"12rem"} fontSize={"6rem"} />
         <Space val={"1.3rem"} />
 
         <div className="flex col center fit">

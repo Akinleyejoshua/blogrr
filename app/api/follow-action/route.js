@@ -1,12 +1,14 @@
-import UDB from "@/app/api/udb";
+import db from "../db";
 import { NextResponse } from "next/server";
+import User from "../models/User";
+
+db();
 
 export const POST = async (req) => {
   const { id, type, user_id } = await req.json();
 
-  const user = new UDB("users");
-  const followedUser = await user.findOne({ _id: id });
-  const followingUser = await user.findOne({ _id: user_id });
+  const followedUser = await User.findOne({ _id: id }).lean();
+  const followingUser = await User.findOne({ _id: user_id }).lean();
 
   if (type == "follow") {
     const alreadyFollowed = followedUser.following.find(
@@ -14,11 +16,11 @@ export const POST = async (req) => {
     );
 
     if (alreadyFollowed === undefined) {
-      await user.updateById(user_id, {
+      await User.findByIdAndUpdate(user_id, {
         following: [...followedUser.following, id],
       });
 
-      await user.updateById(id, {
+      await User.findByIdAndUpdate(id, {
         followers: [...followingUser.following, user_id],
       });
     }
@@ -31,11 +33,11 @@ export const POST = async (req) => {
       (item) => item !== user_id
     );
 
-    await user.updateById(user_id, {
+    await User.findByIdAndUpdate(user_id, {
       following: [...removeFollowing],
     });
 
-    await user.updateById(id, {
+    await User.findByIdAndUpdate(id, {
       followers: [...removeFollowers],
     });
 

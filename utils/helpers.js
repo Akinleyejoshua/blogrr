@@ -34,8 +34,23 @@ export const formatPostTitle = (title, slash) => {
 export const shortenText = (text, len) => {
     let result = ""
     for (let i = 0; len > i; i++){
-        result += `${text[i]}`
+        if (text?.length > i){
+            result += `${text[i]}`
+
+        }
         
     }
     return result + " ...";
+}
+
+export const fileToBlob = (url, result) => {
+    const file = new FileReader();
+    file.readAsDataURL(url)
+    file.onload = result(file.result)
+    file.onload = console.log(file.result);
+    
+}
+
+export const queryUrl = (path) => {
+    
 }

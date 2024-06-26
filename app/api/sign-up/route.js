@@ -1,18 +1,21 @@
+import db from "../db";
 import { NextResponse } from "next/server";
-import UDB from "@/app/api/udb";
+import User from "../models/User";
+
+db();
 
 export const POST = async (req) => {
   const { email, pwd, username } = await req.json();
-  const users = new UDB("users");
-  const userExist = await users.findOne({ email });
-  if (userExist.msg == "found") {
+
+  const userExist = await User.findOne({ email }).lean();
+  if (userExist) {
     return new NextResponse(
       JSON.stringify({
         msg: "already-exist",
       })
     );
   } else {
-    const addUser = await users.add({
+    const addUser = await User({
       email,
       pwd,
       username,
@@ -22,8 +25,8 @@ export const POST = async (req) => {
       bio: "",
 
     });
-    if (addUser.created) {
-      return new NextResponse(JSON.stringify(addUser));
+    if (addUser.save()) {
+      return new NextResponse(JSON.stringify({created: true, ...addUser}));
     }
   }
 

@@ -43,6 +43,7 @@ export const useProfile = () => {
                 handleForm("email", data.email);
                 handleForm("pwd", data.pwd);
                 handleForm("bio", data.bio);
+                handleForm("img", data.img);
             } else {
                 router.push("/home");
             }

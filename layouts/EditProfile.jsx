@@ -1,7 +1,13 @@
 import { Button } from "@/components/Button";
 import { Space } from "@/components/Space";
 import { Toast } from "@/components/Toast";
-import { AiOutlineSave, AiOutlineUser } from "react-icons/ai";
+import { fileToBlob } from "@/utils/helpers";
+import Image from "next/image";
+import {
+    AiOutlineFileImage,
+    AiOutlineSave,
+    AiOutlineUser,
+} from "react-icons/ai";
 import { FaAt, FaKey } from "react-icons/fa6";
 
 export const EditProfile = ({ data, onSubmit, handleState, form }) => {
@@ -16,6 +22,35 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                     onSubmit();
                 }}
             >
+
+
+                <div className="input-bar input-file img">
+
+                    {(form?.img == "" || form?.img == undefined)
+                        ?
+                        <AiOutlineFileImage className="icon" />
+                        :
+                        <Image height={10} width={10} src={form?.img} alt=""/>
+
+                    }
+
+                    <input
+                        type="file"
+                        placeholder="Password"
+                        onChange={(e) => {
+                            const file = new FileReader();
+                            file.readAsDataURL(e.target.files[0]);
+                            file.onload = () => {
+                                handleState("img", file.result);
+                            }
+                        }}
+                    />
+                </div>
+                <Space val={".3rem"} />
+
+                <small>Upload Image</small>
+
+                <Space val={"1rem"} />
                 <div className="grid">
                     <div className="input-bar">
                         <FaAt className="icon" />
@@ -47,6 +82,7 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                             onChange={(e) => handleState("pwd", e.target.value)}
                         />
                     </div>
+
                 </div>
                 <Space val={"1rem"} />
 
@@ -54,9 +90,9 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                     defaultValue={data?.bio}
                     className="bio-input"
                     placeholder="Your Bio (About yourself)"
-                    onChange={e => handleState("bio", e.target.value)}
+                    onChange={(e) => handleState("bio", e.target.value)}
                 ></textarea>
-                
+
                 <Space val={".6rem"} />
                 <Toast text={form.msg} type={form.msgType} />
                 <Space val={".6rem"} />

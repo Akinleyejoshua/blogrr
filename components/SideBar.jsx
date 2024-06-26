@@ -13,16 +13,19 @@ import { get } from "@/utils/localstorage"
 
 export const SideBar = () => {
     const { sidebar, closeSideBar } = useComponents();
-    const { loading, username, email, followers, following, getUserData } = useUser();
+    const { loading, username, email, followers, following, getUserData, img } = useUser();
+    const { authenticate } = useAuth();
 
     const router = useRouter();
     const { logout } = useAuth()
 
     useEffect(() => {
         const userTokenId = JSON.parse(get("login-id"));
-        if (email == ""){
+        if (email == "") {
             getUserData(userTokenId);
         }
+
+
     }, [])
 
     return <div className={`${sidebar ? "sidebar flex open" : "sidebar flex"}`}>
@@ -33,7 +36,7 @@ export const SideBar = () => {
                 <Space val={"1.3rem"} />
                 {loading ? <Loader size={"1rem"} /> :
                     <div className="flex row data fit">
-                        <Avater data={{ username }} size={"6rem"} fontSize={"3rem"} />
+                        <Avater data={{ username, img }} size={"6rem"} fontSize={"3rem"} />
                         <Space val={"1rem"} />
 
                         <div className="flex col fit center">
@@ -61,7 +64,7 @@ export const SideBar = () => {
 
                 <Space val={"1.3rem"} />
 
-                <div className="links">
+                <div className="links" onClick={closeSideBar}>
                     <button className="flex row items-center btn c-white" onClick={() => router.push("/home")}>
                         <GoHome className="icon" />
                         <Space val={".3rem"} />
