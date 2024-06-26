@@ -19,16 +19,11 @@ export const POST = async (req) => {
       email,
       pwd,
       username,
-      img: "",
-      following: [],
-      followers: [],
-      bio: "",
-
     });
     if (addUser.save()) {
       return new NextResponse(JSON.stringify({created: true, ...addUser}));
     }
   }
 
-  return new NextResponse(JSON.stringify({}));
+  // return new NextResponse(JSON.stringify({}));
 };
