@@ -9,9 +9,7 @@ export const Draft = ({ val, onChange }) => {
     const [typing, setTyping] = useState(false);
     const [onPreview, setOnPreview] = useState(false);
     const [content, setContent] = useState("");
-if (val != ""){
-    setTyping(true)
-}
+
     const handleFormatting = (type) => {
 
         setTyping(true);
