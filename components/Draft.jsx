@@ -128,7 +128,7 @@ export const Draft = ({ val, onChange }) => {
                     className="text"
                     onInput={(e) => handleText(e.target.innerHTML)}
                     ref={contentRef}
-                    defaultValue={val}
+                    dangerouslySetInnerHTML={{ __html: val }}
                 ></div>
                 {!typing && (
                     <p className="placeholder dim">What do you want to publish?</p>
