@@ -8,7 +8,7 @@ const MONGO_URI_LIVE =
 
 const connect = async () => {
   await mongoose
-    .connect(MONGO_URI, options)
+    .connect(MONGO_URI_LIVE, options)
     .then((res) => {
       if (res) return console.log("Database Connected");
     })
