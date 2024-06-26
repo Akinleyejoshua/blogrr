@@ -51,6 +51,17 @@ export const fileToBlob = (url, result) => {
     
 }
 
-export const queryUrl = (path) => {
-    
+
+export const removeFromString = (string, val) => {
+    let result = "";
+    for (let i = 0; string.length > i; i++){
+        if (string[i] == val){
+            
+            result += ""
+        } else {
+            result += string[i]
+        }
+    }
+
+    return result;
 }

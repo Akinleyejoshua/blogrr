@@ -387,6 +387,11 @@ textarea {
   /* background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.9)); */
 }
 
+.post-item .text-content{
+  display: flex;
+  flex-direction: column;
+}
+
 .post-item .actions button,
 .post .actions button {
   display: flex;

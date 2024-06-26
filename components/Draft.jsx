@@ -1,102 +1,69 @@
 import { useEffect, useRef, useState } from "react";
 import { Space } from "./Space";
+import { FaBold, FaHeading, FaItalic, FaList, FaParagraph } from "react-icons/fa6";
+import { removeFromString } from "@/utils/helpers";
 
 export const Draft = ({ val, onChange }) => {
     const contentRef = useRef(null);
-    const [format, setFormat] = useState("p")
-    const [content, setContent] = useState("");
+    const previewRef = useRef(null);
     const [typing, setTyping] = useState(false);
-    const [line, setLine] = useState(0);
+    const [onPreview, setOnPreview] = useState(false);
+    const [content, setContent] = useState("");
 
     const handleFormatting = (type) => {
-        const text = contentRef.current.textContent;
-        const split = text.split("\n");
-        const currentText = split[line]
-        const selection = window.getSelection();
-        const selectedText = selection.toString();
-        let newContent = content;
 
-        setFormat(type);
+        setTyping(true);
         switch (type) {
-            case "h-open":
-                    setContent(content + `<h1>`)
-                    contentRef.current.innerHTML = content == "" ? `<h1>` : content;
-                    console.log(content)
+            case "h":
+                contentRef.current.innerHTML += "<h1>``</h1>";
+                break;
 
-                break
-
-            case "h-close":
-                if (text !== "") {
-                    setContent(content + `</h1>`)
-                    contentRef.current.innerHTML = "";
-                    contentRef.current.innerHTML = content
-                    console.log(content)
-
-                }
+            case "p":
+                contentRef.current.innerHTML += "<p>``</p>";
 
                 break;
-            case "p":
-                if (currentText !== undefined) {
-                    setContent(content + `\n<p>${currentText}</p>\n`)
-                    contentRef.current.innerHTML = content == "" ? `<h1>${currentText}</h1>\n` : content;
-                    setLine(line + 1)
-                }
-
-                break
             case "i":
-                if (currentText !== undefined) {
-                    setContent(content + `\n<i>${currentText}</i>\n`)
-                    contentRef.current.innerHTML = content == "" ? `<h1>${currentText}</h1>\n` : content;
-                    setLine(line + 1)
-                }
+                contentRef.current.innerHTML += "<i>``</i>";
 
-                break
+                break;
             case "li":
+                contentRef.current.innerHTML += "<br><ul><li>``</li></ul>";
 
-                if (currentText !== undefined) {
-                    setContent(content + `\n<br><ul>
-                    <li>
-                        ${currentText}
-                    </li>
-                </ul>\n`)
-                    contentRef.current.innerHTML = content == "" ? `<h1>${currentText}</h1>\n` : content;
-                    setLine(line + 1)
-                }
-
-                break
+                break;
             case "b":
-                if (currentText !== undefined) {
-                    setContent(content + `\n<b>${currentText}</b>\n`)
-                    contentRef.current.innerHTML = content == "" ? `<h1>${currentText}</h1>\n` : content;
-                    setLine(line + 1)
-                }
+                contentRef.current.innerHTML += "<b>``</b>";
 
-                break
+                break;
+            case "tag":
+                contentRef.current.innerHTML += "<div class='flex row items-center'><p class='tag'>``</p><div>``</div></div>";
+                break;
+            
         }
-
-
     };
 
     const handleText = (text) => {
-        setContent(content + text);
+        const formatedText = removeFromString(text, "`");
+        setContent(formatedText);
+
+        onChange(formatedText);
         if (text.length > 0) {
             setTyping(true);
         } else {
             setTyping(false);
-            setContent("")
-
         }
-    }
+    };
 
     useEffect(() => {
         const updateContent = () => {
-            const linkRegex = /((http|https):\/\/)?(wwww\.)?([^\s]+)(\.[^\s])*(\/[^\s]*)?/g;
-            let newContent = contentRef.current.innerHTML.replace(linkRegex, (url) => {
-                return `<a href=${url}>${url}</a>`
-            })
-
-            setContent(newContent)
-        }
+            const linkRegex =
+                /((http|https):\/\/)?(wwww\.)?([^\s]+)(\.[^\s])*(\/[^\s]*)?/g;
+            let newContent = contentRef.current.innerHTML.replace(
+                linkRegex,
+                (url) => {
+                    return `<a href=${url}>${url}</a>`;
+                }
+            );
+        };
 
         updateContent();
     }, [contentRef]);
@@ -104,21 +71,12 @@ export const Draft = ({ val, onChange }) => {
     return (
         <div className="draft">
             <div className="tools flex">
-                {format == "h-open" ?
-                    <div
-                        className="format-btn pointer c-blue"
-                        onClick={() => handleFormatting("h-close")}
-                    >
-                        H
-                    </div> :
-
-                    <div
-                        className="format-btn pointer c-white"
-                        onClick={() => handleFormatting("h-open")}
-                    >
-                        H
-                    </div>
-                }
+                <div
+                    className="format-btn pointer c-white"
+                    onClick={() => handleFormatting("h")}
+                >
+                    <FaHeading />
+                </div>
 
                 <Space val={".3rem"} />
 
@@ -126,7 +84,7 @@ export const Draft = ({ val, onChange }) => {
                     className="format-btn pointer"
                     onClick={() => handleFormatting("p")}
                 >
-                    p
+                    <FaParagraph />
                 </div>
                 <Space val={".3rem"} />
 
@@ -134,7 +92,7 @@ export const Draft = ({ val, onChange }) => {
                     className="format-btn pointer"
                     onClick={() => handleFormatting("i")}
                 >
-                    i
+                    <FaItalic />
                 </div>
                 <Space val={".3rem"} />
 
@@ -142,7 +100,7 @@ export const Draft = ({ val, onChange }) => {
                     className="format-btn pointer"
                     onClick={() => handleFormatting("li")}
                 >
-                    li
+                    <FaList />
                 </div>
                 <Space val={".3rem"} />
 
@@ -150,29 +108,49 @@ export const Draft = ({ val, onChange }) => {
                     className="format-btn pointer"
                     onClick={() => handleFormatting("b")}
                 >
-                    b
+                    <FaBold />
                 </div>
+                <Space val={".3rem"} />
+
+                <div
+                    className="format-btn pointer"
+                    onClick={() => handleFormatting("tag")}
+                >
+                    ``
+                </div>
+                
             </div>
 
             <Space val={".3rem"} />
-            <div className="textarea">
+            <div className={`textarea ${onPreview ? 'not-visible' : 'visible'}`}>
                 <div
                     contentEditable={true}
-                    dangerouslySetInnerHTML={{ __html: content }}
                     className="text"
-                    onInput={e => handleText(e.target.innerHTML)}
+                    onInput={(e) => handleText(e.target.innerHTML)}
                     ref={contentRef}
+                    defaultValue={val}
                 ></div>
-                {!typing &&
+                {!typing && (
                     <p className="placeholder dim">What do you want to publish?</p>
-                }
+                )}
             </div>
 
-            {/* <textarea
-                defaultValue={val}
-                onChange={onChange}
-                placeholder="What do you want to publish!?"
-            ></textarea> */}
+            <div className={`textarea ${!onPreview ? 'not-visible' : 'visible'}`}>
+                <div
+                    className="text"
+                    ref={previewRef}
+                    dangerouslySetInnerHTML={{ __html: content }}
+                ></div>
+
+            </div>
+
+            <Space val={".3rem"} />
+
+            {onPreview ? (
+                <small className="pointer under" onClick={() => setOnPreview(false)}>Continue editing</small>
+            ) : (
+                <small className="pointer under" onClick={() => setOnPreview(true)}>Preview</small>
+            )}
         </div>
     );
 };

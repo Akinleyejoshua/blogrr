@@ -93,8 +93,8 @@ export const Post = ({ data, like, is_comment }) => {
                 {item?.title !== "" && (
                   <h3 className="title w-full">{item?.title}</h3>
                 )}
-                <p className="title dim tiny">
-                  {shortenText(item?.content, 333)}
+                <p className="title dim tiny" dangerouslySetInnerHTML={{__html: shortenText(item?.content, 333)}}>
+                  
                 </p>
               </div>
               <Space val={".3rem"} />

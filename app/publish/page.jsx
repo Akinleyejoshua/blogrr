@@ -36,7 +36,7 @@ export default function Page() {
 
                             <small>Your content/post</small>
                             <Space val={".3rem"} />
-                            <Draft onChange={(e) => handleState("content", e.target.value)} />
+                            <Draft onChange={(val) => handleState("content", val)} />
 
                             <Space val={".4rem"} />
                             <Toast text={state.msg} type={state.msgType} />

@@ -84,7 +84,7 @@ export default function Page() {
                 </small>
                 <Space val={".3rem"} />
 
-                <p className="dim flex wrap" dangerouslySetInnerHTML={{ __html: item?.content }}></p>
+                <p className="dim" dangerouslySetInnerHTML={{ __html: item?.content }}></p>
 
                 <Space val={"1rem"} />
                 <div className="flex row">
