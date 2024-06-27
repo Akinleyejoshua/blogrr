@@ -7,11 +7,17 @@ db();
 export const POST = async (req) => {
     const {username} = await req.json();
 
-    const findUser = await User.findOne({username: username}).lean();
+    try {
+        const findUser = await User.findOne({username: username}).lean();
 
-    if (findUser){
-        return new NextResponse(JSON.stringify({msg: "found", ...findUser}))
-    } else {
+        if (findUser){
+            return new NextResponse(JSON.stringify({msg: "found", ...findUser}))
+        } else {
+            return new NextResponse(JSON.stringify({msg: "not-found"}));
+        }
+    } catch (err){
         return new NextResponse(JSON.stringify({msg: "not-found"}));
+
     }
+   
 }

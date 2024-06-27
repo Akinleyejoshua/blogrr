@@ -1,8 +1,8 @@
 import { setUserData, toggleUserLoading } from "@/redux/features/state";
-import { getUserDataAPI } from "@/services/user";
+import { getFollowingFollowersAPI, getUserDataAPI } from "@/services/user";
 import { get } from "@/utils/localstorage";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
 export const useUser = () => {
@@ -21,12 +21,15 @@ export const useUser = () => {
         img,
     } = state;
 
-    
+    const [followingFollowers, setFollowingFollowers] = useState({});
+    const [userLoading, setUserLoading] = useState(false);
+
+
     const getUserData = (id) => {
         dispatch(toggleUserLoading(true));
-        getUserDataAPI({id}).then(res => {
+        getUserDataAPI({ id }).then(res => {
             const data = res.data;
-            if (data.msg == "found"){
+            if (data.msg == "found") {
                 dispatch(setUserData(data))
             } else {
                 router.push("/");
@@ -36,7 +39,16 @@ export const useUser = () => {
         })
     }
 
-   
+    const getFollowingFollowers = (id) => {
+        setUserLoading(true);
+        getFollowingFollowersAPI({ id }).then(res => {
+            const data = res.data;
+            setFollowingFollowers(data)
+            setUserLoading(false);
+
+        })
+    }
+
 
     return {
         loading,
@@ -47,5 +59,8 @@ export const useUser = () => {
         followers,
         img,
         getUserData,
+        userLoading,
+        followingFollowers,
+        getFollowingFollowers,
     }
 }

@@ -4,8 +4,10 @@ import { get } from "@/utils/localstorage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { useComponents } from "./useComponents";
 
 export const useProfile = () => {
+    const {openFloatAlert} = useComponents();
     const state = useSelector(state => state.state.profile);
     const dispatch = useDispatch();
     const router = useRouter();
@@ -18,7 +20,11 @@ export const useProfile = () => {
         img: "",
         bio: "",
         pwd: "",
+        whatsapp: "",
+        emailExistErr: false,
     })
+
+    const [profileNotFound, setProfileNotFound] = useState(false);
 
     const handleForm = (name, val) => {
         setForm(prev => ({
@@ -32,7 +38,6 @@ export const useProfile = () => {
     } = state;
 
     const getProfileData = (username) => {
-        // dispatch(clearProfileData())
         dispatch(toggleProfileLoading(true))
         getProfileDataAPI({ username }).then(res => {
             const data = res.data;
@@ -44,8 +49,9 @@ export const useProfile = () => {
                 handleForm("pwd", data.pwd);
                 handleForm("bio", data.bio);
                 handleForm("img", data.img);
-            } else {
-                router.push("/home");
+                handleForm("whatsapp", data.whatsapp);
+            } else if (data.msg == "not-found") {
+                setProfileNotFound(true)
             }
             dispatch(toggleProfileLoading(false))
 
@@ -62,6 +68,9 @@ export const useProfile = () => {
                 handleForm("msg", "Updated!")
                 handleForm("msgType", "success");
                 getProfileData(data?.username);
+                if (data.msg == "email-exist"){
+                    handleForm("emailExistErr", true);
+                }
             } else {
                 handleForm("msg", "Oops, an error occured!")
                 handleForm("msgType", "error")
@@ -75,14 +84,23 @@ export const useProfile = () => {
         const type = e.target.id;
 
         if (e.target.id == "follow") {
-            e.target.innerHTML = "Following"
+            e.target.innerHTML = "Unfollow"
             e.target.id = "un-follow";
         } else if (e.target.id == "un-follow") {
             e.target.innerHTML = "Follow"
             e.target.id = "follow";
         }
 
-        followActionAPI({ id: id, user_id: userId, type })
+        followActionAPI({ id: id, user_id: userId, type }).then(res => {
+            const data = res.data;
+            if (data.followed){
+                openFloatAlert("User followed", "user")
+            } else if (data.un_followed){
+                openFloatAlert("User Unfollowed", "user")
+
+            }
+        })
+
     }
 
     return {
@@ -92,6 +110,7 @@ export const useProfile = () => {
         form,
         getProfileData,
         updateProfileData,
-        followAction
+        followAction,
+        profileNotFound,
     }
 }

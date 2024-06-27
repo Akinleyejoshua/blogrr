@@ -1,9 +1,11 @@
+import { FaWhatsapp } from "react-icons/fa6";
 import { Avater } from "./Avater"
 import { FollowBtn } from "./FollowBtn";
+import { LinkIcon } from "./LinkIcon";
 import { Space } from "./Space";
 
 export const ProfileBanner = ({ data, user, follow }) => {
-    const { username, email, followers, following, img, bio, _id } = data;
+    const { username, email, followers, following, img, bio, _id, whatsapp } = data;
     return <div className="banner flex row space-between">
         <Avater data={{ username, img }} size={"12rem"} fontSize={"6rem"} />
         <Space val={"1.3rem"} />
@@ -17,7 +19,7 @@ export const ProfileBanner = ({ data, user, follow }) => {
 
                 &&
                 <>
-                    <FollowBtn followers={followers} following_id={_id} user_id={user?._id} follow={follow}/>
+                    <FollowBtn followers={followers} following_id={_id} user_id={user?._id} follow={follow} />
                     <Space val={".3rem"} />
 
                 </>
@@ -38,8 +40,14 @@ export const ProfileBanner = ({ data, user, follow }) => {
                 </div>
             </div>
             <Space val={".3rem"} />
-
-            <small className="bio tiny">{bio}</small>
+            {whatsapp != undefined &&
+                <LinkIcon icon={<FaWhatsapp className="c-green" fontSize={30}/>} to={`https://wa.me/${whatsapp}`} />
+            }
+            <Space val={".3rem"} />
+            {
+                bio != undefined &&
+                <small className="bio tiny">{bio}</small>
+            }
         </div>
     </div>
 }

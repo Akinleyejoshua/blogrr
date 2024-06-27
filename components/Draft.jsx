@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Space } from "./Space";
-import { FaBold, FaHeading, FaItalic, FaList, FaParagraph } from "react-icons/fa6";
+import { FaArrowRight, FaBold, FaHeading, FaItalic, FaList, FaParagraph, FaUnderline } from "react-icons/fa6";
 import { removeFromString } from "@/utils/helpers";
 
 export const Draft = ({ val, onChange }) => {
@@ -11,10 +11,10 @@ export const Draft = ({ val, onChange }) => {
     const [content, setContent] = useState("");
 
     useEffect(() => {
-        
-        if (val !== undefined){
+
+        if (val !== undefined) {
             setTyping(true);
-            if (contentRef.current.innerHTML == ""){
+            if (contentRef.current.innerHTML == "") {
                 contentRef.current.innerHTML += val
 
             }
@@ -26,7 +26,7 @@ export const Draft = ({ val, onChange }) => {
         setTyping(true);
         switch (type) {
             case "h":
-                contentRef.current.innerHTML += "<h1>``</h1>";
+                contentRef.current.innerHTML += "<h3>``</h3>";
                 break;
 
             case "p":
@@ -47,9 +47,16 @@ export const Draft = ({ val, onChange }) => {
                 break;
             case "tag":
                 contentRef.current.innerHTML += "<i class='tag'>``</i>  ``";
-                // contentRef.current.innerHTML += "<div class='flex row items-center'><p class='tag'>``</p><div>``</div></div>";
                 break;
-            
+
+            case "u":
+                contentRef.current.innerHTML += "<u>``</u>";
+                break;
+            case "cont":
+                contentRef.current.innerHTML += " ``";
+                break;
+
+
         }
     };
 
@@ -126,11 +133,26 @@ export const Draft = ({ val, onChange }) => {
 
                 <div
                     className="format-btn pointer"
+                    onClick={() => handleFormatting("u")}
+                >
+                    <FaUnderline />
+                </div>
+                <Space val={".3rem"} />
+
+                <div
+                    className="format-btn pointer"
                     onClick={() => handleFormatting("tag")}
                 >
                     ``
                 </div>
-                
+                <Space val={".3rem"} />
+
+                <div
+                    className="format-btn pointer"
+                    onClick={() => handleFormatting("cont")}
+                >
+                    <FaArrowRight/>
+                </div>
             </div>
 
             <Space val={".3rem"} />

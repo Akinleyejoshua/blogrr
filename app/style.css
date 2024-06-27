@@ -260,7 +260,7 @@ header button:not(:last-child) {
 
   .sidebar .content {
     background-color: var(--bg-black);
-    padding: 3.6rem;
+    padding: 2.3rem;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   }
 
@@ -362,8 +362,16 @@ textarea {
 }
 
 .post-item {
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   min-width: 100%;
+}
+
+.post-item .icon{
+  font-size: 19px;
+}
+
+.post-item .icon .num{
+  font-weight: 300;
 }
 
 .comment-item {
@@ -395,7 +403,6 @@ textarea {
 .post-item .actions button,
 .post .actions button {
   display: flex;
-  font-size: 16px;
 }
 
 .follow-btn {
@@ -409,6 +416,10 @@ textarea {
   -o-border-radius: var(--br);
 }
 
+.mini-user-bar{
+  margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 840px) {
   .top-nav {
     padding: 1rem 0 1.3rem 0;
@@ -416,5 +427,9 @@ textarea {
 
   .main {
     padding: 0;
+  }
+
+  .mini-user-bar h3{
+    font-size: 16px;
   }
 }

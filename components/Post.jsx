@@ -9,10 +9,12 @@ import { Link } from "./Link";
 import { RelativeTimeBar } from "./RelativeTimeBar";
 import { DropdownMenu } from "./DropdownMenu";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineShareAlt } from "react-icons/ai";
+import { usePost } from "@/hooks/usePost";
 
 export const Post = ({ data, like, is_comment }) => {
   const userState = useSelector((state) => state.state.user);
   const router = useRouter();
+  const { deletePost, sharePost } = usePost();
 
   if (data?.length === 0) {
     return (
@@ -65,7 +67,8 @@ export const Post = ({ data, like, is_comment }) => {
                       icon: <AiOutlineDelete className="icon" />,
                       text: "Delete",
                       color: "var(--red)",
-                      open: item.user_id == userState._id
+                      open: item.user_id == userState._id,
+                      onClick: () => deletePost(item?._id)
                     },
                     {
                       icon: <AiOutlineEdit className="icon" />,
@@ -79,7 +82,7 @@ export const Post = ({ data, like, is_comment }) => {
                       text: "Share",
                       color: "var(--blue)",
                       open: true,
-                      onClick: null,
+                      onClick: () => sharePost(`${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`),
                     },
                   ]}
                 />
@@ -93,28 +96,28 @@ export const Post = ({ data, like, is_comment }) => {
                 {item?.title !== "" && (
                   <h3 className="title w-full">{item?.title}</h3>
                 )}
-                <p className="title dim tiny" dangerouslySetInnerHTML={{__html: shortenText(item?.content, 333)}}>
-                  
+                <p className={`tiny title ${!is_comment && "dim"}`} dangerouslySetInnerHTML={{ __html: shortenText(item?.content, 333) }}>
+
                 </p>
               </div>
               <Space val={".3rem"} />
               <div className="actions fit flex row space-between">
                 {item?.likes?.includes(userState._id) ? (
                   <button
-                    className="btn items-center b-none c-red fa fa-heart red"
+                    className="icon btn items-center b-none c-red fa fa-heart red"
                     onClick={(e) => like(e, item?._id)}
                   >
                     <Space val={".3rem"} />
-                    <p className="">{formatNumber(item?.likes?.length)}</p>
+                    <p className="num">{formatNumber(item?.likes?.length)}</p>
                     <p className="not-visible">{item?.likes?.length}</p>
                   </button>
                 ) : (
                   <button
-                    className="btn items-center b-none c-red far fa-heart red"
+                    className="icon btn items-center b-none c-red far fa-heart red"
                     onClick={(e) => like(e, item?._id)}
                   >
                     <Space val={".3rem"} />
-                    <p className="">{formatNumber(item?.likes?.length)}</p>
+                    <p className="num">{formatNumber(item?.likes?.length)}</p>
                     <p className="not-visible">{item?.likes?.length}</p>
                   </button>
                 )}
@@ -127,7 +130,7 @@ export const Post = ({ data, like, is_comment }) => {
                   <p>{item?.comments?.length}</p>
                 </button>
 
-                <button className="btn flex items-center c-white b-none">
+                <button onClick={() => sharePost(`${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`)} className="btn flex items-center c-white b-none">
                   <CiShare1 className="icon" />
                 </button>
               </div>

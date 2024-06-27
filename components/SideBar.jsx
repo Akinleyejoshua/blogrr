@@ -1,4 +1,4 @@
-import { AiOutlineDashboard, AiOutlineLogout, AiOutlineUser } from "react-icons/ai"
+import { AiOutlineBook, AiOutlineDashboard, AiOutlineLogout, AiOutlineUser } from "react-icons/ai"
 import { Avater } from "./Avater"
 import { NavBrand } from "./NavBrand"
 import { Space } from "./Space"
@@ -10,6 +10,7 @@ import { useUser } from "@/hooks/useUser"
 import { useEffect } from "react"
 import { Loader } from "./Loader"
 import { get } from "@/utils/localstorage"
+import { HLine } from "./HLine"
 
 export const SideBar = () => {
     const { sidebar, closeSideBar } = useComponents();
@@ -75,11 +76,21 @@ export const SideBar = () => {
                         <Space val={".3rem"} />
                         <p>Profile</p>
                     </button>
-                    <button className="flex row items-center btn c-white" onClick={() => router.push("/dashboard")}>
+                    <button className="flex row items-center btn c-white" onClick={() => router.push(`/publish`)}>
+                        <AiOutlineBook className="icon" />
+                        <Space val={".3rem"} />
+                        <p>Create</p>
+                    </button>
+                    {/* <button className="flex row items-center btn c-white" onClick={() => router.push("/dashboard")}>
                         <AiOutlineDashboard className="icon" />
                         <Space val={".3rem"} />
                         <p>Dashbaord</p>
-                    </button>
+                    </button> */}
+                    <Space val={".6rem"} />
+
+                    <HLine width={"9rem"}/>
+                    <Space val={".6rem"} />
+
                     <button className="flex row items-center btn c-red" onClick={() => logout()}>
                         <AiOutlineLogout className="icon" />
                         <Space val={".3rem"} />

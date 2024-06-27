@@ -108,7 +108,7 @@ export default function Page() {
                         <p className="not-visible">{item?.likes?.length}</p>
                       </button>
                     )}
-                      <Space val={"1rem"} />
+                    <Space val={"1rem"} />
 
                     <button className="btn flex items-center c-white b-none">
                       <CiChat1 className="icon" />
@@ -132,7 +132,8 @@ export default function Page() {
                           icon: <AiOutlineDelete className="icon" />,
                           text: "Delete",
                           color: "var(--red)",
-                          open: item.user_id == userState._id
+                          open: item.user_id == userState._id,
+                          onClick: () => deletePost(item?._id)
                         },
                         {
                           icon: <AiOutlineEdit className="icon" />,
@@ -146,7 +147,7 @@ export default function Page() {
                           text: "Share",
                           color: "var(--blue)",
                           open: true,
-                          onClick: null,
+                          onClick: () => sharePost(`${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`),
                         },
                       ]}
                     />

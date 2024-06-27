@@ -25,5 +25,5 @@ export const POST = async (req) => {
     }
   }
 
-  // return new NextResponse(JSON.stringify({}));
+  return new NextResponse(JSON.stringify({}));
 };

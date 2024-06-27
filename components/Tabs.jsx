@@ -3,7 +3,7 @@ import { Space } from "./Space";
 
 export const Tabs = ({ links }) => {
     const [state, setState] = useState({
-        id: 1,
+        id: 3,
     });
 
     return (

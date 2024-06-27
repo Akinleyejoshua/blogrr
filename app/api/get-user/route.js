@@ -5,13 +5,16 @@ import User from "../models/User";
 db();
 
 export const POST = async (req) => {
-    const {id} = await req.json();
+  const { id } = await req.json();
+  try {
+    const findUser = await User.findOne({ _id: id }).lean();
 
-    const findUser = await User.findOne({_id: id}).lean();
-
-    if (findUser){
-        return new NextResponse(JSON.stringify({msg: "found", ...findUser}))
+    if (findUser) {
+      return new NextResponse(JSON.stringify({ msg: "found", ...findUser }));
     } else {
-        return new NextResponse(JSON.stringify({msg: "not-found"}));
+      return new NextResponse(JSON.stringify({ msg: "not-found" }));
     }
-}
+  } catch (err) {
+    return new NextResponse(JSON.stringify({ msg: "not-found" }));
+  }
+};

@@ -4,9 +4,10 @@ import { AiOutlineArrowLeft, AiOutlineLogout } from "react-icons/ai";
 import { useComponents } from "@/hooks/useComponents";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { FloatAlert } from "./FloatAlert";
 
 export const Header = ({ title }) => {
-    const { openSideBar } = useComponents();
+    const { openSideBar, floatAlert } = useComponents();
     const { logout } = useAuth();
     const router = useRouter();
 
@@ -29,5 +30,9 @@ export const Header = ({ title }) => {
                 </button>
             </div>
         </nav>
+
+        {floatAlert.content != "" && 
+            <FloatAlert content={floatAlert?.content} type={floatAlert.type}/>
+        }
     </header>
 }

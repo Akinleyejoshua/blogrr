@@ -1,13 +1,15 @@
-import { setPostItem, setPostItems, togglePostLoading } from "@/redux/features/state";
-import { getPostAPI, getPostsAPI, likeActionAPI } from "@/services/post";
+import { setPostComments, setPostItem, setPostItems, togglePostLoading } from "@/redux/features/state";
+import { deletePostAPI, getCommentsAPI, getPostAPI, getPostsAPI, likeActionAPI } from "@/services/post";
 import { publishPostAPI } from "@/services/publish";
 import { formatNumber, } from "@/utils/helpers";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useComponents } from "./useComponents";
 
 export const usePost = () => {
     const state = useSelector((state) => state.state.posts);
     const userState = useSelector(state => state.state.user);
+    const { openFloatAlert } = useComponents();
 
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
@@ -58,6 +60,21 @@ export const usePost = () => {
 
             } else {
                 dispatch(setPostItems(data))
+            }
+
+            dispatch(togglePostLoading(false))
+
+        })
+    };
+
+    const getComments = () => {
+        dispatch(togglePostLoading(true))
+        getCommentsAPI({}).then(res => {
+            const data = res.data;
+            if (data.msg == "not-found") {
+
+            } else {
+                dispatch(setPostComments(data))
             }
 
             dispatch(togglePostLoading(false))
@@ -141,7 +158,7 @@ export const usePost = () => {
         }).then(res => {
             const data = res.data;
             if (data.posted) {
-              
+
                 refreshPost(id, is_comment);
 
                 setCommentState({
@@ -153,6 +170,21 @@ export const usePost = () => {
             }
 
         })
+    }
+
+    const deletePost = (id) => {
+        deletePostAPI({ id }).then(res => {
+            const data = res.data;
+            if (data.deleted) {
+                openFloatAlert("Post Deleted!", "del")
+            }
+        })
+    }
+
+    const sharePost = (path) => {
+        navigator.clipboard.writeText(path);
+        openFloatAlert("Post copied to clipboard!", "")
+
     }
 
     return {
@@ -170,5 +202,8 @@ export const usePost = () => {
         getPosts,
         addToPost,
         commentOnPost,
+        deletePost,
+        getComments,
+        sharePost,
     };
 };

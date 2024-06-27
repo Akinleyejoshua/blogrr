@@ -3,6 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   components: {
     sidebar: false,
+    floatAlert: {
+      content: "",
+      open: false,
+      type: "",
+    },
   },
 
   user: {
@@ -30,9 +35,9 @@ const initialState = {
   posts: {
     loading: true,
     searching: false,
-    items: [
-      
-    ],
+    items: [],
+
+    comments: [],
   },
 };
 
@@ -43,7 +48,9 @@ export const promptSlice = createSlice({
     toggleSideBar: (state, action) => {
       state.components.sidebar = action.payload;
     },
-
+    toggleFloatAlert: (state, action) => {
+      state.components.floatAlert = { ...action.payload };
+    },
     toggleUserLoading: (state, action) => {
       state.user.loading = action.payload;
     },
@@ -65,8 +72,6 @@ export const promptSlice = createSlice({
         following: 0,
         followers: 0,
         img: "",
-        _following: [],
-        _followers: [],
         bio: "",
         pwd: "",
       };
@@ -81,7 +86,7 @@ export const promptSlice = createSlice({
         following: 0,
         followers: 0,
         img: "",
-      }
+      };
     },
 
     setUserData: (state, action) => {
@@ -100,17 +105,15 @@ export const promptSlice = createSlice({
       state.posts.items.push(action.payload);
     },
 
-    setPostComment: (state, action) => {
-      const data = action.payload
-      const findPost = state.posts.items.find(item => item._id == data.main_post_id)
-      findPost.comments = data;
-
+    setPostComments: (state, action) => {
+      state.posts.comments = action.payload;
     },
   },
 });
 
 export const {
   toggleSideBar,
+  toggleFloatAlert,
   toggleUserLoading,
   toggleProfileLoading,
   togglePostLoading,
@@ -120,6 +123,6 @@ export const {
   setPostItem,
   setPostItems,
   setProfile,
-  setPostComment,
+  setPostComments,
 } = promptSlice.actions;
 export const stateReducer = promptSlice.reducer;

@@ -1,4 +1,4 @@
-import { clearUserData } from "@/redux/features/state";
+import { clearProfileData, clearUserData } from "@/redux/features/state";
 import { recoverAPI, signinAPI, signupAPI } from "@/services/auth";
 import { get, save } from "@/utils/localstorage";
 import { useRouter } from "next/navigation";
@@ -117,7 +117,6 @@ export const useAuth = () => {
                         handleState("msgType", "success");
                         save("login-id", JSON.stringify(data._id));
                         const lastVisit = get("prev-url");
-                        // console.log(lastVisit)
                         if (
                             lastVisit != null
                         ) {
@@ -183,6 +182,7 @@ export const useAuth = () => {
         save("prev-url", window.location.href);
         router.push("/signin");
         dispatch(clearUserData());
+        dispatch(clearProfileData());
 
     };
 

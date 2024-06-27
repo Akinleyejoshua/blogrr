@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
     following: Array,
     followers: Array,
     bio: String,
+    number: String,
+    whatsapp: String,
 })
 
 module.exports = mongoose.models.user || mongoose.model("user", userSchema);;

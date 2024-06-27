@@ -30,7 +30,7 @@ export default function Page() {
     if (state?.items.length === 0) {
       getPosts();
     }
-  }, []);
+  }, [state.items]);
 
   return (
     <main className="home">
@@ -54,8 +54,8 @@ export default function Page() {
               onClick={() => router.push("/publish")}
             >
               <AiOutlineBook className="icon" />
-              <Space val={".3rem"} />
-              <p>Publish</p>
+              <Space val={".13rem"} />
+              <p>Create</p>
             </button>
           </div>
           <div className="main scroll-y">

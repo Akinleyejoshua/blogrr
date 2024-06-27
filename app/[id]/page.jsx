@@ -1,6 +1,7 @@
 "use client";
 
 import { Header } from "@/components/Header";
+import { Link } from "@/components/Link";
 import { Loader } from "@/components/Loader";
 import { ProfileBanner } from "@/components/ProfileBanner";
 import { SideBar } from "@/components/SideBar";
@@ -8,6 +9,10 @@ import { Space } from "@/components/Space";
 import { Tabs } from "@/components/Tabs";
 import { useProfile } from "@/hooks/useProfile";
 import { EditProfile } from "@/layouts/EditProfile";
+import { MyComments } from "@/layouts/MyComments";
+import { MyFollowers } from "@/layouts/MyFollowers";
+import { MyFollowing } from "@/layouts/MyFollowing";
+import { MyLikes } from "@/layouts/MyLikes";
 import { MyPosts } from "@/layouts/MyPosts";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -15,14 +20,13 @@ import { useSelector } from "react-redux";
 
 export default function Page() {
   const {
-    loading,
     state,
     getProfileData,
     handleForm,
     form,
     updateProfileData,
     followAction,
-    
+    profileNotFound,
   } = useProfile();
 
   const { id: user } = useParams();
@@ -39,11 +43,14 @@ export default function Page() {
         <SideBar />
         <div className="flex col fit">
           <Header title={"Profile"} />
-          <Space val={"1rem"} />
           <div className="main scroll-y">
-            {loading ? (
+            {state.loading ? (
               <Loader />
-            ) : (
+            ) : profileNotFound ? <>
+              <h1>404 Not Found</h1>
+              <Space val={".3rem"} />
+              <Link to={"/home"} text={"Home"} />
+            </> : (
               <>
                 <ProfileBanner data={state} user={loggedUser} follow={followAction} />
                 <Space val={"1rem"} />
@@ -53,12 +60,18 @@ export default function Page() {
                     {
                       name: "Posts",
                       id: 1,
-                      tab: <MyPosts data={state}/>,
+                      tab: <MyPosts data={state} />,
+                      open: true,
+                    },
+                    {
+                      name: "Comments & Replies",
+                      id: 2,
+                      tab: <MyComments data={state} />,
                       open: true,
                     },
                     {
                       name: "Edit Profile",
-                      id: 2,
+                      id: 3,
                       tab: (
                         <EditProfile
                           onSubmit={updateProfileData}
@@ -71,14 +84,20 @@ export default function Page() {
                     },
                     {
                       name: "Following",
-                      id: 3,
-                      tab: <></>,
+                      id: 4,
+                      tab: <MyFollowing data={state} />,
                       open: true,
                     },
                     {
-                      name: "followers",
-                      id: 4,
-                      tab: <></>,
+                      name: "Followers",
+                      id: 5,
+                      tab: <MyFollowers data={state} />,
+                      open: true,
+                    },
+                    {
+                      name: "Likes",
+                      id: 6,
+                      tab: <MyLikes data={state} />,
                       open: true,
                     },
                   ]}

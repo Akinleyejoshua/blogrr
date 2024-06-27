@@ -8,7 +8,7 @@ import {
     AiOutlineSave,
     AiOutlineUser,
 } from "react-icons/ai";
-import { FaAt, FaKey } from "react-icons/fa6";
+import { FaAt, FaKey, FaWhatsapp } from "react-icons/fa6";
 
 export const EditProfile = ({ data, onSubmit, handleState, form }) => {
     return (
@@ -30,7 +30,7 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                         ?
                         <AiOutlineFileImage className="icon" />
                         :
-                        <Image height={10} width={10} src={form?.img} alt=""/>
+                        <Image height={10} width={10} src={form?.img} alt="" />
 
                     }
 
@@ -52,17 +52,24 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
 
                 <Space val={"1rem"} />
                 <div className="grid">
-                    <div className="input-bar">
-                        <FaAt className="icon" />
+                    <div className="flex col">
+                        <div className="input-bar">
+                            <FaAt className="icon" />
+                            <Space val={".3rem"} />
+                            <input
+                                type="text"
+                                defaultValue={data?.email}
+                                placeholder="Email"
+                                onChange={(e) => handleState("email", e.target.value)}
+                            />
+                        </div>
                         <Space val={".3rem"} />
-                        <input
-                            type="text"
-                            defaultValue={data?.email}
-                            placeholder="Email"
-                            onChange={(e) => handleState("email", e.target.value)}
-                        />
+                        {form.emailExistErr &&
+                            <small className="c-red">This email is already in use!</small>
+                        }
                     </div>
-                    <div className="input-bar">
+
+                    <div className="input-bar h-max">
                         <AiOutlineUser className="icon" />
                         <Space val={".3rem"} />
                         <input
@@ -72,7 +79,7 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                             onChange={(e) => handleState("username", e.target.value)}
                         />
                     </div>
-                    <div className="input-bar">
+                    <div className="input-bar h-max">
                         <FaKey className="icon" />
                         <Space val={".3rem"} />
                         <input
@@ -83,6 +90,20 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
                         />
                     </div>
 
+                </div>
+                <Space val={"1rem"} />
+
+                <div className="grid">
+                    <div className="input-bar">
+                        <FaWhatsapp className="icon" />
+                        <Space val={".3rem"} />
+                        <input
+                            type="text"
+                            defaultValue={data?.whatsapp}
+                            placeholder="Whatsapp for chat"
+                            onChange={(e) => handleState("whatsapp", e.target.value)}
+                        />
+                    </div>
                 </div>
                 <Space val={"1rem"} />
 
