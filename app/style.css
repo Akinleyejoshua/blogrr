@@ -348,6 +348,10 @@ textarea {
   .banner .email {
     font-size: 12px;
   }
+
+  .top-nav .input-bar{
+    padding: .3rem;
+  }
 }
 
 @media screen and (max-width: 1123px) {
