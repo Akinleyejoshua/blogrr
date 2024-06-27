@@ -20,7 +20,8 @@ export const useAuth = () => {
 
     const isAuth = () => {
         const auth = get("login-id");
-        if (auth === undefined || auth === null || auth === "") {
+        console.log(auth)
+        if (auth == null || auth == "") {
             return false;
         } else {
             return true;
@@ -168,7 +169,7 @@ export const useAuth = () => {
     };
 
     const logout = () => {
-        save("login-data", "");
+        save("login-id", "");
         save("prev-url", window.location.href);
         router.push("/signin");
         dispatch(clearUserData());
