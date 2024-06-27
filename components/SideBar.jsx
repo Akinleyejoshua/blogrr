@@ -15,12 +15,11 @@ import { HLine } from "./HLine"
 export const SideBar = () => {
     const { sidebar, closeSideBar } = useComponents();
     const { loading, username, email, followers, following, getUserData, img } = useUser();
-    const { authenticate } = useAuth();
+    const { authenticate, logout } = useAuth();
 
     const router = useRouter();
-    const { logout } = useAuth()
-
     useEffect(() => {
+        authenticate();
         const userTokenId = JSON.parse(get("login-id"));
         if (email == "") {
             getUserData(userTokenId);
