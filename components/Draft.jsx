@@ -10,6 +10,17 @@ export const Draft = ({ val, onChange }) => {
     const [onPreview, setOnPreview] = useState(false);
     const [content, setContent] = useState("");
 
+    useEffect(() => {
+        
+        if (val !== undefined){
+            setTyping(true);
+            if (contentRef.current.innerHTML == ""){
+                contentRef.current.innerHTML += val
+
+            }
+        }
+    }, [val])
+
     const handleFormatting = (type) => {
 
         setTyping(true);
@@ -35,7 +46,8 @@ export const Draft = ({ val, onChange }) => {
 
                 break;
             case "tag":
-                contentRef.current.innerHTML += "<div class='flex row items-center'><p class='tag'>``</p><div>``</div></div>";
+                contentRef.current.innerHTML += "<i class='tag'>``</i>  ``";
+                // contentRef.current.innerHTML += "<div class='flex row items-center'><p class='tag'>``</p><div>``</div></div>";
                 break;
             
         }
@@ -128,7 +140,7 @@ export const Draft = ({ val, onChange }) => {
                     className="text"
                     onInput={(e) => handleText(e.target.innerHTML)}
                     ref={contentRef}
-                    dangerouslySetInnerHTML={{ __html: val }}
+                    defaultValue={val}
                 ></div>
                 {!typing && (
                     <p className="placeholder dim">What do you want to publish?</p>
