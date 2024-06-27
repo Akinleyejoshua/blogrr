@@ -484,11 +484,11 @@ textarea {
 
 .dropdown-menu .panel.open {
   display: flex;
-  padding: 0.3rem;
+  padding: 0.3rem 0;
 }
 
 .dropdown-menu .panel button {
-  padding: 0.6rem 3rem;
+  padding: 0.3rem 3rem;
   background-color: var(--bg-black);
   margin-right: 0 !important;
 }
