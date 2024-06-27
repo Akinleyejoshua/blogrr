@@ -117,16 +117,15 @@ export const useAuth = () => {
                         handleState("msgType", "success");
                         save("login-id", JSON.stringify(data._id));
                         const lastVisit = get("prev-url");
-            if (
-                lastVisit !== "" ||
-                lastVisit !== undefined ||
-                lastVisit !== null
-            ) {
-                router.replace(lastVisit);
-            } else {
-                router.push("/home");
-            }
-            return true;
+                        if (
+                            lastVisit !== "" ||
+                            lastVisit !== undefined ||
+                            lastVisit !== null
+                        ) {
+                            router.replace(lastVisit);
+                        } else {
+                            router.push("/home");
+                        };
                     } else if (data.msg == "not-found") {
                         handleState("msg", "Account does not exist!, Sign up!");
                         handleState("msgType", "error");
