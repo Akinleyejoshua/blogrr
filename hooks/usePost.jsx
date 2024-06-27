@@ -53,6 +53,7 @@ export const usePost = () => {
     };
 
     const getPosts = () => {
+        setLoading(true)
         dispatch(togglePostLoading(true))
         getPostsAPI({}).then(res => {
             const data = res.data;
@@ -63,6 +64,8 @@ export const usePost = () => {
             }
 
             dispatch(togglePostLoading(false))
+            setLoading(false)
+
 
         })
     };
