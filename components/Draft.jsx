@@ -89,7 +89,7 @@ export const Draft = ({ val, onChange }) => {
 
     return (
         <div className="draft">
-            <div className="tools flex">
+            <div className="tools">
                 <div
                     className="format-btn pointer c-white"
                     onClick={() => handleFormatting("h")}
@@ -97,7 +97,7 @@ export const Draft = ({ val, onChange }) => {
                     <FaHeading />
                 </div>
 
-                <Space val={".3rem"} />
+                {/* <Space val={".3rem"} /> */}
 
                 <div
                     className="format-btn pointer"
@@ -105,7 +105,7 @@ export const Draft = ({ val, onChange }) => {
                 >
                     <FaParagraph />
                 </div>
-                <Space val={".3rem"} />
+                {/* <Space val={".3rem"} /> */}
 
                 <div
                     className="format-btn pointer"
@@ -113,7 +113,7 @@ export const Draft = ({ val, onChange }) => {
                 >
                     <FaItalic />
                 </div>
-                <Space val={".3rem"} />
+                {/* <Space val={".3rem"} /> */}
 
                 <div
                     className="format-btn pointer"
@@ -121,7 +121,7 @@ export const Draft = ({ val, onChange }) => {
                 >
                     <FaList />
                 </div>
-                <Space val={".3rem"} />
+                {/* <Space val={".3rem"} /> */}
 
                 <div
                     className="format-btn pointer"
@@ -129,7 +129,7 @@ export const Draft = ({ val, onChange }) => {
                 >
                     <FaBold />
                 </div>
-                <Space val={".3rem"} />
+                {/* <Space val={".3rem"} /> */}
 
                 <div
                     className="format-btn pointer"
@@ -137,7 +137,7 @@ export const Draft = ({ val, onChange }) => {
                 >
                     <FaUnderline />
                 </div>
-                <Space val={".3rem"} />
+                {/* <Space val={".3rem"} /> */}
 
                 <div
                     className="format-btn pointer"
@@ -145,7 +145,7 @@ export const Draft = ({ val, onChange }) => {
                 >
                     ``
                 </div>
-                <Space val={".3rem"} />
+                {/* <Space val={".3rem"} /> */}
 
                 <div
                     className="format-btn pointer"
