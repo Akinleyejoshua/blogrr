@@ -32,7 +32,7 @@ export const MyComments = ({ data }) => {
     }
 
     return <div className="my-post">
-        <h1>{filter?.length} POST{filter?.length > 1 ? "Comments & Replies": "Comment & Reply"}</h1>
+        <h1>{filter?.length} {filter?.length > 1 ? "Comments & Replies": "Comment & Reply"}</h1>
 
         <Space val={"1rem"} />
 
