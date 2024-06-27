@@ -117,7 +117,7 @@ export const useAuth = () => {
                         handleState("msgType", "success");
                         save("login-id", JSON.stringify(data._id));
                         const lastVisit = get("prev-url");
-                        console.log(lastVisit)
+                        // console.log(lastVisit)
                         if (
                             lastVisit != null
                         ) {
