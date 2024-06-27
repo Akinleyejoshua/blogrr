@@ -34,6 +34,7 @@ export default function Page() {
     commentState,
     setCommentState,
     commentOnPost,
+    sharePost,
   } = usePost();
   const item = post;
   const userState = useSelector((state) => state.state.user);
