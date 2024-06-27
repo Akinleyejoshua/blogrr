@@ -75,6 +75,15 @@ export const promptSlice = createSlice({
         bio: "",
         pwd: "",
       };
+
+      state.components = {
+        sidebar: false,
+        floatAlert: {
+          content: "",
+          open: false,
+          type: "",
+        },
+      };
     },
 
     clearUserData: (state, action) => {
