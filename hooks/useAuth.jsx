@@ -33,16 +33,6 @@ export const useAuth = () => {
             router.push("/signin");
             return false
         } else {
-            const lastVisit = get("prev-url");
-            if (
-                lastVisit !== "" ||
-                lastVisit !== undefined ||
-                lastVisit !== null
-            ) {
-                router.replace(lastVisit);
-            } else {
-                router.push("/home");
-            }
             return true;
         }
     };
