@@ -53,7 +53,7 @@ export default function Page() {
                             <Space val={".4rem"} />
                             <Toast text={state.msg} type={state.msgType} />
                             <Space val={".6rem"} />
-                            {state.title !== "" && state.content !== "" &&
+                            {state.content !== "" &&
                                 <Button
                                     icon={<AiOutlineSave className="icon" />}
                                     text={"Publsih"}
