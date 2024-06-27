@@ -122,10 +122,9 @@ export const useAuth = () => {
                             lastVisit != "" ||
                             lastVisit != undefined ||
                             lastVisit != null ||
-                            lastVisit != "null"
                             
                         ) {
-                            router.replace(lastVisit);
+                            router.replace(lastVisit || "/home");
                         } else {
                             router.push("/home");
                         };
