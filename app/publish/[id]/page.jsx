@@ -18,7 +18,7 @@ export default function Page() {
     const { id } = useParams();
     const { is_comment } = useURL();
 
-    const { state, handleState, publish, getPost } = usePublish();
+    const { state, handleState, updatePublished, getPost } = usePublish();
     const userState = useSelector(state => state.state.user);
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function Page() {
                         <Loader /> :
                         <form onSubmit={e => {
                             e.preventDefault();
-                            publish();
+                            updatePublished(id, is_comment);
                         }}>
                             <small>Your title/Heading</small>
                             <Space val={".3rem"} />

@@ -25,7 +25,7 @@ export default function Page() {
                         <Loader /> :
                         <form onSubmit={e => {
                             e.preventDefault();
-                            publish();
+                            publish(false);
                         }}>
                             <small>Your title/Heading</small>
                             <Space val={".3rem"} />

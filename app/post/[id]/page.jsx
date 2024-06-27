@@ -13,7 +13,7 @@ import { Toast } from "@/components/Toast";
 import { usePost } from "@/hooks/usePost";
 import { useURL } from "@/hooks/useURL";
 import { formatNumber } from "@/utils/helpers";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSend, AiOutlineShareAlt } from "react-icons/ai";
 import { BiDotsVerticalRounded } from "react-icons/bi";
@@ -23,6 +23,8 @@ import { useSelector } from "react-redux";
 
 export default function Page() {
   const { id } = useParams();
+  const router = useRouter();
+  
   const {
     loading,
     post,
