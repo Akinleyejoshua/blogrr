@@ -20,8 +20,7 @@ export const useAuth = () => {
 
     const isAuth = () => {
         const auth = get("login-id");
-        console.log(auth)
-        if (auth == null || auth == "") {
+        if (auth == null || auth == "" || auth == undefined) {
             return false;
         } else {
             return true;
@@ -106,7 +105,7 @@ export const useAuth = () => {
                     if (data.msg == "found") {
                         handleState("msg", "Access granted!");
                         handleState("msgType", "success");
-                        save("login-id", JSON.stringify(data._id));
+                        save("login-id", data._id);
                         const lastVisit = get("prev-url");
                         if (
                             lastVisit != null
@@ -169,7 +168,7 @@ export const useAuth = () => {
     };
 
     const logout = () => {
-        save("login-id", "");
+        save("login-id", null);
         save("prev-url", window.location.href);
         router.push("/signin");
         dispatch(clearUserData());
@@ -190,5 +189,6 @@ export const useAuth = () => {
         recover,
         authenticate,
         logout,
+        useAuth,
     };
 };
