@@ -1,6 +1,6 @@
 import { setPostItem } from "@/redux/features/state";
 import { getPostAPI } from "@/services/post";
-import { publishPostAPI } from "@/services/publish";
+import { publishPostAPI, updatePublishedPostAPI } from "@/services/publish";
 import { useRouter } from "next/navigation";
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -59,7 +59,7 @@ export const usePublish = () => {
         });
     };
 
-    const publish = () => {
+    const publish = (is_comment) => {
         if (state.title == "" || state.content == "") {
             handleState("msg", "All fields are required")
             handleState("msgType", "error")
@@ -70,7 +70,7 @@ export const usePublish = () => {
                 _id: userState._id,
                 title: state.title,
                 content: state.content,
-                is_comment: false,
+                is_comment: is_comment,
                 main_post_id: "",
             }).then(res => {
                 const data = res.data;
@@ -78,7 +78,35 @@ export const usePublish = () => {
                     handleState("msg", "Posted")
                     handleState("msgType", "success");
                     handleState("loading", false)
-                    router.push(`/post/${data._id}?is_comment=false`);
+                    router.push(`/post/${data._id}?is_comment=${is_comment}`);
+                }
+
+            })
+        }
+
+    }
+
+    const updatePublished = (id, is_comment) => {
+        if (state.title == "" || state.content == "") {
+            handleState("msg", "All fields are required")
+            handleState("msgType", "error")
+        } else {
+            handleState("loading", true)
+
+            updatePublishedPostAPI({
+                id: id,
+                _id: userState._id,
+                title: state.title,
+                content: state.content,
+                is_comment: is_comment,
+                main_post_id: "",
+            }).then(res => {
+                const data = res.data;
+                if (data.posted) {
+                    handleState("msg", "Posted")
+                    handleState("msgType", "success");
+                    handleState("loading", false)
+                    router.push(`/post/${data._id}?is_comment=${is_comment}`);
                 }
 
             })
@@ -87,5 +115,5 @@ export const usePublish = () => {
     }
 
 
-    return { state, handleState, publish, addToPost, getPost }
+    return { state, handleState, publish, addToPost, getPost, updatePublished }
 }
