@@ -121,7 +121,8 @@ export const useAuth = () => {
                         if (
                             lastVisit != "" ||
                             lastVisit != undefined ||
-                            lastVisit != null
+                            lastVisit != null ||
+                            lastVisit != "null"
                             
                         ) {
                             router.replace(lastVisit);
