@@ -48,6 +48,7 @@ export default function Page() {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
+            <Space val={".3rem"} />
 
             <button
               className="flex items-center b-none c-white btn"
