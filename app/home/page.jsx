@@ -60,7 +60,7 @@ export default function Page() {
             </button>
           </div>
           <div className="main scroll-y">
-            {state?.loading ? (
+            {loading ? state.loading ? <Loader /> : (
               userState?.loading ? (
                 <Loader />
               ) : (
