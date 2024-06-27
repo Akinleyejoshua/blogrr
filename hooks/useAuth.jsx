@@ -119,9 +119,10 @@ export const useAuth = () => {
                         const lastVisit = get("prev-url");
                         console.log(lastVisit)
                         if (
-                            lastVisit !== "" ||
-                            lastVisit !== undefined ||
-                            lastVisit !== null
+                            lastVisit != "" ||
+                            lastVisit != undefined ||
+                            lastVisit != null
+                            
                         ) {
                             router.replace(lastVisit);
                         } else {
