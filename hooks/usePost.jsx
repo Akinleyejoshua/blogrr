@@ -2,13 +2,15 @@ import { setPostComments, setPostItem, setPostItems, togglePostLoading } from "@
 import { deletePostAPI, getCommentsAPI, getPostAPI, getPostsAPI, likeActionAPI } from "@/services/post";
 import { publishPostAPI } from "@/services/publish";
 import { formatNumber, } from "@/utils/helpers";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useComponents } from "./useComponents";
+import { useRouter } from "next/navigation";
 
 export const usePost = () => {
     const state = useSelector((state) => state.state.posts);
     const userState = useSelector(state => state.state.user);
+    const router = useRouter();
     const { openFloatAlert } = useComponents();
 
     const dispatch = useDispatch();
@@ -190,7 +192,22 @@ export const usePost = () => {
 
     }
 
+    const selectAt = () => {
+        if (!loading && !notFound) {
+            document.onclick = (e) => {
+                if (e.target.className == "at"){
+                    e.target.onclick = router.push(`/${e?.target?.textContent}`)
+                }
+            }
+        }
+    }
+
+    useEffect(() => {
+        selectAt();
+    }, [post])
+
     return {
+        selectAt,
         commentState,
         setCommentState,
         state,
