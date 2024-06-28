@@ -12,7 +12,7 @@ import { Space } from "@/components/Space";
 import { Toast } from "@/components/Toast";
 import { usePost } from "@/hooks/usePost";
 import { useURL } from "@/hooks/useURL";
-import { formatNumber } from "@/utils/helpers";
+import { atlify, formatNumber, urlify } from "@/utils/helpers";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSend, AiOutlineShareAlt } from "react-icons/ai";
@@ -24,7 +24,7 @@ import { useSelector } from "react-redux";
 export default function Page() {
   const { id } = useParams();
   const router = useRouter();
-  
+
   const {
     loading,
     post,
@@ -35,6 +35,7 @@ export default function Page() {
     setCommentState,
     commentOnPost,
     sharePost,
+    deletePost,
   } = usePost();
   const item = post;
   const userState = useSelector((state) => state.state.user);
@@ -45,6 +46,8 @@ export default function Page() {
       getPost(id, is_comment);
     }
   }, [id, is_comment]);
+
+
 
   return (
     <main className="home">
@@ -82,12 +85,12 @@ export default function Page() {
 
                 {item?.title !== "" ? <h1>{item?.title}</h1> : <h1>Comment</h1>}
                 <Space val={".3rem"} />
-                <small>
+                <small className="dim">
                   Posted <RelativeTimeBar timestamp={item?.timestamp} /> ago
                 </small>
                 <Space val={".3rem"} />
 
-                <p className="dim" dangerouslySetInnerHTML={{ __html: item?.content }}></p>
+                <div className="" dangerouslySetInnerHTML={{ __html: atlify(urlify(item?.content)) }}></div>
 
                 <Space val={"1rem"} />
                 <div className="flex row">
@@ -120,7 +123,9 @@ export default function Page() {
                     </button>
                     <Space val={"1rem"} />
 
-                    <button className="btn flex items-center c-white b-none">
+                    <button
+                      onClick={() => sharePost(`${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`)}
+                      className="btn flex items-center c-white b-none">
                       <CiShare1 className="icon" />
                     </button>
                     <Space val={"1rem"} />
@@ -157,6 +162,19 @@ export default function Page() {
                   </div>
                 </div>
                 <Space val={"1rem"} />
+                <h3>Comments</h3>
+                <Space val={".3rem"} />
+                {item?.comments?.length === 0 ? (
+                  <>
+                    <h1>No comments</h1>
+                    <small className="dim">
+                      Be the first to share your thoughts!
+                    </small>
+                  </>
+                ) : (
+                  <Post data={item?.comments} like={like} is_comment={true} />
+                )}
+                <Space val={"1rem"} />
 
                 <div className="input-bar items-center">
                   <CiChat1 className="icon" />
@@ -187,25 +205,11 @@ export default function Page() {
                 <Space val={".3rem"} />
                 <Toast text={commentState.msg} type={commentState.msgType} />
                 <Space val={".3rem"} />
-                <Space val={"1rem"} />
-                <h3>Comments</h3>
-                <Space val={"1rem"} />
-                {item?.comments?.length === 0 ? (
-                  <>
-                    <h1>No comments</h1>
-                    <small className="dim">
-                      Be the first to share your thoughts!
-                    </small>
-                  </>
-                ) : (
-                  <Post data={item?.comments} like={like} is_comment={true} />
-                )}
-                {/* <CommentBar data={item?.comments} /> */}
               </div>
             )}
           </div>
         </div>
       </div>
-    </main>
+    </main >
   );
 }
