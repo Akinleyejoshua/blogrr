@@ -90,7 +90,7 @@ export default function Page() {
                 </small>
                 <Space val={".3rem"} />
 
-                <div className="" dangerouslySetInnerHTML={{ __html: atlify(urlify(item?.content)) }}></div>
+                <div className="w-full" dangerouslySetInnerHTML={{ __html: atlify(urlify(item?.content)) }}></div>
 
                 <Space val={"1rem"} />
                 <div className="flex row">
