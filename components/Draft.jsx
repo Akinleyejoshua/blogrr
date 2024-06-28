@@ -89,7 +89,7 @@ export const Draft = ({ val, onChange }) => {
             case "u":
                 let u = document.createElement("u");
                 u.innerHTML = "``";
-                appendElementAtCursor(element);
+                appendElementAtCursor(u);
 
                 break;
             case "cont":
