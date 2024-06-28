@@ -2,13 +2,17 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { Avater } from "./Avater";
 import { Space } from "./Space";
 import { useSelector } from "react-redux";
-import { formatNumber, shortenText } from "@/utils/helpers";
+import { atlify, formatNumber, shortenText, urlify } from "@/utils/helpers";
 import { CiChat1, CiShare1 } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { Link } from "./Link";
 import { RelativeTimeBar } from "./RelativeTimeBar";
 import { DropdownMenu } from "./DropdownMenu";
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineShareAlt } from "react-icons/ai";
+import {
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlineShareAlt,
+} from "react-icons/ai";
 import { usePost } from "@/hooks/usePost";
 
 export const Post = ({ data, like, is_comment }) => {
@@ -20,7 +24,10 @@ export const Post = ({ data, like, is_comment }) => {
     return (
       <>
         <h1>Post Not Available</h1>
-        <Link to={"/publish"} text={"Be the first to publish something unique on Blogrr"} />
+        <Link
+          to={"/publish"}
+          text={"Be the first to publish something unique on Blogrr"}
+        />
       </>
     );
   }
@@ -58,47 +65,54 @@ export const Post = ({ data, like, is_comment }) => {
                 </div>
 
                 <DropdownMenu
-                  icon={
-                    <BiDotsVerticalRounded className="icon" />
-                  }
-
+                  icon={<BiDotsVerticalRounded className="icon" />}
                   menu={[
                     {
                       icon: <AiOutlineDelete className="icon" />,
                       text: "Delete",
                       color: "var(--red)",
                       open: item.user_id == userState._id,
-                      onClick: () => deletePost(item?._id)
+                      onClick: () => deletePost(item?._id),
                     },
                     {
                       icon: <AiOutlineEdit className="icon" />,
                       text: "Edit",
                       color: "var(--white)",
                       open: item.user_id == userState._id,
-                      onClick: () => router.push(`/publish/${item?._id}?is_comment=${is_comment}`)
+                      onClick: () =>
+                        router.push(
+                          `/publish/${item?._id}?is_comment=${is_comment}`
+                        ),
                     },
                     {
                       icon: <AiOutlineShareAlt className="icon" />,
                       text: "Share",
                       color: "var(--blue)",
                       open: true,
-                      onClick: () => sharePost(`${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`),
+                      onClick: () =>
+                        sharePost(
+                          `${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`
+                        ),
                     },
                   ]}
                 />
-
               </div>
               <Space val={".0rem"} />
               <div
                 className="flex col content pointer btn"
-                onClick={() => router.push(`/post/${item?._id}?is_comment=${is_comment}`)}
+                onClick={() =>
+                  router.push(`/post/${item?._id}?is_comment=${is_comment}`)
+                }
               >
                 {item?.title !== "" && (
                   <h3 className="title w-full">{item?.title}</h3>
                 )}
-                <p className={`tiny title ${!is_comment && "dim"}`} dangerouslySetInnerHTML={{ __html: shortenText(item?.content, 333) }}>
-
-                </p>
+                <div
+                  className={`tiny ${!is_comment && "dim"}`}
+                  dangerouslySetInnerHTML={{
+                    __html: atlify(urlify(shortenText(item?.content, 333))),
+                  }}
+                ></div>
               </div>
               <Space val={".3rem"} />
               <div className="actions fit flex row space-between">
@@ -122,7 +136,9 @@ export const Post = ({ data, like, is_comment }) => {
                   </button>
                 )}
                 <button
-                  onClick={() => router.push(`/post/${item?._id}?is_comment=${is_comment}`)}
+                  onClick={() =>
+                    router.push(`/post/${item?._id}?is_comment=${is_comment}`)
+                  }
                   className="btn flex items-center c-white b-none"
                 >
                   <CiChat1 className="icon" />
@@ -130,7 +146,14 @@ export const Post = ({ data, like, is_comment }) => {
                   <p>{item?.comments?.length}</p>
                 </button>
 
-                <button onClick={() => sharePost(`${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`)} className="btn flex items-center c-white b-none">
+                <button
+                  onClick={() =>
+                    sharePost(
+                      `${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`
+                    )
+                  }
+                  className="btn flex items-center c-white b-none"
+                >
                   <CiShare1 className="icon" />
                 </button>
               </div>
