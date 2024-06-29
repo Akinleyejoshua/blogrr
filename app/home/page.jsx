@@ -30,7 +30,7 @@ export default function Page() {
     if (state?.items.length === 0) {
       getPosts();
     }
-  }, [state.items]);
+  }, []);
 
   return (
     <main className="home">
@@ -48,7 +48,7 @@ export default function Page() {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
-              <Space val={".3rem"} />
+            <Space val={".3rem"} />
 
             <button
               className="flex items-center b-none c-white btn"
@@ -60,19 +60,11 @@ export default function Page() {
             </button>
           </div>
           <div className="main scroll-y">
-            {state?.loading ? (
-              userState?.loading ? (
-                <Loader />
-              ) : (
-                <Loader />
-              )
-            ) : (
-              <Post
-                data={searching ? searchItems : state.items}
-                like={like}
-                is_comment={false}
-              />
-            )}
+            {(!userState.loading && !loading) ? <Post
+              data={searching ? searchItems : state.items}
+              like={like}
+              is_comment={false}
+            /> : <Loader />}
           </div>
         </div>
       </div>
