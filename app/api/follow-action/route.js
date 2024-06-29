@@ -24,7 +24,7 @@ export const POST = async (req) => {
         });
   
         await User.findByIdAndUpdate(id, {
-          followers: [...followingUser.following, user_id],
+          followers: [...followingUser.followers, user_id],
         });
       }
   
