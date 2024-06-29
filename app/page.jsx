@@ -19,8 +19,8 @@ export default function Page() {
         <div className="flex col fit justify-center">
           <NavBrand size={"6rem"} />
           <Space val={"1rem"} />
-          <h3 className="bolder">Think Creative, Join the creative </h3>
-          <h3 className="">social network were people change the world</h3>
+          <h3 className="bolder">Think Creative.</h3>
+          <h3 className="">Join the creative social network where people change the world</h3>
           <small className="dim">Create, Publish, Edit and Share Content</small>
           <Space val={"1rem"} />
         </div>
