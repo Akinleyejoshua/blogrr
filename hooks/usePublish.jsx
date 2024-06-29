@@ -87,7 +87,7 @@ export const usePublish = () => {
     }
 
     const updatePublished = (id, is_comment) => {
-        if (state.title == "" || state.content == "") {
+        if (state.content == "") {
             handleState("msg", "All fields are required")
             handleState("msgType", "error")
         } else {
@@ -99,7 +99,6 @@ export const usePublish = () => {
                 title: state.title,
                 content: state.content,
                 is_comment: is_comment,
-                main_post_id: "",
             }).then(res => {
                 const data = res.data;
                 if (data.posted) {
