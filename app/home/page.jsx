@@ -60,7 +60,7 @@ export default function Page() {
             </button>
           </div>
           <div className="main scroll-y">
-            {(!userState.loading && !loading) ? <Post
+            {(!loading) ? <Post
               data={searching ? searchItems : state.items}
               like={like}
               is_comment={false}
