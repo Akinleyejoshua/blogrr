@@ -139,7 +139,7 @@ export const Draft = ({ val, onChange }) => {
         setContent(formatedText);
         onChange(formatedText);
 
-        if (text.length >= 0) {
+        if (text.length > 0) {
             setTyping(true);
         } else {
             setTyping(false);
