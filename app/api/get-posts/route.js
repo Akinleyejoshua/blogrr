@@ -18,7 +18,7 @@ export const POST = async (req) => {
       let user = findUsers.find((user) => user._id == item.user_id);
       const comments = findComments.filter(
         (comment) =>
-          comment.main_post_id == item._id && comment.user_id == user._id
+          (comment.main_post_id == item._id)
       );
 
       if (comments.length > 0) {
