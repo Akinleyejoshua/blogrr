@@ -27,9 +27,9 @@ export default function Page() {
   const userState = useSelector((state) => state.state.user);
 
   useEffect(() => {
-    if (state?.items.length === 0) {
-      getPosts();
-    }
+   
+    getPosts();
+
   }, []);
 
   return (
@@ -60,7 +60,7 @@ export default function Page() {
             </button>
           </div>
           <div className="main scroll-y">
-            {(!loading) ? <Post
+            {(!loading) ? !userState.loading && <Post
               data={searching ? searchItems : state.items}
               like={like}
               is_comment={false}
