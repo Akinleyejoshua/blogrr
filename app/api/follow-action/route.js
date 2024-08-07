@@ -13,27 +13,28 @@ export const POST = async (req) => {
   
     if (type == "follow") {
       const alreadyFollowed = followedUser.following.find(
-        (item) => item == user_id
+        (item) => (item == id)
       );
 
-      console.log(alreadyFollowed);
+      // console.log(alreadyFollowed);
     
       if (alreadyFollowed == undefined) {
+        
         await User.findByIdAndUpdate(user_id, {
-          following: [...followedUser.following, id],
+          following: [...followingUser.following, id],
         });
   
         await User.findByIdAndUpdate(id, {
-          followers: [...followingUser.followers, user_id],
+          followers: [...followedUser.followers, user_id],
         });
       }
   
       return new NextResponse(JSON.stringify({ followed: true }));
     } else if (type == "un-follow") {
-      const removeFollowing = followedUser.following.filter((item) => item != id);
+      const removeFollowing = followedUser.following.filter((item) => item != user_id);
   
       const removeFollowers = followingUser.followers.filter(
-        (item) => item !== user_id
+        (item) => item !== id
       );
   
       await User.findByIdAndUpdate(user_id, {
@@ -43,6 +44,7 @@ export const POST = async (req) => {
       await User.findByIdAndUpdate(id, {
         followers: [...removeFollowers],
       });
+  
   
       return new NextResponse(JSON.stringify({ un_followed: true }));
     }
