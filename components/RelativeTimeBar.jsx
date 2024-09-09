@@ -24,13 +24,10 @@ export const RelativeTimeBar = ({timestamp}) => {
       } else if (hours < 24) {
         unit = `${hours}h`;
         setTime(`${unit}`);
-      } else if (days < 30) {
+      } else {
         unit = `${days}d`;
         setTime(`${unit}`);
-      } else {
-        unit = new Date(timestamp).toLocaleString();
-        setTime(`${unit}`);
-      }
+      } 
   
     }    
     // Update state with relative time
