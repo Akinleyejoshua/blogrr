@@ -1,7 +1,6 @@
 import db from "../db";
 import { NextResponse } from "next/server";
 import User from "../models/User";
-import Notification from "../models/Notification";
 
 db();
 
