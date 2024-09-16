@@ -35,6 +35,6 @@ export const MyFollowing = ({ data }) => {
     return <div className="my-post">
         <h1>{filter?.length} Following</h1>
         <Space val={"1rem"} />
-        <MiniUserBar data={filter} />
+        <MiniUserBar data={filter} following={true}/>
     </div>
 }

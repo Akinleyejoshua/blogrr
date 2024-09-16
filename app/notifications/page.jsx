@@ -1,16 +1,31 @@
 "use client"
 
 import { Header } from "@/components/Header"
+import { NotificationBar } from "@/components/NotificationBar";
 import { SideBar } from "@/components/SideBar"
+import { Space } from "@/components/Space";
+import { useUser } from "@/hooks/useUser"
+import { get } from "@/utils/localstorage";
+import { useEffect } from "react";
 
 export default function Page(){
-    return <main className="home">
+    const {getUserNotification, notifications} = useUser();
+
+    useEffect(() => {
+        const userId = get("login-id")
+        getUserNotification(userId)
+    }, [])
+
+    return <main className="home notifications">
         <div className="flex row fit">
             <SideBar/>
             <div className="flex col fit">
                 <Header title={"Notifications"}/>
                 <div className="main scroll-y">
-                   
+                    <Space val={".3rem"}/>
+                    <div className="notification-section">
+                    <NotificationBar data={notifications}/>
+                    </div>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import {
     FaHeading,
     FaImage,
     FaItalic,
+    FaLink,
     FaList,
     FaParagraph,
     FaUnderline,
@@ -16,6 +17,7 @@ export const Draft = ({ val, onChange }) => {
     const contentRef = useRef(null);
     const previewRef = useRef(null);
     const toolbarRef = useRef(null);
+    const cursorRef = useState(null);
     const [typing, setTyping] = useState(false);
     const [onPreview, setOnPreview] = useState(false);
     const [content, setContent] = useState("");
@@ -114,7 +116,7 @@ export const Draft = ({ val, onChange }) => {
         img.src = blob;
         let space = document.createElement("br");
         appendElementAtCursor(img);
-        appendElementAtCursor(space);
+        appendElementAtCursor(space);        
     }
 
     function saveCursorPosition(contentEditableElement) {
@@ -126,6 +128,7 @@ export const Draft = ({ val, onChange }) => {
             }
         }
     }
+
 
 
     const handleText = (e) => {

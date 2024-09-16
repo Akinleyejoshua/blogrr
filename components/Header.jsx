@@ -5,15 +5,17 @@ import { useComponents } from "@/hooks/useComponents";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { FloatAlert } from "./FloatAlert";
+import { useSelector } from "react-redux";
 
 export const Header = ({ title }) => {
     const { openSideBar, floatAlert } = useComponents();
     const { logout } = useAuth();
     const router = useRouter();
+    const user = useSelector(state => state.state.notifications);
 
     return <header className="">
         <nav className="flex row space-between items-center">
-            <AiOutlineArrowLeft className="icon pointer" onClick={() => router.back()}/>
+            <AiOutlineArrowLeft className="icon pointer" onClick={() => router.back()} />
             <div className="title">{title}</div>
 
             <div className="nav-links flex">
@@ -21,8 +23,11 @@ export const Header = ({ title }) => {
                     <BiDotsHorizontalRounded className="icon" />
                 </button>
 
-                <button className="btn flex items-center c-white" onClick={() => router.push("/notifications")}>
+                <button className="btn flex items-center c-white bell" onClick={() => router.push("/notifications")}>
                     <GoBell className="icon" />
+                    {user.length > 0 &&
+                        <div className="bell-tag">{user.length}</div>
+                    }
                 </button>
 
                 <button className="btn flex items-center c-red" onClick={logout}>
@@ -31,8 +36,8 @@ export const Header = ({ title }) => {
             </div>
         </nav>
 
-        {floatAlert.content != "" && 
-            <FloatAlert content={floatAlert?.content} type={floatAlert.type}/>
+        {floatAlert.content != "" &&
+            <FloatAlert content={floatAlert?.content} type={floatAlert.type} />
         }
     </header>
 }

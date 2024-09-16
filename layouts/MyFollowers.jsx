@@ -35,6 +35,6 @@ export const MyFollowers = ({ data }) => {
     return <div className="my-post">
         <h1>{filter?.length} Follower{filter?.length > 1 && "s"}</h1>
         <Space val={"1rem"} />
-        <MiniUserBar data={filter} />
+        <MiniUserBar data={filter} following={false}/>
     </div>
 }

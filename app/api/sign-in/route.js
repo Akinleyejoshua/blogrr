@@ -1,6 +1,7 @@
 import db from "../db";
 import { NextResponse } from "next/server";
 import User from "../models/User";
+import Notification from "../models/Notification";
 
 db();
 
@@ -11,9 +12,17 @@ export const POST = async (req) => {
 
   if (userExist) {
     if (userExist.pwd === pwd) {
-      return new NextResponse(
-        JSON.stringify({msg: "found", ...userExist })
-      );
+      const newNotification = new Notification({
+        timestamp: Date.now(),
+        seen: false,
+        msg: "This account logged in",
+        type: "signin",
+        user_id: userExist._id,
+        to: userExist._id,
+      });
+
+      newNotification.save();
+      return new NextResponse(JSON.stringify({ msg: "found", ...userExist }));
     } else {
       return new NextResponse(JSON.stringify({ msg: "wrong-data" }));
     }

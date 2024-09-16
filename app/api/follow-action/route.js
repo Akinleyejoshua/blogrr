@@ -1,6 +1,7 @@
 import db from "../db";
 import { NextResponse } from "next/server";
 import User from "../models/User";
+import Notification from "../models/Notification";
 
 db();
 
@@ -28,6 +29,19 @@ export const POST = async (req) => {
         await User.findByIdAndUpdate(id, {
           followers: [...followedUser.followers, user_id],
         });
+
+        const newNotification = new Notification({
+          timestamp: Date.now(),
+          seen: false,
+          msg: `${followingUser.username} followed you`,
+          type: "follow",
+          user_id: followingUser._id,
+          content: id,
+          path: `/@${followingUser.username}`,
+          to: id,
+        });
+
+        newNotification.save();
       }
 
       return new NextResponse(JSON.stringify({ followed: true }));
@@ -47,6 +61,8 @@ export const POST = async (req) => {
       await User.findByIdAndUpdate(id, {
         followers: [...removeFollowers],
       });
+
+      await Notification.deleteOne({ content: id });
 
       return new NextResponse(JSON.stringify({ un_followed: true }));
     }

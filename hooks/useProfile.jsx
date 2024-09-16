@@ -80,18 +80,9 @@ export const useProfile = () => {
         })
     }
 
-    const followAction = (id, userId, e) => {
-        const type = e.target.id;
+    const followAction = (id, userId, state) => {
 
-        if (e.target.id == "follow") {
-            e.target.innerHTML = "Unfollow"
-            e.target.id = "un-follow";
-        } else if (e.target.id == "un-follow") {
-            e.target.innerHTML = "Follow"
-            e.target.id = "follow";
-        }
-
-        followActionAPI({ id: id, user_id: userId, type }).then(res => {
+        followActionAPI({ id: id, user_id: userId, type:state }).then(res => {
             const data = res.data;
             if (data.followed){
                 openFloatAlert("User followed", "user")

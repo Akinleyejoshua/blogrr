@@ -36,7 +36,6 @@ export const EditProfile = ({ data, onSubmit, handleState, form }) => {
 
                     <input
                         type="file"
-                        placeholder="Password"
                         onChange={(e) => {
                             const file = new FileReader();
                             file.readAsDataURL(e.target.files[0]);

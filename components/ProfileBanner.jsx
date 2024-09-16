@@ -1,8 +1,8 @@
 import { FaWhatsapp } from "react-icons/fa6";
 import { Avater } from "./Avater"
-import { FollowBtn } from "./FollowBtn";
 import { LinkIcon } from "./LinkIcon";
 import { Space } from "./Space";
+import { FollowBtnItem } from "./FollowBtnItem";
 
 export const ProfileBanner = ({ data, user, follow }) => {
     const { username, email, followers, following, img, bio, _id, whatsapp } = data;
@@ -19,7 +19,7 @@ export const ProfileBanner = ({ data, user, follow }) => {
 
                 &&
                 <>
-                    <FollowBtn followers={followers} following_id={_id} user_id={user?._id} follow={follow} />
+                    <FollowBtnItem followers={followers} following_id={_id} user_id={user?._id} follow={follow} />
                     <Space val={".3rem"} />
 
                 </>

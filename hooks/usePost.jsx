@@ -68,7 +68,6 @@ export const usePost = () => {
             dispatch(togglePostLoading(false))
             setLoading(false)
 
-
         })
     };
 

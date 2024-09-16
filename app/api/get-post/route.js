@@ -31,8 +31,6 @@ export const POST = async (req) => {
           (comment) => comment.main_post_id == item?._id
         );
 
-        console.log(subComments);
-
         commentData.push({
           ...item._doc,
           username: commentUsers.username,

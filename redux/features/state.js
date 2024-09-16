@@ -10,6 +10,8 @@ const initialState = {
     },
   },
 
+  notifications: [],
+
   user: {
     loading: true,
     _id: "",
@@ -55,6 +57,10 @@ export const promptSlice = createSlice({
       state.user.loading = action.payload;
     },
 
+    setUserNotifications: (state, action) => {
+      state.notifications = action.payload;
+    },
+
     toggleProfileLoading: (state, action) => {
       state.profile.loading = action.payload;
     },
@@ -96,6 +102,8 @@ export const promptSlice = createSlice({
         followers: 0,
         img: "",
       };
+
+      state.notifications = {}
     },
 
     setUserData: (state, action) => {
@@ -124,6 +132,7 @@ export const {
   toggleSideBar,
   toggleFloatAlert,
   toggleUserLoading,
+  setUserNotifications,
   toggleProfileLoading,
   togglePostLoading,
   clearProfileData,

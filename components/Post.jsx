@@ -108,7 +108,7 @@ export const Post = ({ data, like, is_comment }) => {
                   <h3 className="title w-full">{item?.title}</h3>
                 )}
                 <div
-                  className={`w-full tiny ${!is_comment && "dim"}`}
+                  className={`tiny w-full ${!is_comment && "dim"}`}
                   dangerouslySetInnerHTML={{
                     __html: atlify(urlify(shortenText(item?.content, 333))),
                   }}

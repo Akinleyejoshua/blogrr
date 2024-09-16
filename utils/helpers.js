@@ -40,6 +40,16 @@ export const shortenText = (text, len) => {
   return result + " ...";
 };
 
+export const shortenNotification = (text, len) => {
+  let result = "";
+  for (let i = 0; len > i; i++) {
+    if (text?.length > i) {
+      result += `${text[i]}`;
+    }
+  }
+  return result + "";
+};
+
 export const fileToBlob = (url, result) => {
   const file = new FileReader();
   file.readAsDataURL(url);

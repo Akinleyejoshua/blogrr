@@ -31,7 +31,7 @@ export const RelativeTimeBar = ({timestamp}) => {
   
     }    
     // Update state with relative time
-  }, 1000);
+  },);
 
   return <>{time}</>
 }

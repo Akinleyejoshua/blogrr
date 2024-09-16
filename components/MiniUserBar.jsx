@@ -1,12 +1,12 @@
 import { shortenText } from "@/utils/helpers"
 import { Avater } from "./Avater"
-import { FollowBtn } from "./FollowBtn"
 import { Space } from "./Space"
 import { useProfile } from "@/hooks/useProfile"
 import { useRouter } from "next/navigation"
 import { useSelector } from "react-redux"
+import { FollowBtnItem } from "./FollowBtnItem"
 
-export const MiniUserBar = ({ data }) => {
+export const MiniUserBar = ({ data, following }) => {
     const { followAction } = useProfile();
     const loggedUser = useSelector(state => state.state.user);
 
@@ -24,7 +24,8 @@ export const MiniUserBar = ({ data }) => {
             </div>
             {
                 item._id != loggedUser._id ?
-                    <FollowBtn followers={item?.followers} user_id={loggedUser?._id} follow={followAction} following_id={item?._id} />
+
+                    <FollowBtnItem followers={item?.followers} user_id={loggedUser._id} follow={followAction} following_id={item?._id} />
                     :
                     <small>You</small>
             }

@@ -1,5 +1,5 @@
-import { setUserData, toggleUserLoading } from "@/redux/features/state";
-import { getFollowingFollowersAPI, getUserDataAPI } from "@/services/user";
+import { setUserData, setUserNotifications, toggleUserLoading } from "@/redux/features/state";
+import { getFollowingFollowersAPI, getUserDataAPI, userNotificationsActionAPI } from "@/services/user";
 import { get } from "@/utils/localstorage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux"
 
 export const useUser = () => {
     const state = useSelector(state => state.state.user);
+    const notifications = useSelector(state => state.state.notifications);
+
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -39,6 +41,18 @@ export const useUser = () => {
         })
     }
 
+    const getUserNotification = (id) => {
+        dispatch(toggleUserLoading(true));
+
+        userNotificationsActionAPI({ user_id: id, action: "get" }).then(res => {
+            const data = res.data;
+    
+            dispatch(setUserNotifications(data));
+            dispatch(toggleUserLoading(false));
+
+        })
+    }
+
     const getFollowingFollowers = (id) => {
         setUserLoading(true);
         getFollowingFollowersAPI({ id }).then(res => {
@@ -62,5 +76,7 @@ export const useUser = () => {
         userLoading,
         followingFollowers,
         getFollowingFollowers,
+        notifications,
+        getUserNotification,
     }
 }
