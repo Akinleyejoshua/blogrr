@@ -9,11 +9,12 @@ import { get } from "@/utils/localstorage";
 import { useEffect } from "react";
 
 export default function Page(){
-    const {getUserNotification, notifications} = useUser();
+    const {getUserNotification, notifications, setNotificationSeenStatus} = useUser();
 
     useEffect(() => {
         const userId = get("login-id")
         getUserNotification(userId)
+        setNotificationSeenStatus(userId, true);
     }, [])
 
     return <main className="home notifications">
