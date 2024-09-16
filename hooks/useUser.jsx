@@ -53,6 +53,14 @@ export const useUser = () => {
         })
     }
 
+    const setNotificationSeenStatus = (id, status) => {
+        
+        userNotificationsActionAPI({ user_id: id, action: "seen", seen: status }).then(res => {
+            const data = res.data;
+            return data
+        })
+    }
+
     const getFollowingFollowers = (id) => {
         setUserLoading(true);
         getFollowingFollowersAPI({ id }).then(res => {
@@ -78,5 +86,6 @@ export const useUser = () => {
         getFollowingFollowers,
         notifications,
         getUserNotification,
+        setNotificationSeenStatus,
     }
 }
