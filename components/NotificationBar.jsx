@@ -29,7 +29,7 @@ export const NotificationBar = ({ data }) => {
                     <Avater size={"2rem"} data={{ username: item.user?.username, img: item.user?.img }} />
                     <Space val={".3rem"} />
                     <p className="tiny dim">{item?.msg}</p>
-                    <Space val={".3rem"} />
+                    <Space val={".0rem"} />
                     {item?.post?.content &&
                         <>
                             <small
