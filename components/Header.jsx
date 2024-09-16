@@ -12,7 +12,7 @@ export const Header = ({ title }) => {
     const { logout } = useAuth();
     const router = useRouter();
     const user = useSelector(state => state.state.notifications);
-
+    const seen = user.filter(item => item.seen == false);
     return <header className="">
         <nav className="flex row space-between items-center">
             <AiOutlineArrowLeft className="icon pointer" onClick={() => router.back()} />
@@ -25,8 +25,8 @@ export const Header = ({ title }) => {
 
                 <button className="btn flex items-center c-white bell" onClick={() => router.push("/notifications")}>
                     <GoBell className="icon" />
-                    {user.length > 0 &&
-                        <div className="bell-tag">{user.length}</div>
+                    {seen.length > 0 &&
+                        <div className="bell-tag">{seen.length}</div>
                     }
                 </button>
 
