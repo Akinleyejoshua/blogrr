@@ -35,6 +35,14 @@ export const POST = async (req) => {
         })
       }
 
+      if (item.type == "profile"){
+        const findUser = users.find(id => id._id == item.user_id);
+        data.push({
+          ...item,
+          user: findUser
+        })
+      }
+
       if (item.type == "comment"){
         const findPost = posts.find(id => id._id == (item.content));
         const findUser = users.find(id => id._id == item.user_id);
@@ -56,7 +64,8 @@ export const POST = async (req) => {
     })
     return new NextResponse(JSON.stringify(data || []));
   } else if (action == "seen") {
-    await Notification.updateMany({ user_id, seen });
+    // const getNotif = await Notification.findOne({to:user_id})
+    // await Notification.updateMany({ seen:seen });
     return new NextResponse(JSON.stringify({ seen: true }));
   }
 };
