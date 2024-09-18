@@ -37,9 +37,10 @@ export const useProfile = () => {
         loading,
     } = state;
 
-    const getProfileData = (username) => {
+    const getProfileData = (username, id) => {
+        
         dispatch(toggleProfileLoading(true))
-        getProfileDataAPI({ username }).then(res => {
+        getProfileDataAPI({ username, id }).then(res => {
             const data = res.data;
             if (data.msg == "found") {
                 dispatch(setProfile(data));
