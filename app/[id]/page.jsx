@@ -34,8 +34,13 @@ export default function Page() {
   const loggedUser = useSelector(state => state.state.user);
 
   useEffect(() => {
-    getProfileData(name);
-  }, []);
+    if (loggedUser._id != ""){
+      getProfileData(name, loggedUser._id);
+    }
+
+    return () => null;
+    
+  }, [loggedUser._id]);
 
   return (
     <main className="profile fit">
