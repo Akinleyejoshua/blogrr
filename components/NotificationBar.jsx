@@ -20,6 +20,7 @@ export const NotificationBar = ({ data }) => {
                     {item?.type == "follow" && <AiOutlineUserAdd className="icon c-blue" />}
                     {item?.type == "comment" && <AiOutlineComment className="icon c-white" />}
                     {item?.type == "signin" && <AiOutlineLogin className="icon c-white" />}
+                    {item?.type == "profile" && <AiOutlineEye className="icon c-white" />}
                     <Space val={".3rem"} />
                     <div className="vline center"></div>
                 </div>
