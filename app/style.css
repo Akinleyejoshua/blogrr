@@ -488,3 +488,9 @@ textarea {
   font-size: 9px;
   border: 1px solid white;
 }
+
+@media screen and (max-width: 840px) {
+  .notification-bar{
+    padding: 0;
+  }
+}
