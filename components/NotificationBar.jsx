@@ -1,4 +1,4 @@
-import { AiFillHeart, AiOutlineComment, AiOutlineLogin, AiOutlineUserAdd } from "react-icons/ai";
+import { AiFillHeart, AiOutlineComment, AiOutlineEye, AiOutlineLogin, AiOutlineUserAdd } from "react-icons/ai";
 import { Space } from "./Space";
 import { RelativeTimeBar } from "./RelativeTimeBar";
 import { useRouter } from "next/navigation";
