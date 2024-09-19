@@ -13,7 +13,7 @@ export const POST = async (req) => {
         const userWhoViewed = await User.findOne({_id: id}).lean();
 
         if (findUser){
-            if (findUser._id != userWhoViewed._id){
+            if (findUser._id != id){
                 const newNotification = new Notification({
                     timestamp: Date.now(),
                     seen: false,
