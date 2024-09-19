@@ -549,11 +549,12 @@ img.content-img {
   padding: 0 1rem;
   border-radius: var(--br2);
   background-color: var(--input-bg);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.5); */
   -webkit-border-radius: var(--br2);
   -moz-border-radius: var(--br2);
   -ms-border-radius: var(--br2);
   -o-border-radius: var(--br2);
+
 }
 
 .tag {
