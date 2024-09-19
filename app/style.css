@@ -187,8 +187,8 @@ button .icon {
 }
 
 .sidebar {
-  max-width: 23rem;
-  min-width: 23rem;
+  max-width: max-content;
+  min-width: max-content;
   width: 23rem;
 }
 
@@ -492,5 +492,10 @@ textarea {
 @media screen and (max-width: 840px) {
   .notification-bar{
     padding: 0;
+  }
+
+  .notification-bar:hover{
+    background-color: transparent;
+    cursor: pointer;
   }
 }
