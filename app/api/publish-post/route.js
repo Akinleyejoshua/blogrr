@@ -26,7 +26,7 @@ export const POST = async (req) => {
       const mainPost = await Post.findOne({ _id: main_post_id }).lean();
 
       if (mainPost) {
-        if (mainPost?.user_id !== user?._id) {
+        if (mainPost?.user_id != _id) {
           const newNotification = new Notification({
             timestamp: Date.now(),
             seen: false,

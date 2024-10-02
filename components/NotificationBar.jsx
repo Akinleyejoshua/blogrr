@@ -1,13 +1,14 @@
 import { AiFillHeart, AiOutlineComment, AiOutlineEye, AiOutlineLogin, AiOutlineUserAdd } from "react-icons/ai";
 import { Space } from "./Space";
-import { RelativeTimeBar } from "./RelativeTimeBar";
 import { useRouter } from "next/navigation";
 import { Avater } from "./Avater";
 import { atlify, shortenNotification, urlify } from "@/utils/helpers";
+import { useTime } from "@/hooks/useTime";
 
 export const NotificationBar = ({ data }) => {
     // console.log(data);
     const router = useRouter();
+    const {relativeTime} = useTime();
 
     return data.map((item, i) => {
         return <div onClick={() => {
@@ -48,7 +49,7 @@ export const NotificationBar = ({ data }) => {
             <Space val={".3rem"} />
 
             <div className="flex row dim tiny">
-                <RelativeTimeBar timestamp={item?.timestamp} />
+                {relativeTime(item?.timestamp)}
             </div>
         </div>
     })

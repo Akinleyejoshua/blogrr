@@ -558,7 +558,7 @@ img.content-img {
 }
 
 .tag {
-  padding: 0.3rem;
+  padding: 0rem 0.3rem;
   background-color: var(--input-bg);
   width: max-content;
   height: max-content;

@@ -181,6 +181,7 @@ export const usePost = () => {
             const data = res.data;
             if (data.deleted) {
                 openFloatAlert("Post Deleted!", "del")
+                
             }
         })
     }

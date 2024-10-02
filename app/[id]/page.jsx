@@ -36,6 +36,7 @@ export default function Page() {
   useEffect(() => {
     if (loggedUser._id != ""){
       getProfileData(name, loggedUser._id);
+
     }
 
     return () => null;

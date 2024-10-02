@@ -6,6 +6,7 @@ import { atlify, formatNumber, shortenText, urlify } from "@/utils/helpers";
 import { CiChat1, CiShare1 } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { Link } from "./Link";
+import { RelativeTimeBar } from "./RelativeTimeBar";
 import { DropdownMenu } from "./DropdownMenu";
 import {
   AiOutlineDelete,
@@ -13,13 +14,11 @@ import {
   AiOutlineShareAlt,
 } from "react-icons/ai";
 import { usePost } from "@/hooks/usePost";
-import { useTime } from "@/hooks/useTime";
 
 export const Post = ({ data, like, is_comment }) => {
   const userState = useSelector((state) => state.state.user);
   const router = useRouter();
   const { deletePost, sharePost } = usePost();
-  const {relativeTime} = useTime();
 
   if (data?.length === 0) {
     return (
@@ -44,7 +43,7 @@ export const Post = ({ data, like, is_comment }) => {
                 size={"3rem"}
               />
               <Space val={".3rem"} />
-              {/* <div className="vline"></div> */}
+              <div className="vline"></div>
             </div>
             <Space val={".6rem"} />
 
@@ -61,7 +60,7 @@ export const Post = ({ data, like, is_comment }) => {
                   ·
                   <Space val={".3rem"} />
                   <p className="dim tiny">
-                    {relativeTime(item?.timestamp)}
+                    {<RelativeTimeBar timestamp={item?.timestamp} />}
                   </p>
                 </div>
 
@@ -73,12 +72,7 @@ export const Post = ({ data, like, is_comment }) => {
                       text: "Delete",
                       color: "var(--red)",
                       open: item.user_id == userState._id,
-                      onClick: () => {
-                        const del = confirm("Do you want to delete this?");
-                        if (del){
-                          deletePost(item?._id)
-                        }
-                      },
+                      onClick: () => deletePost(item?._id),
                     },
                     {
                       icon: <AiOutlineEdit className="icon" />,
