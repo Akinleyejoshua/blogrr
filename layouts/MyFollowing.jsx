@@ -27,7 +27,7 @@ export const MyFollowing = ({ data }) => {
                 ?
                 <Link to={"/home"} text={"View user posts you will like to follow"} />
                 :
-                <p>{data?.username} has no follower</p>
+                <p>{data?.username} has no following</p>
             }
         </div>
     }
