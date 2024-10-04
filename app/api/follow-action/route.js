@@ -16,12 +16,11 @@ export const POST = async (req) => {
     // console.log(type);
 
     if (type == "follow") {
-      const alreadyFollowed = followedUser.following.find((item) => item == id);
-      const alreadyFollowers = followedUser.followers.find((item) => item == id)
+      const alreadyFollowed = followedUser.followers.find((item) => item == user_id);
 
       // console.log(alreadyFollowed);
 
-      if (alreadyFollowed == undefined && alreadyFollowers == undefined) {
+      if (alreadyFollowed == undefined) {
         await User.findByIdAndUpdate(user_id, {
           following: [...followingUser.following, id],
         });
