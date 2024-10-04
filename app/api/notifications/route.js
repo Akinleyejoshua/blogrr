@@ -64,8 +64,7 @@ export const POST = async (req) => {
     })
     return new NextResponse(JSON.stringify(data || []));
   } else if (action == "seen") {
-    // const getNotif = await Notification.findOne({to:user_id})
-    // await Notification.updateMany({ seen:seen });
+    await Notification.find({to:user_id}).updateMany({seen: seen})
     return new NextResponse(JSON.stringify({ seen: true }));
   }
 };
