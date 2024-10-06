@@ -6,7 +6,7 @@ import Post from "../models/Post";
 db();
 
 export const POST = async (req) => {
-  const { id, is_comment } = await req.json();
+  const { id, is_comment, user_id } = await req.json();
 
   try {
     const post = await Post.findOne({ _id: id, is_comment: is_comment });
@@ -41,6 +41,11 @@ export const POST = async (req) => {
         });
       });
 
+      const postViews = post.views.find(item => item == user_id);
+      if (postViews == undefined && user_id != "" && user_id != null){
+        await Post.findByIdAndUpdate(id, {views: [...post.views, user_id]})
+      }
+
       return new NextResponse(
         JSON.stringify({
           ...post._doc,
@@ -51,6 +56,9 @@ export const POST = async (req) => {
           comments: commentData,
         })
       );
+
+      
+
     } else {
       return new NextResponse(JSON.stringify({ msg: "not-found" }));
     }

@@ -208,9 +208,9 @@ header .title {
 }
 
 header .nav-links {
-  padding: 1rem;
+  padding: .0rem;
   /* background-color: var(--input-bg); */
-  border: 1px solid var(--input-bg);
+  /* border: 1px solid var(--input-bg); */
   border-radius: var(--br);
   -webkit-border-radius: var(--br);
   -moz-border-radius: var(--br);
@@ -220,6 +220,7 @@ header .nav-links {
 
 header button {
   background-color: transparent;
+  
 }
 
 header button:not(:last-child) {
@@ -487,6 +488,23 @@ textarea {
   justify-content: center;
   font-size: 9px;
   border: 1px solid white;
+}
+
+
+.publisher .input-bar{
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  background-color: transparent;
+  padding: 0;
+}
+
+.publisher .input-bar input{
+  font-weight: 600;
+  font-size: 20px;
+
 }
 
 @media screen and (max-width: 840px) {

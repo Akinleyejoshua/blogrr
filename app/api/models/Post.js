@@ -8,6 +8,7 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String,
     likes: Array,
+    views: Array,
 })
 
 module.exports = mongoose.models.post || mongoose.model("post", postSchema);;

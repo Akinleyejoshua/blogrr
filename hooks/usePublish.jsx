@@ -106,8 +106,6 @@ export const usePublish = () => {
                     handleState("msgType", "success");
                     handleState("loading", false)
                     router.push(`/post/${data._id}?is_comment=${is_comment}`);
-                } else {
-                    publish(is_comment)
                 }
 
             })

@@ -6,7 +6,8 @@ db();
 
 export const POST = async (req) => {
   const { _id, title, content, is_comment, id } = await req.json();
-  const findPost = await Post.findOne({ _id: _id }).lean();
+  const findPost = await Post.findOne({ _id: id }).lean();
+  console.log(findPost)
   if (findPost) {
     const publish = await Post.findByIdAndUpdate(id, {
       user_id: _id,

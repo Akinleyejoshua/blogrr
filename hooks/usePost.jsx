@@ -34,12 +34,13 @@ export const usePost = () => {
 
     const [post, setPost] = useState({});
 
-    const getPost = (id, is_comment) => {
+    const getPost = (id, is_comment, user_id) => {
         setLoading(true);
 
         const filter = state.items.filter((item) => item?._id == id)[0];
+        getPostAPI({ id, is_comment, user_id });
         if (filter === undefined) {
-            getPostAPI({ id, is_comment }).then((res) => {
+            getPostAPI({ id, is_comment, user_id }).then((res) => {
                 const data = res.data;
                 if (data.msg == "not-found") {
                     setNotFound(true);
@@ -120,25 +121,8 @@ export const usePost = () => {
         });
     };
 
-    const like = (e, id) => {
-        let target = e.target;
-        let btn = e.target.children[1];
-        let text = e.target.children[2];
-
-        if (target.className.includes("far")) {
-            target.classList.replace("far", "fa");
-            let val = parseInt(text.innerHTML) + 1;
-            text.innerHTML = val;
-            btn.innerHTML = formatNumber(val);
-            likeActionAPI({ type: "like", id: id, user_id: userState._id })
-        } else {
-            target.classList.replace("fa", "far");
-            let val = parseInt(text.innerHTML) - 1;
-            text.innerHTML = val;
-            btn.innerHTML = formatNumber(val);
-            likeActionAPI({ type: "un-like", id: id, user_id: userState._id })
-
-        }
+    const like = (id, type) => {
+        likeActionAPI({ type: type, id: id, user_id: userState._id })
     };
 
     const [commentState, setCommentState] = useState({

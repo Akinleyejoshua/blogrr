@@ -23,7 +23,7 @@ export const NotificationBar = ({ data }) => {
                     {item?.type == "signin" && <AiOutlineLogin className="icon c-white" />}
                     {item?.type == "profile" && <AiOutlineEye className="icon c-white" />}
                     <Space val={".3rem"} />
-                    <div className="vline center"></div>
+                    {/* <div className="vline center"></div> */}
                 </div>
                 <Space val={".3rem"} />
 
@@ -48,7 +48,7 @@ export const NotificationBar = ({ data }) => {
             </div>
             <Space val={".3rem"} />
 
-            <div className="flex row dim tiny">
+            <div className="flex row dim micro">
                 {relativeTime(item?.timestamp)}
             </div>
         </div>

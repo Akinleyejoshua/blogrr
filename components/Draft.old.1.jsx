@@ -146,21 +146,6 @@ export const Draft = ({ val, onChange }) => {
     return (
         <div className="draft">
             <div className={`flex col ${onPreview ? "not-visible" : "visible"}`}>
-            
-            <Space val={".3rem"} />
-            <div className={`textarea`}>
-                <div
-                    onBlur={(e) => saveCursorPosition(e.target)}
-                    contentEditable={true}
-                    className="text"
-                    onInput={(e) => handleText(e)}
-                    ref={contentRef}
-                    defaultValue={val}
-                ></div>
-                {!typing && (
-                    <p className="placeholder dim1">What do you want to publish?</p>
-                )}
-            </div>
             <div
                 className={`tools ${typing ? "visible" : "visible"}`}
                 ref={toolbarRef}
@@ -239,6 +224,21 @@ export const Draft = ({ val, onChange }) => {
                 </div>
             </div>
 
+            <Space val={".3rem"} />
+            <div className={`textarea`}>
+                <div
+                    onBlur={(e) => saveCursorPosition(e.target)}
+                    contentEditable={true}
+                    className="text"
+                    onInput={(e) => handleText(e)}
+                    ref={contentRef}
+                    defaultValue={val}
+                ></div>
+                {!typing && (
+                    <p className="placeholder dim">What do you want to publish?</p>
+                )}
+            </div>
+
             </div>
             
 
@@ -249,7 +249,7 @@ export const Draft = ({ val, onChange }) => {
                     dangerouslySetInnerHTML={{ __html: atlify(urlify(content)) }}
                 ></div>
             </div>
-
+            
             <Space val={".3rem"} />
 
             {onPreview ? (

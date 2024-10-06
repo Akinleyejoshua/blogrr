@@ -11,11 +11,12 @@ import { SideBar } from "@/components/SideBar";
 import { Space } from "@/components/Space";
 import { Toast } from "@/components/Toast";
 import { usePost } from "@/hooks/usePost";
+import { useTime } from "@/hooks/useTime";
 import { useURL } from "@/hooks/useURL";
 import { atlify, formatNumber, urlify } from "@/utils/helpers";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineSend, AiOutlineShareAlt } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import { AiFillHeart, AiOutlineDelete, AiOutlineEdit, AiOutlineEye, AiOutlineHeart, AiOutlineSend, AiOutlineShareAlt } from "react-icons/ai";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { CiChat1, CiShare1 } from "react-icons/ci";
 import { useSelector } from "react-redux";
@@ -40,14 +41,22 @@ export default function Page() {
   const item = post;
   const userState = useSelector((state) => state.state.user);
   const { is_comment } = useURL();
+  const {relativeTime} = useTime();
+  const [liked, setLiked] = useState(null);
+  const [likes, setLikes] = useState(null);
 
   useEffect(() => {
     if (is_comment != undefined) {
-      getPost(id, is_comment);
+      getPost(id, is_comment, userState._id);
     }
   }, [id, is_comment]);
 
-
+  useEffect(() => {
+    if (item){
+      setLiked(item?.likes?.includes(userState._id));
+      setLikes(item?.likes?.length)
+    }
+  }, [loading])
 
   return (
     <main className="home">
@@ -86,40 +95,59 @@ export default function Page() {
                 {item?.title !== "" ? <h1>{item?.title}</h1> : <h1>Comment</h1>}
                 <Space val={".3rem"} />
                 <small className="dim">
-                  Posted <RelativeTimeBar timestamp={item?.timestamp} /> ago
+                  Posted {relativeTime(item?.timestamp)} ago
                 </small>
                 <Space val={".3rem"} />
 
-                <div className="w-full" dangerouslySetInnerHTML={{ __html: atlify(urlify(item?.content)) }}></div>
+                <div className="w-full post-content" dangerouslySetInnerHTML={{ __html: atlify(urlify(item?.content)) }}></div>
 
                 <Space val={"1rem"} />
                 <div className="flex row">
                   <div className="actions fit flex row space-betwee items-center">
-                    {item?.likes?.includes(userState._id) ? (
-                      <button
-                        className="btn items-center b-none c-red fa fa-heart red"
-                        onClick={(e) => like(e, item?._id)}
-                      >
-                        <Space val={".3rem"} />
-                        <p className="">{formatNumber(item?.likes?.length)}</p>
-                        <p className="not-visible">{item?.likes?.length}</p>
-                      </button>
-                    ) : (
-                      <button
-                        className="btn items-center b-none c-red far fa-heart red"
-                        onClick={(e) => like(e, item?._id)}
-                      >
-                        <Space val={".3rem"} />
-                        <p className="">{formatNumber(item?.likes?.length)}</p>
-                        <p className="not-visible">{item?.likes?.length}</p>
-                      </button>
-                    )}
+                  {
+                  liked ? <button
+                    className="icon btn items-center b-none c-red"
+                    onClick={(e) => {
+                      like(item?._id, "un-like")
+                      setLikes(likes - 1)
+                      setLiked(false)
+                    }
+                    }
+                  >
+                    <AiFillHeart className="icon" />
+                    <Space val={".3rem"} />
+                    <p className="num">{formatNumber(likes)}</p>
+                  </button> :
+                    <button
+                      className="icon btn items-center b-none c-red"
+                      onClick={(e) => {
+                        like(item?._id, "like")
+                        setLikes(likes + 1)
+                        setLiked(true)
+
+                      }
+                      }
+                    >
+                      <AiOutlineHeart className="icon" />
+                      <Space val={".3rem"} />
+                      <p className="num">{formatNumber(likes)}</p>
+                    </button>
+                }
+
                     <Space val={"1rem"} />
 
                     <button className="btn flex items-center c-white b-none">
                       <CiChat1 className="icon" />
                       <Space val={".3rem"} />
                       <p>{item?.comments?.length}</p>
+                    </button>
+                    <Space val={"1rem"} />
+                    <button
+                      className="btn flex items-center c-white b-none"
+                    >
+                      <AiOutlineEye className="icon"/>
+                      <Space val={".3rem"} />
+                      {item?.views?.length}
                     </button>
                     <Space val={"1rem"} />
 

@@ -36,6 +36,10 @@ export const shortenText = (text, len) => {
     if (text?.length > i) {
       result += `${text[i]}`;
     }
+    
+    if (text.length == i){
+      break;
+    }
   }
   return result + " ...";
 };

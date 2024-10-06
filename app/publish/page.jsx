@@ -15,7 +15,7 @@ export default function Page() {
     const { state, handleState, publish } = usePublish();
     const userState = useSelector(state => state.state.user);
 
-    return <main className="home">
+    return <main className="home publisher">
         <div className="flex row fit">
             <SideBar />
             <div className="flex col fit">
@@ -27,15 +27,15 @@ export default function Page() {
                             e.preventDefault();
                             publish(false);
                         }}>
-                            <small>Your title/Heading</small>
+                            {/* <small>Your title/Heading</small> */}
                             <Space val={".3rem"} />
                             <div className="input-bar">
-                                <input type="text" placeholder="Title" onChange={e => handleState("title", e.target.value)} />
+                                <input type="text" placeholder="Title / Heading" onChange={e => handleState("title", e.target.value)} />
                             </div>
-                            <Space val={".3rem"} />
+                            {/* <Space val={".3rem"} /> */}
 
-                            <small>Your content/post</small>
-                            <Space val={".3rem"} />
+                            {/* <small>Your content/post</small> */}
+                            {/* <Space val={".3rem"} /> */}
                             <Draft onChange={(val) => handleState("content", val)} />
 
                             <Space val={".4rem"} />

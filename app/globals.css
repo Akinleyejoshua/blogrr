@@ -63,6 +63,15 @@
   color: var(--green);
 }
 
+.micro{
+  font-size: 10px;
+}
+
+.nospace{
+  margin: 0;
+  padding: 0;
+}
+
 .tiny {
   font-size: 13px;
 }
@@ -194,7 +203,11 @@ a:hover,
 }
 
 .dim {
-  opacity: 0.6;
+  opacity: .6;
+}
+
+.dim1{
+  opacity: .8;
 }
 
 *:focus {
@@ -352,15 +365,15 @@ textarea {
 }
 
 .draft {
-  /*background-color: var(--input-bg);*/
-  padding: 1rem;
+  /* background-color: var(--input-bg); */
+  /* padding: 1rem; */
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   position: relative;
-  border: 1px solid var(--input-bg);
+  /* border: 1px solid var(--input-bg); */
 
   min-height: max-content;
   width: 100%;
@@ -368,7 +381,8 @@ textarea {
 
 .draft .tools {
   /* position: fixed; */
-  width: max-content;
+  /* width: max-content; */
+  width: 100%;
   /* background-color: var(--bg-black); */
   border-radius: var(--br);
   -webkit-border-radius: var(--br);
@@ -377,8 +391,9 @@ textarea {
   -o-border-radius: var(--br);
   z-index: 10;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 0.3rem;
+  grid-template-columns: repeat(auto-fit, minmax(1rem, 2rem));
+  /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
+  grid-gap: .3rem;
   /* position: absolute;
   bottom: 22rem; */
 }
@@ -397,24 +412,27 @@ textarea {
   min-width: 100%;
   width: 100%;
   overflow-y: auto;
+  font-size: 12px;
 }
 
 .under {
   text-decoration: underline;
 }
 
-.textarea ul {
-  padding: 1rem 1.3rem;
+.textarea ul, .post-content ul {
+  padding: .3rem 1.3rem;
 }
 
 .textarea .placeholder {
   position: absolute;
   top: 0;
   z-index: -1;
+  font-size: 12px;
 }
 
 i.at {
-  color: rgb(151, 175, 245);
+  color: royalblue;
+  /* color: rgb(151, 175, 245); */
   cursor: pointer;
   font-style: normal;
 }
@@ -442,10 +460,11 @@ img.content-img {
 }
 
 .draft .format-btn {
-  height: 2rem;
-  width: 2rem;
-  font-size: 12px;
-  border: 1px solid var(--white);
+  /* height: 2rem; */
+  /* width: 2rem; */
+  width: max-content;
+  font-size: 16px;
+  /* border: 1px solid var(--white); */
   border-radius: var(--br);
   -webkit-border-radius: var(--br);
   -moz-border-radius: var(--br);
@@ -454,12 +473,13 @@ img.content-img {
   display: flex;
   place-items: center;
   background-color: var(--bg-black);
-  justify-content: center;
+  /* justify-content: center; */
   z-index: 10;
+  opacity: .6;
 }
 
 .tools .format-btn:hover {
-  opacity: 0.6;
+  opacity: 0.1;
 }
 
 .grid {

@@ -27,7 +27,7 @@ export default function Page() {
         }
     }, [id, is_comment])
 
-    return <main className="home">
+    return <main className="home publisher">
         <div className="flex row fit">
             <SideBar />
             <div className="flex col fit">
@@ -39,15 +39,15 @@ export default function Page() {
                             e.preventDefault();
                             updatePublished(id, is_comment);
                         }}>
-                            <small>Your title/Heading</small>
+                            {/* <small>Your title/Heading</small> */}
                             <Space val={".3rem"} />
                             <div className="input-bar">
                                 <input defaultValue={state.title} type="text" placeholder="Title" onChange={e => handleState("title", e.target.value)} />
                             </div>
-                            <Space val={".3rem"} />
+                            {/* <Space val={".3rem"} /> */}
 
-                            <small>Your content/post</small>
-                            <Space val={".3rem"} />
+                            {/* <small>Your content/post</small> */}
+                            {/* <Space val={".3rem"} /> */}
                             <Draft val={state.content} onChange={(val) => handleState("content", val)} />
 
                             <Space val={".4rem"} />

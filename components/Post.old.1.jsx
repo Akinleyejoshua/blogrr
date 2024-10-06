@@ -8,18 +8,15 @@ import { useRouter } from "next/navigation";
 import { Link } from "./Link";
 import { DropdownMenu } from "./DropdownMenu";
 import {
-  AiFillHeart,
   AiOutlineDelete,
   AiOutlineEdit,
   AiOutlineEye,
-  AiOutlineHeart,
   AiOutlineShareAlt,
 } from "react-icons/ai";
 import { usePost } from "@/hooks/usePost";
 import { useTime } from "@/hooks/useTime";
-import { memo, useState } from "react";
 
-export const Post = memo(({ data, like, is_comment }) => {
+export const Post = ({ data, like, is_comment }) => {
   const userState = useSelector((state) => state.state.user);
   const router = useRouter();
   const { deletePost, sharePost } = usePost();
@@ -37,26 +34,9 @@ export const Post = memo(({ data, like, is_comment }) => {
     );
   }
 
-  const [liked, setLiked] = useState(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })));
-  const [likes, setLikes] = useState(data.map(item => ({ id: item?._id, val: item?.likes.length })))
-
-  const setLikeLikes = (id, likedVal, likesVal) => {
-    setLiked(liked.map(like => like.id == id ? {
-      ...like,
-      val: likedVal,
-    } : like))
-
-    setLikes(likes.map(like => like.id == id ? {
-      ...like,
-      val: likesVal == +1 ? like.val + 1 : like.val - 1
-    } : like))
-  }
-
-
   return (
     <div className="flex rev-col">
       {data?.map((item, i) => {
-
         return (
           <div className="post-item flex w-full h-max row" key={i}>
             <div className="flex col items-center">
@@ -143,37 +123,25 @@ export const Post = memo(({ data, like, is_comment }) => {
               </div>
               <Space val={".3rem"} />
               <div className="actions fit flex row space-between">
-
-                {
-                  liked[i]?.val ? <button
-                    className="icon btn items-center b-none c-red"
-                    onClick={(e) => {
-                      like(item?._id, "un-like")
-                      setLikeLikes(item?._id, false, -1)
-
-                    }
-                    }
+                {item?.likes?.includes(userState._id) ? (
+                  <button
+                    className="icon btn items-center b-none c-red fa fa-heart red"
+                    onClick={(e) => like(e, item?._id)}
                   >
-                    <AiFillHeart className="icon" />
                     <Space val={".3rem"} />
-                    <p className="num">{formatNumber(likes[i]?.val)}</p>
-                  </button> :
-                    <button
-                      className="icon btn items-center b-none c-red"
-                      onClick={(e) => {
-                        like(item?._id, "like")
-
-                        setLikeLikes(item?._id, true, +1)
-
-                      }
-                      }
-                    >
-                      <AiOutlineHeart className="icon" />
-                      <Space val={".3rem"} />
-                      <p className="num">{formatNumber(likes[i]?.val)}</p>
-                    </button>
-                }
-
+                    <p className="num">{formatNumber(item?.likes?.length)}</p>
+                    <p className="not-visible">{item?.likes?.length}</p>
+                  </button>
+                ) : (
+                  <button
+                    className="icon btn items-center b-none c-red far fa-heart red"
+                    onClick={(e) => like(e, item?._id)}
+                  >
+                    <Space val={".3rem"} />
+                    <p className="num">{formatNumber(item?.likes?.length)}</p>
+                    <p className="not-visible">{item?.likes?.length}</p>
+                  </button>
+                )}
                 <button
                   onClick={() =>
                     router.push(`/post/${item?._id}?is_comment=${is_comment}`)
@@ -187,7 +155,7 @@ export const Post = memo(({ data, like, is_comment }) => {
                 <button
                   className="btn flex items-center c-white b-none"
                 >
-                  <AiOutlineEye className="icon" />
+                  <AiOutlineEye className="icon"/>
                   <Space val={".3rem"} />
                   {item?.views?.length}
                 </button>
@@ -208,4 +176,4 @@ export const Post = memo(({ data, like, is_comment }) => {
       })}
     </div>
   );
-});
+};

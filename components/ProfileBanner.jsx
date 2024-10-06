@@ -12,7 +12,9 @@ export const ProfileBanner = ({ data, user, follow }) => {
 
         <div className="flex col center fit">
             <h3 className="medium username">{username}</h3>
+            {_id == user._id && 
             <small className="dim small email">{email}</small>
+            }
             <Space val={".3rem"} />
 
             {user?.username !== username
