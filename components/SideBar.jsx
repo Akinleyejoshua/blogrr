@@ -80,7 +80,7 @@ export const SideBar = () => {
                             <button className="flex row items-center btn c-white" onClick={() => router.push(`/publish`)}>
                                 <AiOutlineBook className="icon" />
                                 <Space val={".3rem"} />
-                                <p>Create</p>
+                                <p>Creator</p>
                             </button>
                             {/* <button className="flex row items-center btn c-white" onClick={() => router.push("/dashboard")}>
                         <AiOutlineDashboard className="icon" />
