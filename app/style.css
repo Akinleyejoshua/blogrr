@@ -283,7 +283,7 @@ header button:not(:last-child) {
   }
 
   header nav {
-    padding: 0;
+/*     padding: 0; */
   }
 
   main.auth,
