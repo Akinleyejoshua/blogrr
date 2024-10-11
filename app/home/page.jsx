@@ -56,7 +56,7 @@ export default function Page() {
             >
               <AiOutlineBook className="icon" />
               <Space val={".13rem"} />
-              <p>Create</p>
+              <p>Creator</p>
             </button>
           </div>
           <div className="main scroll-y">
