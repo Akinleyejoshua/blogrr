@@ -38,7 +38,7 @@ export default function Page() {
         <SideBar />
         <div className="flex col fit">
           <Header title={"Home"} />
-{/*           <div className="top-nav flex space-between items-center">
+          <div className="top-nav flex space-between items-center">
             <div className="input-bar">
               <AiOutlineSearch className="icon" />
               <Space val={".3rem"} />
@@ -58,7 +58,7 @@ export default function Page() {
               <Space val={".13rem"} />
               <p>Create</p>
             </button>
-          </div> */}
+          </div>
           <div className="main scroll-y">
             {(!loading) ? !userState.loading && <Post
               data={searching ? searchItems : state.items}
