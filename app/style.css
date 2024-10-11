@@ -282,6 +282,7 @@ header button:not(:last-child) {
 
   header nav {
     padding: 0;
+    padding-bottom: .9rem;
   }
 
   main.auth,
@@ -461,9 +462,9 @@ textarea {
 }
 
 .notification-bar .icon{
-  font-size: 30px;
-  min-height: 2rem;
-  min-width: 2rem;
+  font-size: 20px;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
 }
 
 .bell{
@@ -509,7 +510,9 @@ textarea {
 
 @media screen and (max-width: 840px) {
   .notification-bar{
-    padding: 0;
+    padding: .0rem;
+    /* border: 1px solid var(--input-bg); */
+    padding-bottom: 1rem;
   }
 
   .notification-bar:hover{
