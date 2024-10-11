@@ -1,4 +1,4 @@
-import { AiOutlineBook, AiOutlineDashboard, AiOutlineLogout, AiOutlineUser } from "react-icons/ai"
+import { AiOutlineEdit, AiOutlineLogout, AiOutlineUser } from "react-icons/ai"
 import { Avater } from "./Avater"
 import { NavBrand } from "./NavBrand"
 import { Space } from "./Space"
@@ -78,7 +78,7 @@ export const SideBar = () => {
                                 <p>Profile</p>
                             </button>
                             <button className="flex row items-center btn c-white" onClick={() => router.push(`/publish`)}>
-                                <AiOutlineBook className="icon" />
+                                <AiOutlineEdit className="icon" />
                                 <Space val={".3rem"} />
                                 <p>Creator</p>
                             </button>
