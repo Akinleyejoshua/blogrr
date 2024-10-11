@@ -39,7 +39,7 @@ export default function Page() {
         <div className="flex col fit">
           <Header title={"Home"} />
           <div className="top-nav flex space-between items-center">
-            <div className="input-bar">
+{/*             <div className="input-bar">
               <AiOutlineSearch className="icon" />
               <Space val={".3rem"} />
               <input
@@ -48,7 +48,7 @@ export default function Page() {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
-            <Space val={".3rem"} />
+            <Space val={".3rem"} /> */}
 
             <button
               className="flex items-center b-none c-white btn"
