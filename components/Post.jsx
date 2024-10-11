@@ -24,19 +24,6 @@ export const Post = memo(({ data, like, is_comment }) => {
   const router = useRouter();
   const { deletePost, sharePost } = usePost();
   const { relativeTime } = useTime();
-
-  if (data?.length === 0) {
-    return (
-      <>
-        <h1>Post Not Available</h1>
-        <Link
-          to={"/publish"}
-          text={"Be the first to publish something unique on Blogrr"}
-        />
-      </>
-    );
-  }
-
   const [liked, setLiked] = useState(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })));
   const [likes, setLikes] = useState(data.map(item => ({ id: item?._id, val: item?.likes.length })))
 
@@ -51,6 +38,19 @@ export const Post = memo(({ data, like, is_comment }) => {
       val: likesVal == +1 ? like.val + 1 : like.val - 1
     } : like))
   }
+
+  if (data?.length === 0) {
+    return (
+      <>
+        <h1>Post Not Available</h1>
+        <Link
+          to={"/publish"}
+          text={"Be the first to publish something unique on Blogrr"}
+        />
+      </>
+    );
+  }
+
 
 
   return (
