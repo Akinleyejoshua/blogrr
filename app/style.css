@@ -183,7 +183,7 @@ button .icon {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
-  border: 3px solid rgba(245, 245, 245, 0.3);
+/*   border: 3px solid rgba(245, 245, 245, 0.3); */
 }
 
 .sidebar {
