@@ -129,14 +129,15 @@ export const Draft = ({ val, onChange }) => {
 
 
     const handleText = (e) => {
-        const text = e.target.innerHTML;
+        let text = e.target.innerHTML;
+        let textContent = e.target.textContent
         const removeLiterals = removeFromString(text, "`");
         const formatedText = removeLiterals;
 
         setContent(formatedText);
         onChange(formatedText);
 
-        if (text.length > 0) {
+        if (textContent.length > 0) {
             setTyping(true);
         } else {
             setTyping(false);
