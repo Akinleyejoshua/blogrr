@@ -21,10 +21,10 @@ export const MyLikes = ({ data }) => {
   }
   const filter = [];
   const filterPosts = state.items.filter(
-    (item) => item.user_id == data._id && item.likes.includes(loggedUser._id)
+    (item) => item.user_id == data._id && item.likes.includes(data._id)
   );
   const filterComments = state.comments.filter(
-    (item) => item.user_id == data._id && item.likes.includes(loggedUser._id)
+    (item) => item.user_id == data._id && item.likes.includes(data._id)
   );
   filterPosts?.map((item) => filter.push(item));
   filterComments?.map((item) => filter.push(item));
