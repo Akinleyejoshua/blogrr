@@ -8,7 +8,7 @@ import { Space } from "@/components/Space";
 import { usePost } from "@/hooks/usePost";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { AiOutlineBook, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineSearch } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
 export default function Page() {
@@ -39,7 +39,7 @@ export default function Page() {
         <div className="flex col fit">
           <Header title={"Home"} />
           <div className="top-nav flex space-between items-center">
-{/*             <div className="input-bar">
+            <div className="input-bar">
               <AiOutlineSearch className="icon" />
               <Space val={".3rem"} />
               <input
@@ -48,13 +48,13 @@ export default function Page() {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
-            <Space val={".3rem"} /> */}
+            <Space val={".3rem"} />
 
             <button
               className="flex items-center b-none c-white btn"
               onClick={() => router.push("/publish")}
             >
-              <AiOutlineBook className="icon" />
+              <AiOutlineEdit className="icon" />
               <Space val={".13rem"} />
               <p>Creator</p>
             </button>
