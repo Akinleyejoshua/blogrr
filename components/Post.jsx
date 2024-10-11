@@ -17,28 +17,20 @@ import {
 } from "react-icons/ai";
 import { usePost } from "@/hooks/usePost";
 import { useTime } from "@/hooks/useTime";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 export const Post = memo(({ data, like, is_comment }) => {
   const userState = useSelector((state) => state.state.user);
   const router = useRouter();
   const { deletePost, sharePost } = usePost();
   const { relativeTime } = useTime();
+  const [liked, setLiked] = useState([]);
+  const [likes, setLikes] = useState([])
 
-  if (data?.length === 0) {
-    return (
-      <>
-        <h1>Post Not Available</h1>
-        <Link
-          to={"/publish"}
-          text={"Be the first to publish something unique on Blogrr"}
-        />
-      </>
-    );
-  }
-
-  const [liked, setLiked] = useState(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })));
-  const [likes, setLikes] = useState(data.map(item => ({ id: item?._id, val: item?.likes.length })))
+  useEffect(() => {
+    setLiked(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })))
+    setLikes(data.map(item => ({ id: item?._id, val: item?.likes.length })))
+  }), [data]
 
   const setLikeLikes = (id, likedVal, likesVal) => {
     setLiked(liked.map(like => like.id == id ? {
@@ -50,6 +42,19 @@ export const Post = memo(({ data, like, is_comment }) => {
       ...like,
       val: likesVal == +1 ? like.val + 1 : like.val - 1
     } : like))
+  }
+
+
+  if (data?.length === 0) {
+    return (
+      <>
+        <h1>Post Not Available</h1>
+        <Link
+          to={"/publish"}
+          text={"Be the first to publish something unique on Blogrr"}
+        />
+      </>
+    );
   }
 
 
@@ -150,7 +155,6 @@ export const Post = memo(({ data, like, is_comment }) => {
                     onClick={(e) => {
                       like(item?._id, "un-like")
                       setLikeLikes(item?._id, false, -1)
-
                     }
                     }
                   >
@@ -162,9 +166,7 @@ export const Post = memo(({ data, like, is_comment }) => {
                       className="icon btn items-center b-none c-red"
                       onClick={(e) => {
                         like(item?._id, "like")
-
                         setLikeLikes(item?._id, true, +1)
-
                       }
                       }
                     >
