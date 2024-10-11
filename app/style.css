@@ -200,6 +200,8 @@ button .icon {
 
 header nav {
   padding: 0 3rem;
+  padding-bottom: .9rem;
+  
 }
 
 header .title {
@@ -282,7 +284,6 @@ header button:not(:last-child) {
 
   header nav {
     padding: 0;
-    padding-bottom: .9rem;
   }
 
   main.auth,
