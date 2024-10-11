@@ -17,33 +17,13 @@ import {
 } from "react-icons/ai";
 import { usePost } from "@/hooks/usePost";
 import { useTime } from "@/hooks/useTime";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 
 export const Post = memo(({ data, like, is_comment }) => {
   const userState = useSelector((state) => state.state.user);
   const router = useRouter();
   const { deletePost, sharePost } = usePost();
   const { relativeTime } = useTime();
-  const [liked, setLiked] = useState([]);
-  const [likes, setLikes] = useState([])
-
-  useEffect(() => {
-    setLiked(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })))
-    setLikes(data.map(item => ({ id: item?._id, val: item?.likes.length })))
-  }), [data]
-
-  const setLikeLikes = (id, likedVal, likesVal) => {
-    setLiked(liked.map(like => like.id == id ? {
-      ...like,
-      val: likedVal,
-    } : like))
-
-    setLikes(likes.map(like => like.id == id ? {
-      ...like,
-      val: likesVal == +1 ? like.val + 1 : like.val - 1
-    } : like))
-  }
-
 
   if (data?.length === 0) {
     return (
@@ -55,6 +35,21 @@ export const Post = memo(({ data, like, is_comment }) => {
         />
       </>
     );
+  }
+
+  const [liked, setLiked] = useState(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })));
+  const [likes, setLikes] = useState(data.map(item => ({ id: item?._id, val: item?.likes.length })))
+
+  const setLikeLikes = (id, likedVal, likesVal) => {
+    setLiked(liked.map(like => like.id == id ? {
+      ...like,
+      val: likedVal,
+    } : like))
+
+    setLikes(likes.map(like => like.id == id ? {
+      ...like,
+      val: likesVal == +1 ? like.val + 1 : like.val - 1
+    } : like))
   }
 
 
