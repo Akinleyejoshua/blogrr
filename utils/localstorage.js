@@ -1,2 +1,10 @@
-export const get = (key) => window.localStorage.getItem(key);
-export const save = (key, val) => window.localStorage.setItem(key, val);
+export const get = (key) => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {}
+};
+export const save = (key, val) => {
+  try {
+    return window.localStorage.setItem(key, val);
+  } catch {}
+};
