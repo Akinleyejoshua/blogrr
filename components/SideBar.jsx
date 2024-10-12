@@ -1,4 +1,4 @@
-import { AiOutlineEdit, AiOutlineLogout, AiOutlineUser } from "react-icons/ai"
+import { AiOutlineEdit, AiOutlineLogin, AiOutlineLogout, AiOutlineUser } from "react-icons/ai"
 import { Avater } from "./Avater"
 import { NavBrand } from "./NavBrand"
 import { Space } from "./Space"
@@ -39,6 +39,14 @@ export const SideBar = () => {
                         <GoHome className="icon" />
                         <Space val={".3rem"} />
                         <p>Home</p>
+                    </button>
+                </div>
+
+                <div className="links" onClick={closeSideBar}>
+                    <button className="flex row items-center btn c-white" onClick={() => router.push("/signin")}>
+                        <AiOutlineLogin className="icon" />
+                        <Space val={".3rem"} />
+                        <p>Login</p>
                     </button>
                 </div>
 
@@ -114,7 +122,7 @@ export const SideBar = () => {
                         <Space val={".3rem"} />
                         <p>Dashbaord</p>
                     </button> */}
-                            <Space val={".6rem"} />
+                            {/* <Space val={".6rem"} />
 
                             <HLine width={"9rem"} />
                             <Space val={".6rem"} />
@@ -123,7 +131,7 @@ export const SideBar = () => {
                                 <AiOutlineLogout className="icon" />
                                 <Space val={".3rem"} />
                                 <p>Logout</p>
-                            </button>
+                            </button> */}
                         </div>
                     </>
                 }
