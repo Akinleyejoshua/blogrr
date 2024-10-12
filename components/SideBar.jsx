@@ -16,7 +16,7 @@ export const SideBar = () => {
     const { sidebar, closeSideBar } = useComponents();
     const { loading, username, email, followers, following, getUserData, img, getUserNotification } = useUser();
     const { logout } = useAuth();
-    
+
     const userTokenId = get("login-id")
     const router = useRouter();
 
@@ -24,21 +24,24 @@ export const SideBar = () => {
         const visitorId = get("visitor-id");
         if (visitorId == "null" || visitorId == undefined) {
             const rand = Math.floor(Math.random() * 100000000000000)
-            save("visitor-id", rand)  
+            save("visitor-id", rand)
         }
-    
-        return <div className={`${sidebar ? "sidebar flex open" : "sidebar flex"}`}>
-            <NavBrand size={"3rem"} />
-            <Space val={"1.3rem"} />
-            <HLine width={"9rem"} />
-            <Space val={"1.3rem"} />
 
-            <div className="links" onClick={closeSideBar}>
-                <button className="flex row items-center btn c-white" onClick={() => router.push("/home")}>
-                    <GoHome className="icon" />
-                    <Space val={".3rem"} />
-                    <p>Home</p>
-                </button>
+        return <div className={`${sidebar ? "sidebar flex open" : "sidebar flex"}`}>
+            <div className="content">
+                <NavBrand size={"3rem"} />
+                <Space val={"1.3rem"} />
+                <HLine width={"9rem"} />
+                <Space val={"1.3rem"} />
+
+                <div className="links" onClick={closeSideBar}>
+                    <button className="flex row items-center btn c-white" onClick={() => router.push("/home")}>
+                        <GoHome className="icon" />
+                        <Space val={".3rem"} />
+                        <p>Home</p>
+                    </button>
+                </div>
+
             </div>
         </div>;
     }
