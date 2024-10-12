@@ -29,7 +29,7 @@ export const useAuth = () => {
 
     const authenticate = () => {
         if (!isAuth()) {
-            save("prev-url", window.location.href);
+            save("prev-url", location.href);
             router.push("/signin");
             return false
         } else {
