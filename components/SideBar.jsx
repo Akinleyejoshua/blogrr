@@ -27,7 +27,7 @@ export const SideBar = () => {
             save("visitor-id", rand)  
         }
     
-        return <div className="sidebar flex col">
+        return <div className={`${sidebar ? "sidebar flex open" : "sidebar flex"}`}>
             <NavBrand size={"3rem"} />
             <Space val={"1.3rem"} />
             <HLine width={"9rem"} />
