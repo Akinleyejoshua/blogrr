@@ -14,7 +14,7 @@ export const POST = async (req) => {
       title: title,
       content: content,
       is_comment: is_comment,
-      timestamp: Date.now(),
+      // timestamp: Date.now(),
     });
     return new NextResponse(JSON.stringify({ posted: true, ...publish._doc }));
   } else {

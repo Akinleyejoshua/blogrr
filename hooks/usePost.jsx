@@ -22,13 +22,16 @@ export const usePost = () => {
 
     const handleSearch = (title) => {
         if (title.length > 0) {
-            setSearching(true);
             const filter = state.items.filter((item) =>
                 item?.title.toLowerCase().includes(title.toLowerCase())
             );
             setSearchItems(filter);
+            setSearching(true);
+
+            return true
         } else {
             setSearching(false);
+            return false
         }
     };
 

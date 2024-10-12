@@ -20,7 +20,7 @@ export const useAuth = () => {
 
     const isAuth = () => {
         const auth = get("login-id");
-        if (auth == null || auth == "" || auth == undefined) {
+        if (auth == "null" || auth == undefined) {
             return false;
         } else {
             return true;
@@ -171,8 +171,8 @@ export const useAuth = () => {
         save("login-id", null);
         save("prev-url", window.location.href);
         router.push("/signin");
-        dispatch(clearUserData());
-        dispatch(clearProfileData());
+        // dispatch(clearUserData());
+        // dispatch(clearProfileData());
 
     };
 

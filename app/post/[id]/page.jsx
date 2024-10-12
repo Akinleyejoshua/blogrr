@@ -14,9 +14,18 @@ import { usePost } from "@/hooks/usePost";
 import { useTime } from "@/hooks/useTime";
 import { useURL } from "@/hooks/useURL";
 import { atlify, formatNumber, urlify } from "@/utils/helpers";
+import { get } from "@/utils/localstorage";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AiFillHeart, AiOutlineDelete, AiOutlineEdit, AiOutlineEye, AiOutlineHeart, AiOutlineSend, AiOutlineShareAlt } from "react-icons/ai";
+import {
+  AiFillHeart,
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlineEye,
+  AiOutlineHeart,
+  AiOutlineSend,
+  AiOutlineShareAlt,
+} from "react-icons/ai";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { CiChat1, CiShare1 } from "react-icons/ci";
 import { useSelector } from "react-redux";
@@ -41,22 +50,25 @@ export default function Page() {
   const item = post;
   const userState = useSelector((state) => state.state.user);
   const { is_comment } = useURL();
-  const {relativeTime} = useTime();
+  const { relativeTime } = useTime();
   const [liked, setLiked] = useState(null);
   const [likes, setLikes] = useState(null);
 
   useEffect(() => {
     if (is_comment != undefined) {
-      getPost(id, is_comment, userState._id);
+      const visitorId = get("visitor-id");
+      getPost(id, is_comment, userState._id == "" ? visitorId : userState._id);
     }
   }, [id, is_comment]);
 
   useEffect(() => {
-    if (item){
+    if (item) {
       setLiked(item?.likes?.includes(userState._id));
-      setLikes(item?.likes?.length)
+      setLikes(item?.likes?.length);
     }
-  }, [loading])
+  }, [loading]);
+
+  const userId = get("login-id");
 
   return (
     <main className="home">
@@ -91,6 +103,11 @@ export default function Page() {
                   fontSize={"3rem"}
                 />
                 <Space val={".3rem"} />
+                    {item?.main_post_id && <>
+                      <small className="main-post-link" onClick={() => router.push(`/post/${item?.main_post_id}?is_comment=null`)}>Main Post</small>
+                  <Space val={".3rem"} />
+                </>}
+
 
                 {item?.title !== "" ? <h1>{item?.title}</h1> : <h1>Comment</h1>}
                 <Space val={".3rem"} />
@@ -99,40 +116,48 @@ export default function Page() {
                 </small>
                 <Space val={".3rem"} />
 
-                <div className="w-full post-content" dangerouslySetInnerHTML={{ __html: atlify(urlify(item?.content)) }}></div>
+                <div
+                  className="w-full post-content"
+                  dangerouslySetInnerHTML={{
+                    __html: atlify(urlify(item?.content)),
+                  }}
+                ></div>
 
                 <Space val={"1rem"} />
                 <div className="flex row">
                   <div className="actions fit flex row space-betwee items-center">
-                  {
-                  liked ? <button
-                    className="icon btn items-center b-none c-red"
-                    onClick={(e) => {
-                      like(item?._id, "un-like")
-                      setLikes(likes - 1)
-                      setLiked(false)
-                    }
-                    }
-                  >
-                    <AiFillHeart className="icon" />
-                    <Space val={".3rem"} />
-                    <p className="num">{formatNumber(likes)}</p>
-                  </button> :
-                    <button
-                      className="icon btn items-center b-none c-red"
-                      onClick={(e) => {
-                        like(item?._id, "like")
-                        setLikes(likes + 1)
-                        setLiked(true)
+                    {liked ? (
+                      <button
+                        className="icon btn items-center b-none c-red"
+                        onClick={(e) => {
+                          like(item?._id, "un-like");
+                          setLikes(likes - 1);
+                          setLiked(false);
+                        }}
+                      >
+                        <AiFillHeart className="icon" />
+                        <Space val={".3rem"} />
+                        <p className="num">{formatNumber(likes)}</p>
+                      </button>
+                    ) : (
+                      <button
+                        className="icon btn items-center b-none c-red"
+                        onClick={(e) => {
+                          if (userId == "null") {
+                            router.push("/")
+                          } else {
+                            like(item?._id, "like");
+                            setLikes(likes + 1);
+                            setLiked(true);
+                          }
 
-                      }
-                      }
-                    >
-                      <AiOutlineHeart className="icon" />
-                      <Space val={".3rem"} />
-                      <p className="num">{formatNumber(likes)}</p>
-                    </button>
-                }
+                        }}
+                      >
+                        <AiOutlineHeart className="icon" />
+                        <Space val={".3rem"} />
+                        <p className="num">{formatNumber(likes)}</p>
+                      </button>
+                    )}
 
                     <Space val={"1rem"} />
 
@@ -142,48 +167,54 @@ export default function Page() {
                       <p>{item?.comments?.length}</p>
                     </button>
                     <Space val={"1rem"} />
-                    <button
-                      className="btn flex items-center c-white b-none"
-                    >
-                      <AiOutlineEye className="icon"/>
+                    <button className="btn flex items-center c-white b-none">
+                      <AiOutlineEye className="icon" />
                       <Space val={".3rem"} />
                       {item?.views?.length}
                     </button>
                     <Space val={"1rem"} />
 
                     <button
-                      onClick={() => sharePost(`${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`)}
-                      className="btn flex items-center c-white b-none">
+                      onClick={() =>
+                        sharePost(
+                          `${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`
+                        )
+                      }
+                      className="btn flex items-center c-white b-none"
+                    >
                       <CiShare1 className="icon" />
                     </button>
                     <Space val={"1rem"} />
 
                     <DropdownMenu
-                      icon={
-                        <BiDotsVerticalRounded className="icon" />
-                      }
-
+                      icon={<BiDotsVerticalRounded className="icon" />}
                       menu={[
                         {
                           icon: <AiOutlineDelete className="icon" />,
                           text: "Delete",
                           color: "var(--red)",
                           open: item.user_id == userState._id,
-                          onClick: () => deletePost(item?._id)
+                          onClick: () => deletePost(item?._id),
                         },
                         {
                           icon: <AiOutlineEdit className="icon" />,
                           text: "Edit",
                           color: "var(--white)",
                           open: item.user_id == userState._id,
-                          onClick: () => router.push(`/publish/${item?._id}?is_comment=${is_comment}`)
+                          onClick: () =>
+                            router.push(
+                              `/publish/${item?._id}?is_comment=${is_comment}`
+                            ),
                         },
                         {
                           icon: <AiOutlineShareAlt className="icon" />,
                           text: "Share",
                           color: "var(--blue)",
                           open: true,
-                          onClick: () => sharePost(`${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`),
+                          onClick: () =>
+                            sharePost(
+                              `${location.protocol}//${location.host}/post/${item?._id}?is_comment=${is_comment}`
+                            ),
                         },
                       ]}
                     />
@@ -204,32 +235,35 @@ export default function Page() {
                 )}
                 <Space val={"1rem"} />
 
-                <div className="input-bar items-center">
-                  <CiChat1 className="icon" />
-                  <Space val={".3rem"} />
-                  <input
-                    type="text"
-                    placeholder="Comment"
-                    onChange={(e) =>
-                      setCommentState({
-                        ...commentState,
-                        content: e.target.value,
-                      })
-                    }
-                  />
-                  {commentState.content != "" && (
-                    <button className="b-none flex items-center">
-                      {commentState.loading ? (
-                        <Loader />
-                      ) : (
-                        <AiOutlineSend
-                          className="icon"
-                          onClick={() => commentOnPost(item?._id, is_comment)}
-                        />
-                      )}
-                    </button>
-                  )}
-                </div>
+                {userId != "null" &&
+                  <div className="input-bar items-center">
+                    <CiChat1 className="icon" />
+                    <Space val={".3rem"} />
+                    <input
+                      type="text"
+                      placeholder="Comment"
+                      onChange={(e) =>
+                        setCommentState({
+                          ...commentState,
+                          content: e.target.value,
+                        })
+                      }
+                    />
+                    {commentState.content != "" && (
+                      <button className="b-none flex items-center">
+                        {commentState.loading ? (
+                          <Loader />
+                        ) : (
+                          <AiOutlineSend
+                            className="icon"
+                            onClick={() => commentOnPost(item?._id, is_comment)}
+                          />
+                        )}
+                      </button>
+                    )}
+                  </div>
+                }
+
                 <Space val={".3rem"} />
                 <Toast text={commentState.msg} type={commentState.msgType} />
                 <Space val={".3rem"} />
@@ -238,6 +272,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-    </main >
+    </main>
   );
 }

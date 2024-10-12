@@ -9,7 +9,7 @@ export const POST = async (req) => {
   const { id, is_comment, user_id } = await req.json();
 
   try {
-    const post = await Post.findOne({ _id: id, is_comment: is_comment });
+    const post = await Post.findOne({ _id: id });
     const user = await User.findOne({ _id: post?.user_id });
     const users = await User.find();
 

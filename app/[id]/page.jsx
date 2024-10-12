@@ -7,6 +7,7 @@ import { ProfileBanner } from "@/components/ProfileBanner";
 import { SideBar } from "@/components/SideBar";
 import { Space } from "@/components/Space";
 import { Tabs } from "@/components/Tabs";
+import { useAuth } from "@/hooks/useAuth";
 import { useProfile } from "@/hooks/useProfile";
 import { EditProfile } from "@/layouts/EditProfile";
 import { MyComments } from "@/layouts/MyComments";
@@ -28,6 +29,12 @@ export default function Page() {
     followAction,
     profileNotFound,
   } = useProfile();
+
+  const { authenticate } = useAuth();
+
+  useEffect(() => {
+    authenticate();
+  }, [])
 
   const { id: user } = useParams();
   const name = user.replace("%40", "");

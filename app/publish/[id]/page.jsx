@@ -7,6 +7,7 @@ import { Loader } from "@/components/Loader"
 import { SideBar } from "@/components/SideBar"
 import { Space } from "@/components/Space"
 import { Toast } from "@/components/Toast"
+import { useAuth } from "@/hooks/useAuth"
 import { usePublish } from "@/hooks/usePublish"
 import { useURL } from "@/hooks/useURL"
 import { useParams } from "next/navigation"
@@ -17,6 +18,12 @@ import { useSelector } from "react-redux"
 export default function Page() {
     const { id } = useParams();
     const { is_comment } = useURL();
+
+    const { authenticate } = useAuth();
+
+    useEffect(() => {
+        authenticate();
+    }, [])
 
     const { state, handleState, updatePublished, getPost } = usePublish();
     const userState = useSelector(state => state.state.user);

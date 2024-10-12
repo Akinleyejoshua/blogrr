@@ -217,7 +217,6 @@ export const Draft = ({ val, onChange }) => {
                             try {
                                 file.readAsDataURL(e.target.files[0]);
                                 file.onload = () => handleImage(file.result);
-
                             } catch {
 
                             }

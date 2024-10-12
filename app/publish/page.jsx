@@ -7,13 +7,21 @@ import { Loader } from "@/components/Loader"
 import { SideBar } from "@/components/SideBar"
 import { Space } from "@/components/Space"
 import { Toast } from "@/components/Toast"
+import { useAuth } from "@/hooks/useAuth"
 import { usePublish } from "@/hooks/usePublish"
+import { useEffect } from "react"
 import { AiOutlineSave } from "react-icons/ai"
 import { useSelector } from "react-redux"
 
 export default function Page() {
     const { state, handleState, publish } = usePublish();
     const userState = useSelector(state => state.state.user);
+
+    const { authenticate } = useAuth();
+
+    useEffect(() => {
+        authenticate();
+    }, [])
 
     return <main className="home publisher">
         <div className="flex row fit">

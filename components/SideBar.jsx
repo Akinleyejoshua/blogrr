@@ -9,17 +9,41 @@ import { useComponents } from "@/hooks/useComponents"
 import { useUser } from "@/hooks/useUser"
 import { useEffect } from "react"
 import { Loader } from "./Loader"
-import { get } from "@/utils/localstorage"
+import { get, save } from "@/utils/localstorage"
 import { HLine } from "./HLine"
 
 export const SideBar = () => {
     const { sidebar, closeSideBar } = useComponents();
     const { loading, username, email, followers, following, getUserData, img, getUserNotification } = useUser();
     const { logout } = useAuth();
-
+    
+    const userTokenId = get("login-id")
     const router = useRouter();
+
+    if (userTokenId == "null") {
+        const visitorId = get("visitor-id");
+        if (visitorId == "null" || visitorId == undefined) {
+            const rand = Math.floor(Math.random() * 100000000000000)
+            save("visitor-id", rand)  
+        }
+    
+        return <div className="sidebar flex col">
+            <NavBrand size={"3rem"} />
+            <Space val={"1.3rem"} />
+            <HLine width={"9rem"} />
+            <Space val={"1.3rem"} />
+
+            <div className="links" onClick={closeSideBar}>
+                <button className="flex row items-center btn c-white" onClick={() => router.push("/home")}>
+                    <GoHome className="icon" />
+                    <Space val={".3rem"} />
+                    <p>Home</p>
+                </button>
+            </div>
+        </div>;
+    }
+
     useEffect(() => {
-        const userTokenId = get("login-id")
         if (email == "") {
             getUserData(userTokenId);
             getUserNotification(userTokenId);

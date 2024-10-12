@@ -1,4 +1,4 @@
-import { setUserData, setUserNotifications, toggleUserLoading } from "@/redux/features/state";
+import { setUserData, setUserNotifications, toggleUserLoading, clearProfileData, clearUserData } from "@/redux/features/state";
 import { getFollowingFollowersAPI, getUserDataAPI, userNotificationsActionAPI } from "@/services/user";
 import { get } from "@/utils/localstorage";
 import { useRouter } from "next/navigation";
@@ -28,13 +28,13 @@ export const useUser = () => {
 
 
     const getUserData = (id) => {
+        dispatch(clearUserData());
+        dispatch(clearProfileData());
         dispatch(toggleUserLoading(true));
         getUserDataAPI({ id }).then(res => {
             const data = res.data;
             if (data.msg == "found") {
                 dispatch(setUserData(data))
-            } else {
-                router.push("/");
             }
             dispatch(toggleUserLoading(false));
 

@@ -183,7 +183,7 @@ button .icon {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
-/*   border: 3px solid rgba(245, 245, 245, 0.3); */
+  /* border: 3px solid rgba(245, 245, 245, 0.3); */
 }
 
 .sidebar {
@@ -201,7 +201,7 @@ button .icon {
 header nav {
   padding: 0 3rem;
   padding-bottom: 1rem;
-  
+
 }
 
 header .title {
@@ -283,6 +283,7 @@ header button:not(:last-child) {
   }
 
   header nav {
+    /* padding: 0; */
     padding-left: 0;
     padding-right: 0;
   }
@@ -521,4 +522,15 @@ textarea {
     background-color: transparent;
     cursor: pointer;
   }
+}
+
+.main-post-link{
+  padding: .3rem .6rem;
+  background: var(--input-bg);
+  border-radius: var(--br2);
+  -webkit-border-radius: var(--br2);
+  -moz-border-radius: var(--br2);
+  -ms-border-radius: var(--br2);
+  -o-border-radius: var(--br2);
+  cursor: pointer;
 }

@@ -1,17 +1,15 @@
 import axios from "axios";
 
 const settings = {
-
-	baseURL: 'https://blogrpro.vercel.app/api',
-	// baseURL: 'http://localhost:3000/api',
-	headers: {
-		Accept: 'application/json,text/plain,*/*',
-		'Content-Type': 'application/json',
-		'Access-Control-Allow-Origin': "*",
-		"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-
-	}
-}
+//   baseURL: "http://localhost:3000/api",
+  baseURL: 'https://blogrpro.vercel.app/api',
+  headers: {
+    Accept: "application/json,text/plain,*/*",
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  },
+};
 
 export const request = axios.create(settings);
 

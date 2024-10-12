@@ -18,12 +18,16 @@ import {
 import { usePost } from "@/hooks/usePost";
 import { useTime } from "@/hooks/useTime";
 import { memo, useState } from "react";
+import { get } from "@/utils/localstorage";
 
 export const Post = memo(({ data, like, is_comment }) => {
   const userState = useSelector((state) => state.state.user);
   const router = useRouter();
   const { deletePost, sharePost } = usePost();
   const { relativeTime } = useTime();
+
+  const userId = get("login-id");
+
   const [liked, setLiked] = useState(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })));
   const [likes, setLikes] = useState(data.map(item => ({ id: item?._id, val: item?.likes.length })))
 
@@ -160,8 +164,13 @@ export const Post = memo(({ data, like, is_comment }) => {
                     <button
                       className="icon btn items-center b-none c-red"
                       onClick={(e) => {
-                        like(item?._id, "like")
-                        setLikeLikes(item?._id, true, +1)
+                        if (userId == "null") {
+                          router.push("/")
+                        } else {
+                          like(item?._id, "like")
+                          setLikeLikes(item?._id, true, +1)
+                        }
+
                       }
                       }
                     >
