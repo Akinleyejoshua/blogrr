@@ -9,6 +9,7 @@ import { Link } from "./Link";
 import { DropdownMenu } from "./DropdownMenu";
 import {
   AiFillHeart,
+  AiOutlineBarChart,
   AiOutlineDelete,
   AiOutlineEdit,
   AiOutlineEye,
@@ -193,9 +194,9 @@ export const Post = memo(({ data, like, is_comment }) => {
                 <button
                   className="btn flex items-center c-white b-none"
                 >
-                  <AiOutlineEye className="icon" />
+                  <AiOutlineBarChart className="icon" />
                   <Space val={".3rem"} />
-                  {item?.views?.length}
+                  {formatNumber(item?.views?.length)}
                 </button>
                 <button
                   onClick={() =>
