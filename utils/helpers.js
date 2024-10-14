@@ -41,7 +41,7 @@ export const shortenText = (text, len) => {
       break;
     }
   }
-  return result + " ...";
+  return result + " ";
 };
 
 export const shortenNotification = (text, len) => {
