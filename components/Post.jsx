@@ -78,7 +78,7 @@ export const Post = memo(({ data, like, is_comment }) => {
               <div className="flex w-full row space-between">
                 <div className="flex fit row pointer items-center">
                   <p
-                    className="tiny c-blue nospace"
+                    className="tiny c-blu dim1 nospace"
                     onClick={() => router.push(`/@${item?.username}`)}
                   >
                     @{item?.username}
@@ -145,6 +145,7 @@ export const Post = memo(({ data, like, is_comment }) => {
                     __html: atlify(urlify(shortenText(item?.content, 333))),
                   }}
                 ></div>
+                <small className="dim1 c-blue tiny">...see more</small>
               </div>
               <Space val={".3rem"} />
               <div className="actions fit flex row space-between">
