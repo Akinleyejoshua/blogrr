@@ -10,7 +10,8 @@ export async function generateMetadata({params}) {
       title: "Blogrr Social App",
       openGraph: {
         description: data.data.content,
-        title: data.data.title
+        title: data.data.title,
+          image: data.data.img
       },
     }; 
 }
