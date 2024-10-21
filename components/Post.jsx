@@ -18,7 +18,7 @@ import {
 } from "react-icons/ai";
 import { usePost } from "@/hooks/usePost";
 import { useTime } from "@/hooks/useTime";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { get } from "@/utils/localstorage";
 
 export const Post = memo(({ data, like, is_comment }) => {
@@ -29,8 +29,13 @@ export const Post = memo(({ data, like, is_comment }) => {
 
   const userId = get("login-id");
 
-  const [liked, setLiked] = useState(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })));
-  const [likes, setLikes] = useState(data.map(item => ({ id: item?._id, val: item?.likes.length })))
+  const [liked, setLiked] = useState([]);
+  const [likes, setLikes] = useState([])
+
+  useEffect(() => {
+    setLiked(data.map(item => ({ id: item?._id, val: item?.likes.includes(userState._id) })))
+    setLikes(data.map(item => ({ id: item?._id, val: item?.likes.length })))
+  }, [data])
 
   const setLikeLikes = (id, likedVal, likesVal) => {
     setLiked(liked.map(like => like.id == id ? {
@@ -61,7 +66,6 @@ export const Post = memo(({ data, like, is_comment }) => {
   return (
     <div className="flex rev-col">
       {data?.map((item, i) => {
-
         return (
           <div className="post-item flex w-full h-max row" key={i}>
             <div className="flex col items-center">
