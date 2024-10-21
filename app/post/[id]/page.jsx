@@ -6,7 +6,6 @@ import { Header } from "@/components/Header";
 import { Link } from "@/components/Link";
 import { Loader } from "@/components/Loader";
 import { Post } from "@/components/Post";
-import { RelativeTimeBar } from "@/components/RelativeTimeBar";
 import { SideBar } from "@/components/SideBar";
 import { Space } from "@/components/Space";
 import { Toast } from "@/components/Toast";
@@ -29,7 +28,7 @@ import {
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { CiChat1, CiShare1 } from "react-icons/ci";
 import { useSelector } from "react-redux";
-// import { domToReact } from "html-react-parser";
+import Head from 'next/head';
 
 export default function Page() {
   const { id } = useParams();
@@ -72,6 +71,11 @@ export default function Page() {
 
   return (
     <main className="home">
+      <Head>
+        <title>{ item?.title }</title>
+        <meta name="description" content="Click the link to view post" />
+        <meta name="keywords" content="" />
+      </Head>
       <div className="flex row fit">
         <SideBar />
         <div className="flex col fit">
@@ -103,8 +107,8 @@ export default function Page() {
                   fontSize={"3rem"}
                 />
                 <Space val={".3rem"} />
-                    {item?.main_post_id && <>
-                      <small className="main-post-link" onClick={() => router.push(`/post/${item?.main_post_id}?is_comment=null`)}>Main Post</small>
+                {item?.main_post_id && <>
+                  <small className="main-post-link" onClick={() => router.push(`/post/${item?.main_post_id}?is_comment=null`)}>Main Post</small>
                   <Space val={".3rem"} />
                 </>}
 
