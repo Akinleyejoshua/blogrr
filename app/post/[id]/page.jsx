@@ -58,7 +58,7 @@ export default function Page() {
       const visitorId = get("visitor-id");
       getPost(id, is_comment, userState._id == "" ? visitorId : userState._id);
     }
-  }, [id, is_comment]);
+  }, [id, is_comment, userState._id]);
 
   useEffect(() => {
     if (item) {
