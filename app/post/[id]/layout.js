@@ -4,10 +4,11 @@ import { getPostAPI } from "@/services/post";
 
 export async function generateMetadata({params}) {
     const id = params.id;
-    const data = await getPostAPI({ id });
+  const data = await getPostAPI({ id });
 
     return {
       title: "Blogrr Social App",
+      image: "app/favicon.ico",
       openGraph: {
         description: data.data.content,
         title: data.data.title,
