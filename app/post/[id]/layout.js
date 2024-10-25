@@ -8,10 +8,11 @@ export async function generateMetadata({params}) {
 
     return {
       title: "Blogrr Social App",
-      image: "https://blogrpro.vercel.app/favicon.ico",
       openGraph: {
         description: data.data.content,
         title: data.data.title,
+        image: "https://blogrpro.vercel.app/favicon.ico",
+
       },
     }; 
 }
