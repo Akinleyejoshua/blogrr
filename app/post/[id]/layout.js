@@ -11,7 +11,7 @@ export async function generateMetadata({params}) {
       openGraph: {
         description: data.data.content,
         title: data.data.title,
-        images: ["https://blogrpro.vercel.app/favicon.ico"],
+        images: ["https://blogrpro.vercel.app/icon.png"],
 
       },
     }; 
