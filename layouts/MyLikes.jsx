@@ -53,7 +53,7 @@ export const MyLikes = ({ data }) => {
       <Post
         data={searching ? searchItems : filter}
         like={like}
-        is_comment={true}
+        is_comment={false}
       />
     </div>
   );
