@@ -20,7 +20,7 @@ export const SideBar = () => {
     const userTokenId = get("login-id")
     const router = useRouter();
 
-    if (userTokenId == "null") {
+    if (userTokenId == "null" || userTokenId == undefined) {
         const visitorId = get("visitor-id");
         if (visitorId == "null" || visitorId == undefined) {
             const rand = Math.floor(Math.random() * 100000000000000)
