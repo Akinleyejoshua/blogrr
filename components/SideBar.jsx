@@ -20,7 +20,15 @@ export const SideBar = () => {
     const userTokenId = get("login-id")
     const router = useRouter();
 
-    if (userTokenId == "null") {
+    useEffect(() => {
+        if (email == "") {
+            getUserData(userTokenId);
+            getUserNotification(userTokenId);
+        }
+
+    }, [])
+
+    if (userTokenId == "null" || userTokenId == undefined) {
         const visitorId = get("visitor-id");
         if (visitorId == "null" || visitorId == undefined) {
             const rand = Math.floor(Math.random() * 100000000000000)
@@ -53,14 +61,6 @@ export const SideBar = () => {
             </div>
         </div>;
     }
-
-    useEffect(() => {
-        if (email == "") {
-            getUserData(userTokenId);
-            getUserNotification(userTokenId);
-        }
-
-    }, [])
 
     return <div className={`${sidebar ? "sidebar flex open" : "sidebar flex"}`}>
         <div className="content fit">
