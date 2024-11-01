@@ -6,7 +6,7 @@ import { atlify, shortenNotification, urlify } from "@/utils/helpers";
 import { useTime } from "@/hooks/useTime";
 
 export const NotificationBar = ({ data }) => {
-    if (data.length == 0 || data == undefined) {
+    if (data == undefined) {
         return <small>No Notifications</small>;
     }
     // console.log(data);
