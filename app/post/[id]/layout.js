@@ -1,7 +1,7 @@
 
 import StoreProvider from "@/redux/StoreProvider";
 import { getPostAPI } from "@/services/post";
-import { formatNumber } from "@/utils/helpers:
+import { formatNumber } from "@/utils/helpers":
 
 export async function generateMetadata({params}) {
     const id = params.id;
