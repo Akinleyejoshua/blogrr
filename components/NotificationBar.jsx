@@ -6,11 +6,14 @@ import { atlify, shortenNotification, urlify } from "@/utils/helpers";
 import { useTime } from "@/hooks/useTime";
 
 export const NotificationBar = ({ data }) => {
+    if (data.length == 0 || data == undefined) {
+        return <small>No Notifications</small>;
+    }
     // console.log(data);
     const router = useRouter();
     const {relativeTime} = useTime();
 
-    return data.map((item, i) => {
+    return data?.map((item, i) => {
         return <div onClick={() => {
             item?.path && router.push(item?.path);
         }} className="notification-bar w-full h-max b-none flex row space-between" key={i}>
