@@ -6,9 +6,9 @@ import { atlify, shortenNotification, urlify } from "@/utils/helpers";
 import { useTime } from "@/hooks/useTime";
 
 export const NotificationBar = ({ data }) => {
-    if (data == undefined) {
-        return <small>No Notifications</small>;
-    }
+    // if (data == undefined) {
+    //     return <small>No Notifications</small>;
+    // }
     // console.log(data);
     const router = useRouter();
     const {relativeTime} = useTime();
