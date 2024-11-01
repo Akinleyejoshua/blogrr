@@ -12,7 +12,7 @@ export async function generateMetadata({params}) {
       openGraph: {
         description: data.content,
         title: `${data.title} by ${data.username} · ${formatNumber(data.views.length)} Views · ${formatNumber(data.likes.length)} Likes · 
-        ${formatNumber(data.comments.length) Comments}`,
+        ${formatNumber(data.comments.length)} Comments`,
         images: ["https://blogrpro.vercel.app/icon.png"],
 
       },
