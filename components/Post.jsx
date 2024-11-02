@@ -194,7 +194,7 @@ export const Post = memo(({ data, like, is_comment }) => {
                 >
                   <CiChat1 className="icon" />
                   <Space val={".3rem"} />
-                  <p>{item?.comments?.length}</p>
+                  <p>{formatNumber(item?.comments.length)}</p>
                 </button>
                 <button
                   className="btn flex items-center c-white b-none"
