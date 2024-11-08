@@ -141,7 +141,7 @@ export const Post = memo(({ data, like, is_comment }) => {
                 }
               >
                 {item?.title !== "" && (
-                  <h3 className="title w-full">{item?.title}</h3>
+                  <h3 className="title w-full bolder">{item?.title}</h3>
                 )}
                 <div
                   className={`tiny w-full ${!is_comment && "dim"}`}
