@@ -113,7 +113,7 @@ export default function Page() {
                 </>}
 
 
-                {item?.title !== "" ? <h1>{item?.title}</h1> : <h1>Comment</h1>}
+                {item?.title !== "" ? <h1 className="bolder">{item?.title}</h1> : <h1>Comment</h1>}
                 <Space val={".3rem"} />
                 <small className="dim">
                   Posted {relativeTime(item?.timestamp)} ago
