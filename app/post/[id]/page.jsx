@@ -2,6 +2,7 @@
 
 import { Avater } from "@/components/Avater";
 import { DropdownMenu } from "@/components/DropdownMenu";
+import { FollowBtnItem } from "@/components/FollowBtnItem";
 import { Header } from "@/components/Header";
 import { Link } from "@/components/Link";
 import { Loader } from "@/components/Loader";
@@ -115,7 +116,15 @@ export default function Page() {
                   <small className="main-post-link" onClick={() => router.push(`/post/${item?.main_post_id}?is_comment=null`)}>Main Post</small>
                   <Space val={".3rem"} />
                 </>}
+                <Space val={".4rem"} />
+                  <div className="flex col">
+                        <h4>{item?.username}</h4>
+                        <Space val={".4rem"} />
+                        {userId !== item?.user_id && 
+                          <FollowBtnItem followers={item?.followers} following_id={item?.user_id} user_id={userId} follow={followAction} />
 
+                        }
+                  </div>
 
                 {item?.title !== "" ? <h1 className="bolder">{item?.title}</h1> : <h1>Comment</h1>}
                 <Space val={".3rem"} />
