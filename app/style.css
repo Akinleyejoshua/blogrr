@@ -13,6 +13,7 @@
 body {
   background-color: var(--bg-black);
   color: var(--white);
+  background-color: #18171d;
 }
 
 main {
@@ -533,4 +534,25 @@ textarea {
   -ms-border-radius: var(--br2);
   -o-border-radius: var(--br2);
   cursor: pointer;
+}
+
+.usernames{
+  position: relative;
+  background-color: rgba(26, 23, 23, 0.534);
+  color: white;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  cursor: pointer;
+  z-index: 100;
+  bottom: 0;
+  width: max-content;
+  backdrop-filter: blur(4rem);
+  margin-top: .4rem;
+}
+
+.usernames .name{
+  padding: .4rem;
 }
