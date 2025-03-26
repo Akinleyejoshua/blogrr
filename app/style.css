@@ -50,10 +50,6 @@ main {
   /* box-shadow: var(--bs); */
 }
 
-.input input:not(.publisher input){
-  background-color: #15141b;
-
-}
 
 .publisher input{
   background-color: transparent;
@@ -64,6 +60,7 @@ main {
   width: 100%;
   font-weight: 500;
   color: white;
+  background-color: #15141b;
 }
 
 .input-file{
