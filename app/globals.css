@@ -493,10 +493,10 @@ img.content-img {
   -o-border-radius: var(--br);
   display: flex;
   place-items: center;
-  background-color: var(--bg-black);
   /* justify-content: center; */
   z-index: 10;
-  opacity: 0.6;
+  opacity: 0.8;
+  margin-right: .4rem;
 }
 
 .tools .format-btn:hover {
