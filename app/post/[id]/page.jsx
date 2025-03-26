@@ -17,6 +17,8 @@ import { atlify, formatNumber, urlify } from "@/utils/helpers";
 import { get } from "@/utils/localstorage";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useProfile } from "@/hooks/useProfile";
+
 import {
   AiFillHeart,
   AiOutlineDelete,
@@ -69,6 +71,7 @@ export default function Page() {
   }, [loading]);
 
   const userId = get("login-id");
+  const {followAction } = useProfile();
 
   return (
     <main className="home">
