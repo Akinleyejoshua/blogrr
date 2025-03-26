@@ -9,6 +9,10 @@ db();
 export const POST = async (req) => {
   const { _id, title, content, is_comment, main_post_id } = await req.json();
 
+  const atRegex = /\@\w+/gi;
+
+  const users = await User.find().lean();
+
   if (is_comment) {
     const user = await User.findOne({ _id: _id }).lean();
 
@@ -40,6 +44,28 @@ export const POST = async (req) => {
           });
 
           newNotification.save();
+
+          content.replace(atRegex, (text) => {
+            const findUser = users.find(
+              (x) => x.username == text.replace("@", "")
+            );
+
+            if (findUser !== undefined) {
+              const newNotification = new Notification({
+                timestamp: Date.now(),
+                seen: false,
+                msg: `${user.username} tagged you in a post`,
+                title: title,
+                type: "tagged",
+                user_id: user._id,
+                content: publish._id,
+                path: `/post/${publish._id}?is_comment=true`,
+                to: findUser?._id,
+              });
+
+              newNotification.save();
+            }
+          });
         }
       }
       return new NextResponse(
@@ -58,6 +84,26 @@ export const POST = async (req) => {
     });
 
     if (publish.save()) {
+      const user = await User.findOne({ _id: _id }).lean();
+
+      content.replace(atRegex, (text) => {
+        const findUser = users.find((x) => x.username == text.replace("@", ""));
+        if (findUser !== undefined) {
+          const newNotification = new Notification({
+            timestamp: Date.now(),
+            seen: false,
+            msg: `${user.username} tagged you in a post`,
+            title: title,
+            type: "tagged",
+            user_id: user._id,
+            content: publish._id,
+            path: `/post/${publish._id}?is_comment=false`,
+            to: findUser?._id,
+          });
+
+          newNotification.save();
+        }
+      });
       return new NextResponse(
         JSON.stringify({ posted: true, ...publish._doc })
       );
