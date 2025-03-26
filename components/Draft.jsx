@@ -230,6 +230,8 @@ export const Draft = ({ val, onChange }) => {
                                 contentRef.current.innerHTML = contentRef.current.innerHTML.replace(username, item?.username)
                                 setTagging(false);
                                 setUsernames([]);
+                                setContent(contentRef.current.innerHTML);
+                                onChange(contentRef.current.innerHTML);
                             }}><Avater size={"1.4rem"} data={{ username: item?.username, img: item?.img }} />
                                 <Space val={".14rem"}/>
                                 <small>@{item?.username}</small></div>
