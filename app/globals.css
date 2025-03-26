@@ -589,7 +589,7 @@ img.content-img {
 .tablinks {
   padding: 0 1rem;
   border-radius: var(--br2);
-  background-color: var(--input-bg);
+  background-color: #15141b;
   /* border-bottom: 1px solid rgba(255, 255, 255, 0.5); */
   -webkit-border-radius: var(--br2);
   -moz-border-radius: var(--br2);
