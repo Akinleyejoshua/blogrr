@@ -480,6 +480,17 @@ img.content-img {
   max-width: 100%;
 }
 
+video.content-video{
+  width: 100%;
+  height: max-content;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+
 .draft .format-btn {
   /* height: 2rem; */
   /* width: 2rem; */
