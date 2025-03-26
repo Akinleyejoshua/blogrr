@@ -83,9 +83,13 @@ export default function Page() {
           <div className="main scroll-y">
             {loading ? (
               userState.loading ? (
-                <Loader />
+                <div className="flex col center justify-center items-center w-full h-full">
+                    <Loader />
+                  </div>
               ) : (
-                <Loader />
+               <div className="flex col center justify-center items-center w-full h-full">
+                    <Loader />
+                  </div>
               )
             ) : notFound ? (
               <>
