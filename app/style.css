@@ -50,14 +50,21 @@ main {
   /* box-shadow: var(--bs); */
 }
 
+.input input:not(.publisher input){
+  background-color: #15141b;
+
+}
+
+.publisher input{
+  background-color: transparent;
+}
+
 .input-bar input {
   border: none;
-  background-color: #15141b;
   width: 100%;
   font-weight: 500;
   color: white;
 }
-
 
 .input-file{
   position: relative;
