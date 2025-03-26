@@ -9,8 +9,10 @@ import {
     FaList,
     FaParagraph,
     FaUnderline,
+    FaVideo,
 } from "react-icons/fa6";
 import { atlify, removeFromString, urlify } from "@/utils/helpers";
+import { Avater } from "./Avater";
 
 export const Draft = ({ val, onChange }) => {
     const contentRef = useRef(null);
@@ -33,14 +35,20 @@ export const Draft = ({ val, onChange }) => {
 
     const appendElementAtCursor = (element) => {
         try {
-            lastPoint.insertNode(element);
-            lastPoint.setStartAfter(element);
-            lastPoint.collapse(true);
 
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(lastPoint);
-            contentRef.current.focus();
+            if (lastPoint != null) {
+                lastPoint.insertNode(element);
+                lastPoint.setStartAfter(element);
+                lastPoint.collapse(true);
+
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(lastPoint);
+                contentRef.current.focus();
+            } else {
+                contentRef.current.append(element)
+            }
+
         } catch (error) {
 
         }
@@ -48,6 +56,7 @@ export const Draft = ({ val, onChange }) => {
     };
 
     const handleFormatting = (type) => {
+        if (content == "" && type != "cont") return;
         setTyping(true);
         let space = document.createElement("i");
         space.innerHTML = "&nbsp;";
@@ -115,6 +124,20 @@ export const Draft = ({ val, onChange }) => {
         let space = document.createElement("br");
         appendElementAtCursor(img);
         appendElementAtCursor(space);
+        handleContent()
+
+    }
+
+    const handleVideo = (blob) => {
+        setTyping(true);
+        let video = document.createElement("video");
+        video.className = "content-video";
+        video.src = blob;
+        video.controls = true;
+        let space = document.createElement("br");
+        appendElementAtCursor(video);
+        appendElementAtCursor(space);
+        handleContent()
     }
 
     function saveCursorPosition(contentEditableElement) {
@@ -127,12 +150,46 @@ export const Draft = ({ val, onChange }) => {
         }
     }
 
+    const handleContent = () => {
+        let text = contentRef.current.innerHTML;
+        const removeLiterals = removeFromString(text, "`");
+        const formatedText = removeLiterals;
 
+        setContent(formatedText);
+        onChange(formatedText);
+    }
+
+    const [tagging, setTagging] = useState(false);
+    const [usernames, setUsernames] = useState([])
+    const [username, setUsername] = useState("");
+    
     const handleText = (e) => {
         let text = e.target.innerHTML;
         let textContent = e.target.textContent
         const removeLiterals = removeFromString(text, "`");
         const formatedText = removeLiterals;
+
+        const atRegex = /\@\w+/gi;
+        setTagging(false);
+        setUsernames([]);
+
+        text.replace(atRegex, async (txt) => {
+            if (text.includes(" ")) {
+                setUsernames([]);
+                setTagging(false);
+            
+            }
+            setUsername(txt.replace("@", ""))
+            const api = await fetch("api/get-users");
+            const res = await api.json();
+
+            const filter = res?.findUsers?.filter(item => item.username.includes(txt.replace("@", "")));
+            if (filter.length != 0) {
+                setTagging(true);
+                setUsernames(filter);
+            } 
+
+        });
 
         setContent(formatedText);
         onChange(formatedText);
@@ -144,103 +201,137 @@ export const Draft = ({ val, onChange }) => {
         }
     };
 
+
     return (
         <div className="draft">
-            <div className={`flex col ${onPreview ? "not-visible" : "visible"}`}>
-            
-            <Space val={".3rem"} />
-            <div className={`textarea`}>
-                <div
-                    onBlur={(e) => saveCursorPosition(e.target)}
-                    contentEditable={true}
-                    className="text"
-                    onInput={(e) => handleText(e)}
-                    ref={contentRef}
-                    defaultValue={val}
-                ></div>
-                {!typing && (
-                    <p className="placeholder dim1">What do you want to publish?</p>
-                )}
-            </div>
-            <div
-                className={`tools ${typing ? "visible" : "visible"}`}
-                ref={toolbarRef}
-            >
-                <div
-                    className="format-btn pointer c-white"
-                    onClick={() => handleFormatting("h")}
-                >
-                    <FaHeading />
-                </div>
+            <section className={`text-bar ${onPreview ? "not-visible" : "visible"}`}>
 
-                <div
-                    className="format-btn pointer"
-                    onClick={() => handleFormatting("p")}
-                >
-                    <FaParagraph />
-                </div>
+                <Space val={".3rem"} />
+                <div className={`textarea`}>
+                    <div
+                        onBlur={(e) => saveCursorPosition(e.target)}
+                        contentEditable={true}
+                        className="text"
+                        onInput={(e) => handleText(e)}
+                        ref={contentRef}
+                        defaultValue={val}
+                    ></div>
+                    {!typing && (
+                        <p className="placeholder dim1">What do you want to publish?</p>
+                    )}
 
-                <div
-                    className="format-btn pointer"
-                    onClick={() => handleFormatting("i")}
-                >
-                    <FaItalic />
-                </div>
-
-                <div
-                    className="format-btn pointer"
-                    onClick={() => handleFormatting("li")}
-                >
-                    <FaList />
-                </div>
-
-                <div
-                    className="format-btn pointer"
-                    onClick={() => handleFormatting("b")}
-                >
-                    <FaBold />
-                </div>
-
-                <div
-                    className="format-btn pointer"
-                    onClick={() => handleFormatting("u")}
-                >
-                    <FaUnderline />
-                </div>
-                <div
-                    className="format-btn pointer items-center"
-
-                ><div className="input-file flex items-center">
-                        <FaImage className="icon" />
-                        <input className="fit" type="file" onChange={(e) => {
-                            const file = new FileReader();
-                            try {
-                                file.readAsDataURL(e.target.files[0]);
-                                file.onload = () => handleImage(file.result);
-                            } catch {
-
+                    {(tagging) && <div className="usernames">
+                        {usernames.map((item, i) => {
+                            if (item.username == username) {
+                                setUsernames([]);
+                                setTagging(false);
                             }
-                        }} />
+                            return <div className="name flex items-center" key={i} onClick={() => {
+                                contentRef.current.innerHTML = contentRef.current.innerHTML.replace(username, item?.username)
+                                setTagging(false);
+                                setUsernames([]);
+                            }}><Avater size={"1.4rem"} data={{ username: item?.username, img: item?.img }} />
+                                <Space val={".14rem"}/>
+                                <small>@{item?.username}</small></div>
+                        })}
+                    </div>}
+                </div>
+                <div
+                    className={`tools ${onPreview ? "not-visible" : "visible"}`}
+                    ref={toolbarRef}
+                >
+                    <div
+                        className="format-btn pointer c-white"
+                        onClick={() => handleFormatting("h")}
+                    >
+                        <FaHeading />
                     </div>
 
-                </div>
-                <div
-                    className="format-btn pointer"
-                    onClick={() => handleFormatting("tag")}
-                >
-                    ``
+                    <div
+                        className="format-btn pointer"
+                        onClick={() => handleFormatting("p")}
+                    >
+                        <FaParagraph />
+                    </div>
+
+                    <div
+                        className="format-btn pointer"
+                        onClick={() => handleFormatting("i")}
+                    >
+                        <FaItalic />
+                    </div>
+
+                    <div
+                        className="format-btn pointer"
+                        onClick={() => handleFormatting("li")}
+                    >
+                        <FaList />
+                    </div>
+
+                    <div
+                        className="format-btn pointer"
+                        onClick={() => handleFormatting("b")}
+                    >
+                        <FaBold />
+                    </div>
+
+                    <div
+                        className="format-btn pointer"
+                        onClick={() => handleFormatting("u")}
+                    >
+                        <FaUnderline />
+                    </div>
+                    <div
+                        className="format-btn pointer items-center"
+
+                    ><div className="input-file flex items-center">
+                            <FaImage className="icon" />
+                            <input className="fit" type="file" onChange={(e) => {
+                                const file = new FileReader();
+                                try {
+                                    file.readAsDataURL(e.target.files[0]);
+                                    file.onload = () => handleImage(file.result);
+                                } catch {
+
+                                }
+                            }} />
+                        </div>
+
+                    </div>
+                    <div
+                        className="format-btn pointer items-center"
+
+                    ><div className="input-file flex items-center">
+                            <FaVideo className="icon" />
+                            <input className="fit" type="file" onChange={(e) => {
+                                const file = new FileReader();
+                                try {
+                                    file.readAsDataURL(e.target.files[0]);
+                                    file.onload = () => handleVideo(file.result);
+                                } catch (err) {
+                                    console.log(err)
+                                }
+                            }} />
+                        </div>
+
+                    </div>
+                    <div
+                        className="format-btn pointer"
+                        onClick={() => handleFormatting("tag")}
+                    >
+                        ``
+                    </div>
+
+                    <div
+                        className="format-btn pointer"
+                        onClick={() => handleFormatting("cont")}
+                    >
+                        <FaArrowRight />
+                    </div>
                 </div>
 
-                <div
-                    className="format-btn pointer"
-                    onClick={() => handleFormatting("cont")}
-                >
-                    <FaArrowRight />
-                </div>
-            </div>
+            </section>
 
-            </div>
-            
 
             <div className={`textarea ${!onPreview ? "not-visible" : "visible"}`}>
                 <div
@@ -250,7 +341,7 @@ export const Draft = ({ val, onChange }) => {
                 ></div>
             </div>
 
-            <Space val={".3rem"} />
+            <Space val={".4rem"} />
 
             {onPreview ? (
                 <small className="pointer under" onClick={() => setOnPreview(false)}>
