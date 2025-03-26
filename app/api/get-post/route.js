@@ -24,6 +24,7 @@ export const POST = async (req) => {
 
     if (post) {
       const commentData = [];
+      const totalComments = 0;
 
       comments.forEach((item, i) => {
         let commentUsers = users.find((user) => user?._id == item?.user_id);
@@ -49,6 +50,7 @@ export const POST = async (req) => {
       return new NextResponse(
         JSON.stringify({
           ...post._doc,
+          ...user._doc,
           username: user.username,
           email: user.email,
           img: user.img,
