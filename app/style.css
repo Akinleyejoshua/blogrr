@@ -51,9 +51,6 @@ main {
 }
 
 
-.publisher input{
-  background-color: transparent;
-}
 
 .input-bar input {
   border: none;
@@ -61,6 +58,10 @@ main {
   font-weight: 500;
   color: white;
   background-color: #15141b;
+}
+
+.publisher input{
+  background-color: transparent;
 }
 
 .input-file{
