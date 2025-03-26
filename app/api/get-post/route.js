@@ -50,7 +50,7 @@ export const POST = async (req) => {
       return new NextResponse(
         JSON.stringify({
           ...post._doc,
-          ...user._doc,
+          followers: user.followers,
           username: user.username,
           email: user.email,
           img: user.img,
