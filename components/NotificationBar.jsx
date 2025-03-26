@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation";
 import { Avater } from "./Avater";
 import { atlify, shortenNotification, urlify } from "@/utils/helpers";
 import { useTime } from "@/hooks/useTime";
+import { FaAt } from "react-icons/fa6";
 
 export const NotificationBar = ({ data }) => {
-    // if (data == undefined) {
+
+    // if (data.length == 0) {
     //     return <small>No Notifications</small>;
     // }
     // console.log(data);
@@ -25,6 +27,7 @@ export const NotificationBar = ({ data }) => {
                     {item?.type == "comment" && <AiOutlineComment className="icon c-white" />}
                     {item?.type == "signin" && <AiOutlineLogin className="icon c-white" />}
                     {item?.type == "profile" && <AiOutlineEye className="icon c-white" />}
+                    {item?.type == "tagged" && <FaAt className="icon c-blue" />}
                     <Space val={".3rem"} />
                     {/* <div className="vline center"></div> */}
                 </div>
