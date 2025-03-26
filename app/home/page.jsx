@@ -43,7 +43,7 @@ export default function Page() {
           <div className="flex col fit">
             <Header title={"Home"} />
             <div className="top-nav flex space-between items-center">
-              <div className="input-bar">
+              <div className="input-bar search">
                 <AiOutlineSearch className="icon" />
                 <Space val={".3rem"} />
                 <input
@@ -74,7 +74,7 @@ export default function Page() {
         <div className="flex col fit">
           <Header title={"Home"} />
           <div className="top-nav flex space-between items-center">
-            <div className="input-bar">
+            <div className="input-bar w-full">
               <AiOutlineSearch className="icon" />
               <Space val={".3rem"} />
               <input
@@ -91,7 +91,7 @@ export default function Page() {
             >
               <AiOutlineEdit className="icon" />
               <Space val={".13rem"} />
-              <p>Creator</p>
+              <p>CREATOR</p>
             </button>
           </div>
           <div className="main scroll-y">
@@ -99,7 +99,9 @@ export default function Page() {
               data={searching ? searchItems : state.items}
               like={like}
               is_comment={false}
-            /> : <Loader />}
+            /> : <div className="flex col center justify-center items-center w-full h-full">
+                <Loader />
+            </div>}
           </div>
         </div>
       </div>
