@@ -58,7 +58,9 @@ export default function Page() {
           <Header title={"Profile"} />
           <div className="main scroll-y">
             {state.loading ? (
-              <Loader />
+               <div className="flex col center justify-center items-center w-full h-full">
+                <Loader />
+              </div>
             ) : profileNotFound ? <>
               <h1>404 Not Found</h1>
               <Space val={".3rem"} />
