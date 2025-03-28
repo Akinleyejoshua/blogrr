@@ -422,6 +422,11 @@ section.text-bar {
   height: 100%;
 }
 
+section.text-bar.not-visible {
+  display: none;
+}
+
+
 .textarea .text {
   background-color: transparent;
   z-index: 1;
